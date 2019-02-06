@@ -760,13 +760,78 @@ function list(array_list)
                                   </div>
                                   <div id="menu2" class="tab-pane fade">
                                     <h3>Registro de Productora</h3>
-                                    <p>Some content in menu 2.</p>
+                                    <form method="post" action="new_productora" enctype="multipart/form-data">
+                                                <input type="hidden" value="<?php echo $this->session->userdata('id_usu2');?>" name="keyL" />
+                                                <input type="hidden" value="<?php echo $this->session->userdata('email');?>" name="key2L" />
+                                                <div class="row form-group">
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Nombre de la Productora</label>
+                                                        <input type="text" name="nombreproductora" class="input-text full-width">
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>RUT de la Entidad</label>
+                                                        <input type="text" name="rutentidad" class="input-text full-width">
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <h5 class="skin-color">Dueño</h5>
+                                                <div class="row form-group">
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Nombre del Dueño</label>
+                                                        <input type="text" name="nombre_dp" class="input-text full-width">
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>RUT del Dueño</label>
+                                                        <input type="text" name="rut_dp" class="input-text full-width">
+                                                    </div>
+                                                </div>
+                                                <hr>
+
+                                                <h5 class="skin-color">Contacto</h5>
+                                            
+                                                <div class="row form-group">
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Email de Contacto</label>
+                                                        <input type="email" class="input-text full-width" name="emailproductora">
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Numero de Contacto</label>
+                                                        <input type="number" class="input-text full-width" name="numeroproductora">
+                                                    </div>
+                                                </div>
+                                            
+                                                <hr>
+                                                <h5 class="skin-color">Archivos</h5>
+                                            
+                                                <div class="row form-group">
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Copia de carnet de propietario</label>
+                                                        <input type="file" name="carnetproductorafile" id="carnetproductorafile">
+                                                    </div>
+
+                                                </div>
+                                                <hr/>
+                                                <h5 class="skin-color">Importante</h5>
+                                                    <p>El rut del propietario debe coincidir con el del carnet entregado.</p>
+
+                                                    <p>La productora será registrada, pero no será identificada como una productora verificada.</p>
+
+                                                    <p>Los archivos enviados serán verificados en un plazo maximo de 5 días habiles por nuestro equipo, si todo está correcto, su productora pasará a ser una productora verificada.</p>
+                                            
+                                                <br>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="c" value="A" required> Acepto los términos y condiciones de YourPassion.
+                                                    </label>
+                                                </div>
+                                                
+                                                <br>
+                                                <button type="submit" class="btn-medium uppercase" value="upload">Crear</button>
+                                            </form>
                                   </div>
                                 </div>
 
-
-                                
-                                
                             </div>
                             <?php } ?>
 

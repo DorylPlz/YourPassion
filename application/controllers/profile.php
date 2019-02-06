@@ -257,13 +257,55 @@ class profile extends CI_Controller {
 					$this->load->view('footer');
 		}
  		
-
-
-
-
-
 		//header('Location: ' . site_url("profile/perfil_usuario?up=$email"));
 
+	}
+
+	public function new_productora(){
+
+		$this->load->library('session');
+		$this->load->model('essentials_model');
+		$this->load->model('productora_model');
+		$this->load->helper('date_helper');
+
+		$idencrypt = $this->input->post("keyL");
+		$email = $this->input->post("key2L");
+		$nombre_productora = $this->input->post("nombreproductora");
+		$rut_entidad = $this->input->post("rutentidad");
+		$nombre_dueño = $this->input->post("nombre_dp");
+		$rut_dueño = $this->input->post("rut_dp");
+		$email_productora = $this->input->post("emailproductora");
+		$numero_productora = $this->input->post("numeroproductora");
+		$date = get_date();
+		$time = get_date_hour();
+
+		$class = 'yp_class_palta12';
+		$method = 'aes128';
+		$type = 'yp_login_type_91068176121';
+
+		$id_usu = openssl_decrypt($idencrypt, $method, $type, false, $class);
+
+		$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+ 		$config['upload_path'] = './assets/images/productora_documentos/';
+ 		$config['file_name'] = ''.$rut_entidad.'_'.$time.'.jpg';
+ 		$config['remove_spaces'] = TRUE;
+ 		$config['overwrite'] = false;
+ 		$this->load->library('upload',$config);
+			if($this->upload->do_upload('carnetproductorafile')){
+				$productora = array(
+				'prod_desc' => '',
+				'prod_nombre' => $nombre_productora,
+				'prod_email' => $email_productora,
+				'prod_tel' => $numero_productora,
+				'prod_rut' => $rut_entidad,
+				'prod_nomdueño' => $nombre_dueño,
+				'prod_rutdueño' => $rut_dueño,
+				'prod_estado' => 0,
+				'prod_fregistro' => $date,
+				'prod_cidueño' => ''.$rut_entidad.'_'.$time.'.jpg'
+			);	
+			$this->productora_model->prod_registro($productora,$id_usu);
+		}
 	}
 
 }
