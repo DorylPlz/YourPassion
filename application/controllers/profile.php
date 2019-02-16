@@ -4,15 +4,13 @@ class profile extends CI_Controller {
 
 	public function get_usuario()
 	{
+		$this->load->model('enc_model');
 		$id = $this->input->get("id");
 		$this->load->model('usr_model');
 		$email = $this->usr_model->getEmail($id);
-		$class = 'yp_class_palta12';
-        $method = 'aes128';
-        $type = 'yp_login_type_91068176121';
 		foreach($email->result() as $mail){
 			$usu_email = $mail->usu_mail;
-			$emailEncrypt = openssl_encrypt($usu_email, $method, $type, false, $class);
+			$emailEncrypt = $this->enc_model->encdata($usu_email);
 		}
 
 
@@ -25,17 +23,15 @@ class profile extends CI_Controller {
 	{
 		$email = $this->input->get('up');
 
+		$this->load->model('enc_model');
 		$this->load->model('usr_model');
 		$this->load->model('group_model');
 		$this->load->model('local_model');
 		$this->load->model('essentials_model');
 				
-		$class = 'yp_class_palta12';
-		$method = 'aes128';
-		$type = 'yp_login_type_91068176121';
 		$email2 = preg_replace('/\s+/', '+', $email);
 
-		$emaildecrypt = openssl_decrypt($email2, $method, $type, false, $class);
+		$emaildecrypt = $this->enc_model->decdata($email2);
 
 		//info básica del perfil
 		$data['perfil'] = $this->usr_model->get_profile($emaildecrypt);
@@ -82,6 +78,7 @@ class profile extends CI_Controller {
 		$this->load->model('essentials_model');
 		$this->load->model('group_model');
 		$this->load->helper('date_helper');
+		$this->load->model('enc_model');
 
 		$idencrypt = $this->input->post("key");
 		$email = $this->input->post("key2");
@@ -96,11 +93,7 @@ class profile extends CI_Controller {
 		$n_grupo = $this->input->post("n_grupo");
 		$date = get_date();
 
-		$class = 'yp_class_palta12';
-		$method = 'aes128';
-		$type = 'yp_login_type_91068176121';
-
-		$id_usu = openssl_decrypt($idencrypt, $method, $type, false, $class);
+		$id_usu = $this->enc_model->decdata($idencrypt);
 
 		if($genero_grupo == 0){
 			
@@ -163,6 +156,7 @@ class profile extends CI_Controller {
 		$this->load->model('essentials_model');
 		$this->load->model('local_model');
 		$this->load->helper('date_helper');
+		$this->load->model('enc_model');
 
 		$idencrypt = $this->input->post("keyL");
 		$email = $this->input->post("key2L");
@@ -180,11 +174,8 @@ class profile extends CI_Controller {
 		$date = get_date();
 		$time = get_date_hour();
 
-		$class = 'yp_class_palta12';
-		$method = 'aes128';
-		$type = 'yp_login_type_91068176121';
 
-		$id_usu = openssl_decrypt($idencrypt, $method, $type, false, $class);
+		$id_usu = $this->enc_model->decdata($idencrypt);
 
 		$direccion = array(
 			'loc_calle' => $calle_local,
@@ -267,6 +258,7 @@ class profile extends CI_Controller {
 		$this->load->model('essentials_model');
 		$this->load->model('productora_model');
 		$this->load->helper('date_helper');
+		$this->load->model('enc_model');
 
 		$idencrypt = $this->input->post("keyL");
 		$email = $this->input->post("key2L");
@@ -279,11 +271,7 @@ class profile extends CI_Controller {
 		$date = get_date();
 		$time = get_date_hour();
 
-		$class = 'yp_class_palta12';
-		$method = 'aes128';
-		$type = 'yp_login_type_91068176121';
-
-		$id_usu = openssl_decrypt($idencrypt, $method, $type, false, $class);
+		$id_usu = $this->enc_model->decdata($idencrypt);
 
 		$config['allowed_types'] = 'jpg|png|jpeg|pdf';
  		$config['upload_path'] = './assets/images/productora_documentos/';

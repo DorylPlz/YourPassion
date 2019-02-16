@@ -7,15 +7,13 @@ class usr extends CI_Controller {
 	{
 		$this->load->library('session');
 		$this->load->model('usr_model');
+		$this->load->model('enc_model');
 
-		$class = 'yp_class_palta12';
-		$method = 'aes128';
-		$type = 'yp_login_type_91068176121';
 
 		$email = $this->input->post('email');
 		$pass = $this->input->post('pass');
 
-		$passencrypt = openssl_encrypt($pass, $method, $type, false, $class);
+		$passencrypt = $this->enc_model->encdata($pass);
 		$fila = $this->usr_model->getUser($email);
 		
 
@@ -23,10 +21,10 @@ class usr extends CI_Controller {
 			if($fila->usu_contraseña == $passencrypt){
 				if($fila->usu_estado != 0 && 3){
 					
-					$emailencrypt = openssl_encrypt($email, $method, $type, false, $class);
-					$type1encrypt = openssl_encrypt(1, $method, $type, false, $class);
-					$type2encrypt = openssl_encrypt(2, $method, $type, false, $class);
-					$idencrypt = openssl_encrypt($fila->id_usu, $method, $type, false, $class);
+					$emailencrypt = $this->enc_model->encdata($email);
+					$type1encrypt = $this->enc_model->encdata(1);
+					$type2encrypt = $this->enc_model->encdata(1);
+					$idencrypt = $this->enc_model->encdata($fila->id_usu);
 					$id = $fila->id_usu;
 
 					if($fila->usu_tipo == 2){
@@ -82,7 +80,7 @@ class usr extends CI_Controller {
 		$tel = $this->input->post('telefono');
 		$pass = $this->input->post('pass1');
 		$time = get_date();
-
+		$this->load->model('enc_model');
 
 
 		$fila = $this->usr_model->getUser($email);
@@ -104,13 +102,9 @@ class usr extends CI_Controller {
 
 		}else{
 
-				//enc & ingreso
-				$class = 'yp_class_palta12';
-				$method = 'aes128';
-				$type = 'yp_login_type_91068176121';
 
-				$passencrypt = openssl_encrypt($pass, $method, $type, false, $class);
-				$emailencrypt = openssl_encrypt($email, $method, $type, false, $class);
+				$passencrypt = $this->enc_model->encdata($pass);
+				$emailencrypt = $this->enc_model->encdata($email);
 
 				$registro = array(
 		 			'usu_nombre' => $nombre,
@@ -185,13 +179,11 @@ class usr extends CI_Controller {
 	public function conf_usu()
 	{
 		$email = $this->input->get('nu');
+		$this->load->model('enc_model');
 		$this->load->model('usr_model');
-				$class = 'yp_class_palta12';
-				$method = 'aes128';
-				$type = 'yp_login_type_91068176121';
 		$email2 = preg_replace('/\s+/', '+', $email);
 
-		$emaildecrypt = openssl_decrypt($email2, $method, $type, false, $class);
+		$emaildecrypt = $this->enc_model->decdata($email2);
 		
 
 		if($this->usr_model->conf_new_usr($emaildecrypt) != 0){
@@ -303,13 +295,11 @@ class usr extends CI_Controller {
 		$pass = $this->input->post('newpass1');
 		$pass2 = $this->input->post('newpass2');
 		$this->load->model('usr_model');
+		$this->load->model('enc_model');
 
 		if($pass == $pass2){
-				$class = 'yp_class_palta12';
-				$method = 'aes128';
-				$type = 'yp_login_type_91068176121';
 
-			$passencrypt = openssl_encrypt($pass, $method, $type, false, $class);
+			$passencrypt = $this->enc_model->encdata($pass);
 
 			$ingresopass = $this->usr_model->new_pass($passencrypt,$tokenrecibir);
 
