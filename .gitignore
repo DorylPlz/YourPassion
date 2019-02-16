@@ -7,4 +7,3 @@ application/cache/*
 application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
-!application/models/enc_model.phpapplication/models/enc_model.php
