@@ -39,6 +39,28 @@
     <!-- Responsive Styles -->
     <link rel="stylesheet" href="<?php echo base_url('assets/css/responsive.css'); ?>">
     
+                <!-- Javascript -->
+            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.1.min.js'); ?>"></script>
+            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.noconflict.js'); ?>"></script>
+            <script type="text/javascript" src="<?php echo base_url('assets/js/modernizr.2.7.1.min.js'); ?>"></script>
+            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.2.1.min.js'); ?>"></script>
+            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.placeholder.js'); ?>"></script>
+            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.1.10.4.min.js'); ?>"></script>
+                
+                 <script type="text/javascript" >
+                        
+                        var checkheader = function() {
+                          if (document.getElementById('pass1').value ==
+                              document.getElementById('pass2').value) {
+                              document.getElementById('messageheader').style.color = 'green';
+                              document.getElementById('messageheader').innerHTML = 'Las contraseñas coinciden';
+                          } else {
+                                document.getElementById('messageheader').style.color = 'red';
+                              document.getElementById('messageheader').innerHTML = 'Las contraseñas no coinciden';
+                          }
+                      }
+                </script>
+    
     <!-- CSS for IE -->
     <!--[if lte IE 9]>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/ie.css'); ?>" />
@@ -202,12 +224,12 @@
                         </div>
                         <div class="form-group">
                             <label>Contraseña:</label>
-                            <input type="password" name="pass1" id="pass1" class="input-text full-width form-control" placeholder="Contraseña" required>
+                            <input type="password" name="pass1" id="pass1" class="input-text full-width form-control" placeholder="Contraseña" onkeyup='check();' required>
                         </div>
                         <div class="form-group">
                             <label>Confirmar contraseña:</label>
-                            <input type="password" name="pass2" id="pass2" class="input-text full-width form-control" placeholder="Confirmar contraseña" required>
-                            <span id="error"></span>
+                            <input type="password" name="pass2" id="pass2" class="input-text full-width form-control" placeholder="Confirmar contraseña" onkeyup='check();' required>
+                            <span id="messageheader"></span>
                         </div>
                         
                         <div class="form-group">
@@ -230,7 +252,7 @@
                         <input type="password" name="pass" class="input-text full-width" placeholder="Contraseña">
                     </div>
                     <div class="form-group">
-                        <a href="#" class="forgot-password pull-right">¿Olvidaste tu contraseña?</a>
+                        <a href="<?php echo site_url('main/reccon'); ?>" class="forgot-password pull-right">¿Olvidaste tu contraseña?</a>
                         <div class="checkbox checkbox-inline">
                             <label>
                                 <input type="checkbox"> Recordarme
@@ -243,25 +265,7 @@
                 <div class="seperator"></div>
                 <p>¿No tienes cuenta? <a href="#signup" class="goto-signup soap-popupbox">Registro</a></p>
             </div>
-                <!-- Javascript -->
-            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-1.11.1.min.js'); ?>"></script>
-            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.noconflict.js'); ?>"></script>
-            <script type="text/javascript" src="<?php echo base_url('assets/js/modernizr.2.7.1.min.js'); ?>"></script>
-            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-migrate-1.2.1.min.js'); ?>"></script>
-            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.placeholder.js'); ?>"></script>
-            <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-ui.1.10.4.min.js'); ?>"></script>
-                
-                 <script type="text/javascript" >
-                        function comprobar() {
-                                var p1 = document.registro.pass1.value;
-                                var p2 = document.registro.pass2.value;
-                                
-                                if (p1 != p2) {
-                                        document.getElementById("mensaje").innerHTML = "Las pass no coinciden";
-                                } else {
-                                        document.getElementById("mensaje").innerHTML = "";
-                                }
-                        }
-                </script>
+
+
 
         </header>

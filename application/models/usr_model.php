@@ -156,6 +156,82 @@ class usr_model extends CI_Model {
             }
         }
 
+    function newToken($email){
+       $consulta = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_mail = '".$email."'");
+
+       $random = rand(1,99999);
+
+        $new_token_decrypt = ''.$email.'+/+/+/+'.$random.'';
+
+                $class = 'yp_class_palta12';
+                $method = 'aes128';
+                $type = 'yp_login_type_91068176121';
+
+        $new_token = openssl_encrypt($new_token_decrypt, $method, $type, false, $class);
+
+
+
+            if($consulta->num_rows > 0){
+                
+                $token = $this->db->query("UPDATE `usuarios` SET `usu_token`= '".$new_token."' WHERE usu_mail = '".$email."'");
+                $estado = $this->db->query("UPDATE `usuarios` SET `token_estado`= '0' WHERE usu_mail = '".$email."'");
+
+                $result = $new_token;
+                
+            }else{
+
+                $result = 'falso';
+
+            }
+
+
+
+       return $result;
+    }
+
+    function new_pass($passencrypt,$token){
+       $consulta = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_token = '".$token."' && token_estado = 0");
+       
+
+            if($consulta->num_rows > 0){
+                
+                $tokeningreso = $this->db->query("UPDATE `usuarios` SET `usu_contraseña`= '".$passencrypt."' WHERE usu_token = '".$token."' && token_estado = '0'");
+                $estado = $this->db->query("UPDATE `usuarios` SET `token_estado`= '1' WHERE usu_token = '".$token."'");
+
+                $result = 'true';
+                
+            }else{
+
+                $result = 'falso';
+
+            }
+
+
+
+       return $result;
+    }
+
+    function cancelpass($token){
+       $consulta = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_token = '".$token."' && token_estado = 0");
+       
+
+            if($consulta->num_rows > 0){
+                
+                $estado = $this->db->query("UPDATE `usuarios` SET `token_estado`= '1' WHERE usu_token = '".$token."'");
+
+                $result = 'true';
+                
+            }else{
+
+                $result = 'falso';
+
+            }
+
+
+
+       return $result;
+    }
+
 }
 
 ?>

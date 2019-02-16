@@ -224,6 +224,163 @@ class usr extends CI_Controller {
 
 	}
 
+	public function recpass()
+	{
+		$email = $this->input->post('email');
+		$this->load->model('usr_model');
+
+		$new_token = $this->usr_model->newToken($email);
+
+		if($new_token != 'falso'){
+			$this->load->library("email");		
+				$configmail = array(
+					'protocol' => 'smtp',
+					'validation'=> TRUE,
+					'smtp_host' => 'ssl://mail.yourpassionweb.com',
+					'smtp_port' => 465, //
+					'smtp_user' => 'no-reply@yourpassionweb.com',
+					'smtp_pass' => 'Calocha123',
+					'mailtype' => 'html',
+					'charset' => 'utf-8',
+					'newline' => "\r\n"
+				); 
+				$text='Hemos recibido la solicitud para restablecer tu contraseña, si fuiste tu, ingresa al siguiente enlace:<br/><br/> <a href="http://www.yourpassionweb.com/index.php/usr/cambiopass?token='.$new_token.'">Restablece tu contraseña aquí</a><br/>En caso de que no fueras tu el que solicito este cambio, favor de ingresar <a href="http://www.yourpassionweb.com/index.php/usr/cancelarcambiopass?token='.$new_token.'">aquí</a><br/>
+				<br/>Favor de no responder este Email, nosotros no revisamos esta casilla.';
+
+				
+				$this->email->initialize($configmail);
+				$this->email->from('no-reply@yourpassionweb.com');
+				$this->email->to($email); 
+				$this->email->subject('Solicitud de cambio de contraseña YourPassion');
+				$this->email->message($text);
+				$this->email->send();
+
+				$data['estado'] = '<h1 class="title">Hemos enviado un correo con las instrucciones para el cambio de contraseña</h1>
+                        <p>Porfavor revise su correo.
+                        <br /><br />
+                        Si no encuentras el correo, revise su casilla de spam.
+                        <br/>
+                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+                        </p>';
+
+			$this->load->view('header');
+			$this->load->view('confirm_newusu',$data);
+			$this->load->view('footer');
+		}else{
+			$data['estado'] = '<h1 class="title">Hemos enviado un correo con las instrucciones para el cambio de contraseña</h1>
+                        <p>Porfavor revise su correo.
+                        <br /><br />
+                        Si no encuentras el correo, revise su casilla de spam.
+                        <br/>
+                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+                        </p>';
+
+			$this->load->view('header');
+			$this->load->view('confirm_newusu',$data);
+			$this->load->view('footer');
+		}
+		
+
+
+	}
+
+	public function cambiopass()
+	{
+		$token = $this->input->get('token');
+		$token2 = preg_replace('/\s+/', '+', $token);
+
+		$data['token'] = $token2;
+			$this->load->view('header');
+			$this->load->view('new_pass',$data);
+			$this->load->view('footer');
+
+
+	}
+
+	public function confpass()
+	{
+		$tokenrecibir = $this->input->post('token');
+		$pass = $this->input->post('newpass1');
+		$pass2 = $this->input->post('newpass2');
+		$this->load->model('usr_model');
+
+		if($pass == $pass2){
+				$class = 'yp_class_palta12';
+				$method = 'aes128';
+				$type = 'yp_login_type_91068176121';
+
+			$passencrypt = openssl_encrypt($pass, $method, $type, false, $class);
+
+			$ingresopass = $this->usr_model->new_pass($passencrypt,$tokenrecibir);
+
+			if($ingresopass == 'true'){
+				$data['estado'] = '<h1 class="title">Su contraseña ha cambiado satisfactoriamente </h1>
+                        <br />
+                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+                        </p>';
+
+			$this->load->view('header');
+			$this->load->view('confirm_newusu',$data);
+			$this->load->view('footer');
+			}else{
+				$data['estado'] = '<h1 class="title">Esta solicitud de cambio de contraseña ya ha expirado</h1>
+                        <p>Porfavor intentelo nuevamente.
+                        <br /><br />
+                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+                        </p>';
+
+				$this->load->view('header');
+				$this->load->view('confirm_newusu',$data);
+				$this->load->view('footer');
+			}
+
+		}else{
+			$data['estado'] = '<h1 class="title">Hubo un error validando su contraseña</h1>
+                        <p>Porfavor intentelo nuevamente.
+                        <br /><br />
+                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+                        </p>';
+
+			$this->load->view('header');
+			$this->load->view('confirm_newusu',$data);
+			$this->load->view('footer');
+
+		}
+
+	}
+
+	public function cancelarcambiopass()
+	{
+		$token = $this->input->get('token');
+		$token2 = preg_replace('/\s+/', '+', $token);
+
+		$this->load->model('usr_model');
+
+		$cancelpass = $this->usr_model->cancelpass($token2);
+
+		if($cancelpass == 'true'){
+
+			$data['estado'] = '<h1 class="title">Se ha cancelado la solicitud de cambio de contraseña</h1>
+	                        <p><br />
+	                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+	                        </p>';
+
+				$this->load->view('header');
+				$this->load->view('confirm_newusu',$data);
+				$this->load->view('footer');
+		}else{
+			$data['estado'] = '<h1 class="title">Hubo un error al intentar cancelar el cambio</h1>
+	                        <p>Intentalo nuevamente<br/><br />
+	                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+	                        </p>';
+
+				$this->load->view('header');
+				$this->load->view('confirm_newusu',$data);
+				$this->load->view('footer');
+		}
+
+
+	}
 
 
 }
