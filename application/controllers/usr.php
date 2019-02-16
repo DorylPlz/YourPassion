@@ -188,9 +188,9 @@ class usr extends CI_Controller {
 
 		if($this->usr_model->conf_new_usr($emaildecrypt) != 0){
 			$data['estado'] = '<h1 class="title">Su registro se ha completado</h1>
-                        <p>Para iniciar sesión, <a href=""><u>Entra aquí</u></a>.
+                        <p>Para iniciar sesión, <a href="http://www.yourpassionweb.com/index.php/main/login"><u>Entra aquí</u></a>.
                         <br /><br />
-                        Si olvidaste tu contraseña, intenta <a href=""><u>Reestablecer tu contraseña</u></a>.
+                        Si olvidaste tu contraseña, intenta <a href="http://www.yourpassionweb.com/index.php/main/reccon"><u>Reestablecer tu contraseña</u></a>.
                         <br/>
                         Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
                         </p>';

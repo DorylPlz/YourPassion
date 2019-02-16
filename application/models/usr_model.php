@@ -157,17 +157,16 @@ class usr_model extends CI_Model {
         }
 
     function newToken($email){
+        $this->load->model('enc_model');
+
        $consulta = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_mail = '".$email."'");
 
        $random = rand(1,99999);
 
         $new_token_decrypt = ''.$email.'+/+/+/+'.$random.'';
 
-                $class = 'yp_class_palta12';
-                $method = 'aes128';
-                $type = 'yp_login_type_91068176121';
 
-        $new_token = openssl_encrypt($new_token_decrypt, $method, $type, false, $class);
+        $new_token = $this->enc_model->encdata($new_token_decrypt);
 
 
 
