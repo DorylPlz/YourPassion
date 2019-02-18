@@ -125,7 +125,7 @@ class usr extends CI_Controller {
 				//Email
 				$this->load->library("email");		
 				$configmail = $this->essentials_model->configEmail();
-				$text='Tu cuenta está casi lista, solo debes ingresar al siguiente enlace para confirmar tu cuenta:<br/><br/> <a href="http://www.yourpassionweb.com/index.php/usr/conf_usu?nu='.$emailencrypt.'">Valida tu cuenta aquí</a><br/><br/>Favor de no responder este Email, nosotros no revisamos esta casilla.';
+				$text='<h1>Tu cuenta está casi lista</h1><br/> <p>Solo debes ingresar al siguiente enlace para confirmar tu cuenta:<br/><br/> <a href="http://www.yourpassionweb.com/index.php/usr/conf_usu?nu='.$emailencrypt.'">Valida tu cuenta aquí</a><br/>Favor de no responder este Email, nosotros no revisamos esta casilla.</p><hr/><img height="40" width="150" src="http://www.yourpassionweb.com/assets/images/YP-logo_full-black.png"<img/>';
 
 				
 				$this->email->initialize($configmail);
@@ -218,8 +218,8 @@ class usr extends CI_Controller {
 		if($new_token != 'falso'){
 			$this->load->library("email");		
 				$configmail = $this->essentials_model->configEmail();
-				$text='Hemos recibido la solicitud para restablecer tu contraseña, si fuiste tu, ingresa al siguiente enlace:<br/><br/> <a href="http://www.yourpassionweb.com/index.php/usr/cambiopass?token='.$new_token.'">Restablece tu contraseña aquí</a><br/>En caso de que no fueras tu el que solicito este cambio, favor de ingresar <a href="http://www.yourpassionweb.com/index.php/usr/cancelarcambiopass?token='.$new_token.'">aquí</a><br/>
-				<br/>Favor de no responder este Email, nosotros no revisamos esta casilla.';
+				$text='<h1>Hemos recibido la solicitud para restablecer tu contraseña</h1><br> <p>Si fuiste tu, ingresa al siguiente enlace:<br/><br/> <a href="http://www.yourpassionweb.com/index.php/usr/cambiopass?token='.$new_token.'">Restablece tu contraseña aquí</a><br/>En caso de que no fueras tu el que solicito este cambio, favor de ingresar <a href="http://www.yourpassionweb.com/index.php/usr/cancelarcambiopass?token='.$new_token.'">aquí</a><br/>
+					Favor de no responder este Email, nosotros no revisamos esta casilla.</p><hr/><img height="40" width="150" src="http://www.yourpassionweb.com/assets/images/YP-logo_full-black.png"<img/>';
 
 				
 				$this->email->initialize($configmail);

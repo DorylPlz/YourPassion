@@ -19,6 +19,7 @@ class grupo extends CI_Controller {
 	public function invNusu()
 	{
 		$this->load->model('group_model');
+		$this->load->model('essentials_model');
 		$this->load->model('usr_model');
 		$email = $this->input->post('email');
 		$rol = $this->input->post('rolusu');
@@ -31,6 +32,18 @@ class grupo extends CI_Controller {
 			if($check2 == null){
 					$id = $check->id_usu;
 					$this->group_model->invNusu($id,$rol,$id_grupo);
+					$this->load->library("email");		
+						$configmail = $this->essentials_model->configEmail();
+						$text='<h1>Has recibido una invitación para unirte a un grupo.</h1> <br/> <p>Para confirmar esta invitación ingresa a tu perfil en http://www.YourPassionweb.com/<br/>Favor de no responder este Email, nosotros no revisamos esta casilla.</p><hr/><img height="40" width="150" src="http://www.yourpassionweb.com/assets/images/YP-logo_full-black.png"<img/>';
+
+						
+						$this->email->initialize($configmail);
+						$this->email->from('no-reply@yourpassionweb.com');
+						$this->email->to($email); 
+						$this->email->subject('Invitación para unirte a un grupo');
+						$this->email->message($text);
+						$this->email->send();
+
 					$data['estado'] = '<h1 class="title">Se ha invitado al usuario</h1>
 		                        <p>Se ha enviado un correo de notificacion al usuario.
 		                        <br /><br />
