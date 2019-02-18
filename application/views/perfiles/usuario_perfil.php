@@ -128,6 +128,52 @@ function list(array_list)
                             <li class=""><a data-toggle="tab" href="#nuevogrupo"><i class="soap-icon-friends circle"></i>Nuevo grupo</a></li>
                         <?php }} ?>
                         </ul>
+
+
+
+                    <?php foreach ($perfil->result_array() as $row){ if($this->session->userdata('id_usu')==$row['id_usu']){ ?>
+                        <div class="col-sm-10">
+                            <h2>Invitaciones</h2>
+                            <div class="toggle-container box">
+                                
+                                
+                                <div class="panel style1">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" href="#tgg1" data-toggle="collapse">Invitaciones: 1</a>
+                                    </h4>
+                                    <div class="panel-collapse collapse" id="tgg1">
+                                        <div class="panel-content">
+                                            <div class="pricing-table white box">
+                                                <div class="header clearfix">
+                                                    <i class="soap-icon-friends circle yellow-color"></i><h4 class="box-title"><span>Nombre Grupo<small>Genero</small></span></h4>
+                                                </div>
+                                                <p class="description">
+                                                    Mensaje de invitación
+                                                </p>
+                                                <ul class="check-square features">
+                                                    <li>Tipo</li>
+                                                    <li>Genero</li>
+                                                    <li>Integrantes</li>
+                                                    <li>Región</li>
+                                                    <li>Comuna</li>
+                                                    <li>Formación</li>
+                                                </ul>
+                                                <a class="button btn-medium yellow">Aceptar</a>
+                                                <a class="button btn-medium orange">Rechazar</a>
+                                            </div>
+                                            <hr/>
+                                        </div><!-- end content -->
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    <?php }} ?>
+
+
+
+
+
                         <div class="tab-content">
                             <div id="profile" class="tab-pane fade in active">
                                 <div class="view-profile">

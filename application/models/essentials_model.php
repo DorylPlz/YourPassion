@@ -47,5 +47,34 @@ class essentials_model extends CI_Model {
         return $result;
 
     }
+
+    public function configEmail()
+    {
+        $infomail = $this->db->query("SELECT noreply,host,mail,protocolo,puerto FROM essentials");
+
+        foreach($infomail->result() as $credentials) {
+            $noreply = $credentials->noreply;
+            $host = $credentials->host;
+            $mail = $credentials->mail;
+            $protocolo = $credentials->protocolo;
+            $puerto = $credentials->puerto;
+        }
+        $configmail = array(
+                    'protocol' => $protocolo,
+                    'validation'=> TRUE,
+                    'smtp_host' => $host,
+                    'smtp_port' => $puerto, //
+                    'smtp_user' => $mail,
+                    'smtp_pass' => $noreply,
+                    'mailtype' => 'html',
+                    'charset' => 'utf-8',
+                    'newline' => "\r\n"
+                ); 
+
+        return $configmail;
+
+    }
+
+
 }
 ?>

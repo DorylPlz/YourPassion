@@ -73,6 +73,7 @@ class usr extends CI_Controller {
 	public function sign_up()
 	{
 		$this->load->model('usr_model');
+		$this->load->model('essentials_model');
 		$this->load->helper('date_helper');
 		$nombre = $this->input->post('nombre');
 		$nacimiento = $this->input->post('nacimiento');
@@ -123,17 +124,7 @@ class usr extends CI_Controller {
 
 				//Email
 				$this->load->library("email");		
-				$configmail = array(
-					'protocol' => 'smtp',
-					'validation'=> TRUE,
-					'smtp_host' => 'ssl://mail.yourpassionweb.com',
-					'smtp_port' => 465, //
-					'smtp_user' => 'no-reply@yourpassionweb.com',
-					'smtp_pass' => 'Calocha123',
-					'mailtype' => 'html',
-					'charset' => 'utf-8',
-					'newline' => "\r\n"
-				); 
+				$configmail = $this->essentials_model->configEmail();
 				$text='Tu cuenta está casi lista, solo debes ingresar al siguiente enlace para confirmar tu cuenta:<br/><br/> <a href="http://www.yourpassionweb.com/index.php/usr/conf_usu?nu='.$emailencrypt.'">Valida tu cuenta aquí</a><br/><br/>Favor de no responder este Email, nosotros no revisamos esta casilla.';
 
 				
@@ -156,7 +147,7 @@ class usr extends CI_Controller {
 			$this->load->view('header');
 			$this->load->view('confirm_newusu',$data);
 			$this->load->view('footer');
-
+			
 			}else{
 				$data['estado'] = '<h1 class="title">Hubo un error en tu registro</h1>
                         <p>Intentalo nuevamente.
@@ -220,22 +211,13 @@ class usr extends CI_Controller {
 	{
 		$email = $this->input->post('email');
 		$this->load->model('usr_model');
+		$this->load->model('essentials_model');
 
 		$new_token = $this->usr_model->newToken($email);
 
 		if($new_token != 'falso'){
 			$this->load->library("email");		
-				$configmail = array(
-					'protocol' => 'smtp',
-					'validation'=> TRUE,
-					'smtp_host' => 'ssl://mail.yourpassionweb.com',
-					'smtp_port' => 465, //
-					'smtp_user' => 'no-reply@yourpassionweb.com',
-					'smtp_pass' => 'Calocha123',
-					'mailtype' => 'html',
-					'charset' => 'utf-8',
-					'newline' => "\r\n"
-				); 
+				$configmail = $this->essentials_model->configEmail();
 				$text='Hemos recibido la solicitud para restablecer tu contraseña, si fuiste tu, ingresa al siguiente enlace:<br/><br/> <a href="http://www.yourpassionweb.com/index.php/usr/cambiopass?token='.$new_token.'">Restablece tu contraseña aquí</a><br/>En caso de que no fueras tu el que solicito este cambio, favor de ingresar <a href="http://www.yourpassionweb.com/index.php/usr/cancelarcambiopass?token='.$new_token.'">aquí</a><br/>
 				<br/>Favor de no responder este Email, nosotros no revisamos esta casilla.';
 

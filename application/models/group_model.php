@@ -101,6 +101,15 @@ class group_model extends CI_Model {
         }
 
     }
+
+    public function invNusu($id,$rol,$id_grupo)
+    {
+        
+        $result = $this->db->query("INSERT INTO `usu_grupo`(`usu_nivel`,`fk_id_usu`,`fk_id_grupo`,`usu_cargo`) VALUES (1,'".$id."','".$id_grupo."','".$rol."')");
+
+        return $result;
+
+    }
 }
 
 ?>

@@ -1,5 +1,10 @@
        
 <?php foreach($grupo->result_array() as $dataGrupo){ ?>
+
+
+
+
+
         <div class="page-title-container">
             <div class="container">
                 <div class="page-title pull-left">
@@ -19,7 +24,10 @@
                             <ul class="tabs">
                                 <li class="active"><a data-toggle="tab" href="#photos-tab">Imagenes</a></li>
                                 <li><a data-toggle="tab" href="#calendar-tab">Calendario</a></li>
+                                <li><a href="">Modificar perfil</a></li>
+
                             </ul>
+
                             <div class="tab-content">
                                 <div id="photos-tab" class="tab-pane fade in active">
                                     <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
@@ -245,6 +253,34 @@ We suggest that you contact the host to confirm availability and rates before su
                                         </div>
                                     </article>
                                 <?php } ?>
+                                <article class="box">
+                                        <figure>
+                                            <a href="#invitar" class="soap-popupbox"><img src="<?php echo base_url("assets/images/plus.png");?>" alt="" /></a>
+                                        </figure>
+                                    
+                                        <div class="details">
+                                            <h5 class="box-title"><a href="#invitar" class="soap-popupbox">Invitar nuevo integrante</a></h5>
+                                            <label class="price-wrapper">
+                                                
+                                            </label>
+                                        </div>
+                                                <div id="invitar" class="travelo-login-box travelo-box">
+                                                    <form action="<?php echo site_url('grupo/invNusu'); ?>" method="post">
+                                                        <div class="form-group">
+                                                            <label>Nuevo integrante:</label>
+                                                            <label>Ingrese el mail de quien quiere invitar</label>
+                                                            <input type="hidden" name="grupo" value="<?php echo $dataGrupo['id_grupo']; ?>">
+                                                            <input type="text" name="email" class="input-text full-width" placeholder="Email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="rolusu" class="input-text full-width" placeholder="Rol">
+                                                            <div class="seperator"></div>
+                                                            <button type="submit" class="full-width btn-medium">Invitar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                    </article>
 
                             </div>
                         </div>
