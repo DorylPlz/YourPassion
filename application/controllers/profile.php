@@ -54,6 +54,13 @@ class profile extends CI_Controller {
 		//locales de usuario
 		$data['getLocalesUsu'] = $this->local_model->getLocalUsu($emaildecrypt);
 
+		//Check invitaciones a grupos
+		foreach($data['perfil']->result() as $usudata){
+			$id = $usudata->id_usu;
+
+		}
+		$data['invGrupos'] = $this->usr_model->checkInvitacionesGrupo($id);
+
 
 		$this->load->view('header');
 		$this->load->view('perfiles/usuario_perfil',$data);

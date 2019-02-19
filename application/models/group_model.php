@@ -73,7 +73,7 @@ class group_model extends CI_Model {
     public function adm_grupo($id_grupo,$id_usu)
     {
         
-        $result = $this->db->query("INSERT INTO `usu_grupo`(`usu_nivel`,`fk_id_usu`,`fk_id_grupo`) VALUES (2,$id_usu,$id_grupo)");
+        $result = $this->db->query("INSERT INTO `usu_grupo`(`usu_nivel`,`fk_id_usu`,`fk_id_grupo`,entrada_estado) VALUES (2,$id_usu,$id_grupo, 1)");
 
         return $result;
 
@@ -93,7 +93,7 @@ class group_model extends CI_Model {
                 INNER JOIN grupo gru ON gru.id_grupo = usugrupo.fk_id_grupo
                 INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
                 INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
-                WHERE usugrupo.fk_id_usu =  '" . $id . "'");
+                WHERE usugrupo.fk_id_usu =  '" . $id . "' && usugrupo.entrada_estado = 1");
         if($result->num_rows > 0){
             return $result;
         }else{
@@ -106,6 +106,43 @@ class group_model extends CI_Model {
     {
         
         $result = $this->db->query("INSERT INTO `usu_grupo`(`usu_nivel`,`fk_id_usu`,`fk_id_grupo`,`usu_cargo`) VALUES (1,'".$id."','".$id_grupo."','".$rol."')");
+
+        return $result;
+
+    }
+
+    public function checkExistenciaInv($id_usu,$id_entrada,$id_grupo)
+    {
+        
+        $result = $this->db->query("SELECT * FROM usu_grupo WHERE fk_id_usu = '" . $id_usu . "' && fk_id_grupo = '".$id_grupo."' && id_entrada = '".$id_entrada."' && entrada_estado = 0 LIMIT 1 ");
+
+        if($result->num_rows() > 0 ){
+            
+
+            return true;
+            
+
+
+
+        }else{
+            return null;
+        }
+
+    }
+
+    public function aceptarInv($id_entrada)
+    {
+        
+        $result = $this->db->query("UPDATE usu_grupo SET entrada_estado = 1 WHERE id_entrada = '".$id_entrada."' LIMIT 1");
+
+        return $result;
+
+    }
+
+        public function rechazarInv($id_entrada)
+    {
+        
+        $result = $this->db->query("UPDATE usu_grupo SET entrada_estado = 2 WHERE id_entrada = '".$id_entrada."' LIMIT 1");
 
         return $result;
 

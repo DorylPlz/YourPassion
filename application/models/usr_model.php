@@ -231,6 +231,36 @@ class usr_model extends CI_Model {
        return $result;
     }
 
+    function checkInvitacionesGrupo($id){
+       $consulta = $this->db->query("SELECT gru.id_grupo, gru.gru_nombre, gru.gru_formacion, Tipo.tipo_nombre, Gen.gen_nombre, Com.comu_nombre, Reg.region_nombre, UsuGru.usu_cargo, UsuGru.id_entrada
+                                    FROM grupo gru 
+                                    INNER JOIN usu_grupo UsuGru ON UsuGru.fk_id_grupo = gru.id_grupo
+                                    INNER JOIN tipo Tipo ON Tipo.id_tipo = gru.fk_estilo_id
+                                    INNER JOIN genero Gen ON Gen.id_genero = gru.fk_genero_id
+                                    INNER JOIN localizacion Loc ON Loc.id_localizacion = gru.fk_id_localizacion
+                                    INNER JOIN comunas Com ON Com.id_comuna = Loc.fk_id_comuna
+                                    INNER JOIN regiones Reg ON Reg.n_region = Com.fk_id_region
+                                    WHERE UsuGru.fk_id_usu = '".$id."' && UsuGru.entrada_estado = 0");
+       
+
+            if($consulta->num_rows > 0){
+                
+                
+                    $result = $consulta;
+                
+                
+                
+            }else{
+
+                $result = null;
+
+            }
+
+
+
+       return $result;
+    }
+
 }
 
 ?>

@@ -1,7 +1,9 @@
        
 <?php foreach($grupo->result_array() as $dataGrupo){ ?>
 
-
+<?php
+    $idgrupo = $dataGrupo['id_grupo'];
+?>
 
 
 

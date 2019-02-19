@@ -89,6 +89,47 @@ class grupo extends CI_Controller {
 		
 	}
 	
+	public function confInvitacion()
+	{
+		$this->load->model('group_model');
+		$this->load->model('enc_model');
+		$this->load->model('usr_model');
+		$this->load->model('enc_model');
+		$usu = $this->input->post('one');
+		$id_entrada = $this->input->post('two');
+		$id_grupo = $this->input->post('three');
+		$confirmacion = $this->input->post('submit');
+		$id_usu = $this->enc_model->decdata($usu);
+		$emailarray = $this->usr_model->getEmail($id_usu);
+		foreach($emailarray->result() as $email_usu) {
+                $emaildecrypt = $email_usu->usu_mail;
+                $email = $this->enc_model->encdata($emaildecrypt);
+            }
+
+		$check = $this->group_model->checkExistenciaInv($id_usu,$id_entrada, $id_grupo);
+		if($check == true){
+			if($confirmacion == 1){
+				$aceptar = $this->group_model->aceptarInv($id_entrada);
+				$data['estado'] = '<h1 class="title">Has pasado a formar parte de un grupo</h1>
+		                        <p>Ya podrás participar en los eventos que organizados por o para este grupo.
+		                        <br/>
+		                        <h2><a href="'.site_url("profile/perfil_usuario?up=$email").'"><u>Mi perfil</u></a></h2>
+		                        <br/>
+		                        Cualquier consulta, problema, sugerencia, no dudes en contactarnos.
+		                        </p>';
+
+			
+					$this->load->view('header');
+					$this->load->view('confirm_newusu',$data);
+					$this->load->view('footer');
+			}elseif($confirmacion == 2){
+				$rechazar = $this->group_model->aceptarInv($id_entrada);
+				header("Location: " . site_url("profile/perfil_usuario?up=$email"));
+			}
+		}else{
+			header("Location: " . site_url("profile/perfil_usuario?up=$email"));
+		}
+	}
 
 
 }

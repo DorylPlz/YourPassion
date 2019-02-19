@@ -131,7 +131,11 @@ function list(array_list)
 
 
 
-                    <?php foreach ($perfil->result_array() as $row){ if($this->session->userdata('id_usu')==$row['id_usu']){ ?>
+                    <?php foreach ($perfil->result_array() as $row){ if($this->session->userdata('id_usu')==$row['id_usu']){ 
+                        if($invGrupos != null){
+                            $i = 0;
+                            $tgl = 0; 
+                            foreach($invGrupos->result() as $gruposinvitados){$i++; }?>
                         <div class="col-sm-10">
                             <h2>Invitaciones</h2>
                             <div class="toggle-container box">
@@ -139,28 +143,53 @@ function list(array_list)
                                 
                                 <div class="panel style1">
                                     <h4 class="panel-title">
-                                        <a class="collapsed" href="#tgg1" data-toggle="collapse">Invitaciones: 1</a>
+                                        <a class="collapsed" href="#tgg1" data-toggle="collapse">Invitaciones: <?php echo $i ?></a>
                                     </h4>
                                     <div class="panel-collapse collapse" id="tgg1">
                                         <div class="panel-content">
-                                            <div class="pricing-table white box">
-                                                <div class="header clearfix">
-                                                    <i class="soap-icon-friends circle yellow-color"></i><h4 class="box-title"><span>Nombre Grupo<small>Genero</small></span></h4>
+                                            
+                                            <?php foreach($invGrupos->result() as $gruposinvitados){ 
+                                                $tgl++; ?>
+
+                                                <div class="toggle-container box">
+                                                    <div class="panel style1">
+                                                        <h4 class="panel-title">
+                                                            <a class="collapsed" href="#tgl<?php echo $tgl; ?>" data-toggle="collapse"><?php echo $gruposinvitados->gru_nombre; ?>, <?php echo $gruposinvitados->gen_nombre; ?>, <?php echo $gruposinvitados->usu_cargo; ?></a>
+                                                        </h4>
+                                                        <div class="panel-collapse collapse" id="tgl<?php echo $tgl; ?>">
+                                                            <div class="panel-content">
+                                                                <div class="pricing-table white box">
+                                                                    <form method="post" action="<?php echo site_url('grupo/confInvitacion'); ?>">
+                                                                        <input type="hidden" name="one" value="<?php echo $this->session->userdata('id_usu2'); ?>">
+                                                                        <input type="hidden" name="two" value="<?php echo $gruposinvitados->id_entrada; ?>">
+                                                                        <input type="hidden" name="three" value="<?php echo $gruposinvitados->id_grupo; ?>">
+                                                                        <div class="header clearfix">
+                                                                            <i class="soap-icon-friends circle yellow-color"></i><h4 class="box-title"><span><?php echo $gruposinvitados->gru_nombre; ?><small><?php echo $gruposinvitados->gen_nombre; ?></small></span></h4>
+                                                                        </div>
+                                                                        <p class="description">
+                                                                            Se te ha invitado a ser parte de <b><?php echo $gruposinvitados->gru_nombre; ?></b> tomando el rol de <b><?php echo $gruposinvitados->usu_cargo; ?></b>
+                                                                        </p>
+                                                                        <ul class="check-square features">
+                                                                            <li><?php echo $gruposinvitados->tipo_nombre; ?></li>
+                                                                            <li><?php echo $gruposinvitados->gen_nombre; ?></li>
+                                                                            <li><?php echo $gruposinvitados->region_nombre; ?></li>
+                                                                            <li><?php echo $gruposinvitados->comu_nombre; ?></li>
+                                                                            <li><?php echo $gruposinvitados->gru_formacion; ?></li>
+                                                                        </ul>
+                                                                        <button class="button btn-medium yellow" id="submit" name="submit" type="submit" value ="1">Aceptar</button>
+                                                                        <button class="button btn-medium orange" id="submit" name="submit" type="submit" value ="2">Rechazar</button> 
+                                                                    </form>
+                                                                </div>
+                                                            </div><!-- end content -->
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <p class="description">
-                                                    Mensaje de invitación
-                                                </p>
-                                                <ul class="check-square features">
-                                                    <li>Tipo</li>
-                                                    <li>Genero</li>
-                                                    <li>Integrantes</li>
-                                                    <li>Región</li>
-                                                    <li>Comuna</li>
-                                                    <li>Formación</li>
-                                                </ul>
-                                                <a class="button btn-medium yellow">Aceptar</a>
-                                                <a class="button btn-medium orange">Rechazar</a>
-                                            </div>
+
+                                                
+
+
+                                            <?php } ?>
+
                                             <hr/>
                                         </div><!-- end content -->
                                     </div>
@@ -168,7 +197,7 @@ function list(array_list)
                                 
                             </div>
                         </div>
-                    <?php }} ?>
+                    <?php }}} ?>
 
 
 
