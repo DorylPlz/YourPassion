@@ -5,6 +5,47 @@
     $idgrupo = $dataGrupo['id_grupo'];
 ?>
 
+<link href="<?php echo base_url('assets/js/packages/core/main.css'); ?>" rel='stylesheet' />
+<link href="<?php echo base_url('assets/js/packages/daygrid/main.css'); ?>" rel='stylesheet' />
+<link href="<?php echo base_url('assets/js/packages/timegrid/main.css'); ?>" rel='stylesheet' />
+<link href="<?php echo base_url('assets/js/packages/list/main.css'); ?>" rel='stylesheet' />
+<script src="<?php echo base_url('assets/js/packages/core/main.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/packages/interaction/main.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/packages/daygrid/main.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/packages/timegrid/main.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/packages/list/main.js'); ?>"></script>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      },
+      defaultDate: '2019-03-12',
+      editable: true,
+      navLinks: true, // can click day/week names to navigate views
+      eventLimit: true, // allow "more" link when too many events
+      events: {
+        url: 'php/get-events.php',
+        failure: function() {
+          document.getElementById('script-warning').style.display = 'block'
+        }
+      },
+      loading: function(bool) {
+        document.getElementById('loading').style.display =
+          bool ? 'block' : 'none';
+      }
+    });
+
+    calendar.render();
+  });
+
+</script>
 
 
         <div class="page-title-container">
@@ -48,6 +89,20 @@
                                             <li><img src="http://placehold.it/70x70" alt="" /></li>
                                         </ul>
                                     </div>
+                                    <?php if($CheckAdm == 'true'){?>
+                                        <div class="row">
+                                            <div style="padding-left:10px;">
+                                                <?php echo form_open_multipart('grupo/subirGaleria');?>
+                                                    <div class="col-md-12" data-for="message">
+                                                        <input type="file" name="multipleFiles[]" multiple="multiple"><br><br>
+                                                        <input type="hidden" name="grupo" value="<?php echo $dataGrupo['id_grupo'];?>" />
+                                                        <div class="button yellow full-width uppercase btn-small"><button href="" name="submit" value="Submit" type="submit" class="btn btn-form btn-danger-outline display-4">Agregar nuevas imagenes</button></div>
+                                                    </div>
+                                                
+                                                <?php echo form_close(); ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                                 <div id="calendar-tab" class="tab-pane fade">
                                     <label>SELECT MONTH</label>
@@ -72,15 +127,6 @@
                                                 <label class="unavailable">unavailable</label>
                                                 <label class="past">past</label>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p class="description">
-                                                The calendar is updated every five minutes and is only an approximation of availability.
-<br /><br />
-Some hosts set custom pricing for certain days on their calendar, like weekends or holidays. The rates listed are per day and do not include any cleaning fee or rates for extra people the host may have for this listing. Please refer to the listing's Description tab for more details.
-<br /><br />
-We suggest that you contact the host to confirm availability and rates before submitting a reservation request.
-                                            </p>
                                         </div>
                                     </div>
                                 </div>

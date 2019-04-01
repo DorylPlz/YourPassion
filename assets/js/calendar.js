@@ -9,7 +9,7 @@ function Calendar() {
 (function ($, document, window) {
     Calendar.prototype.generateHTML = function(Month, Year, notAvailableDays, priceArr) {
         var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var daynames = new Array("sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday");
+        var daynames = new Array("Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo");
         var today = new Date();
         var thisDay = today.getDate();
         var thisMonth = today.getMonth();

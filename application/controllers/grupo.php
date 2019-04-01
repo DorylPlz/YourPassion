@@ -5,6 +5,7 @@ class grupo extends CI_Controller {
 	
 	public function perfil_grupo()
 	{
+		$this->load->helper('form');
 		$this->load->model('group_model');
 		$id = $this->input->get('profile');
 		$usuId = $this->session->userdata('id_usu');
@@ -17,6 +18,48 @@ class grupo extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view('perfiles/grupo_perfil',$data);
 		$this->load->view('footer');
+	}
+
+	public function subirGaleria()
+	{
+ 		$this->load->model('group_model');
+		$this->load->database();
+		$this->load->helper('date_helper');
+		$time = get_date();
+		$gruId = $this->input->post('grupo');
+		$idUsu = $this->session->userdata('id_usu');
+		
+		$check = $this->group_model->CheckAdm($idUsu, $gruId);
+
+		if($check != 'false'){
+			if($this->input->post('submit') && count($_FILES['multipleFiles']['name']) > 0){
+				$cantidad = count($_FILES['multipleFiles']['name']);
+				$files = $_FILES;
+				for ($i=0; $i < $cantidad; $i++){
+					$config['allowed_types'] = 'jpg|png';
+					$config['upload_path'] = './assets/images/galeria/';
+					$config['remove_spaces'] = TRUE;
+					$config['overwrite'] = TRUE;
+					$config['file_name'] = ''.$time.'_'.$i.'.jpg';
+					$this->load->library('upload');
+					$_FILES['multipleFiles']['name']= $files['multipleFiles']['name'][$i];
+					$_FILES['multipleFiles']['type']= $files['multipleFiles']['type'][$i];
+					$_FILES['multipleFiles']['tmp_name']= $files['multipleFiles']['tmp_name'][$i];
+					$_FILES['multipleFiles']['error']= $files['multipleFiles']['error'][$i];
+					$_FILES['multipleFiles']['size']= $files['multipleFiles']['size'][$i];    
+					$this->upload->initialize($config);
+					if($this->upload->do_upload('multipleFiles')){
+						$this->db->query("INSERT INTO galeria(img_ruta, fk_id_usu_img) VALUES ('".$gruId."_".$time."_".$i.".jpg' , 'B-".$gruId."')");
+					}
+					header("Location: " . site_url("grupo/perfil_grupo?profile=$gruId"));
+				}
+			}else{
+				echo 'error';
+			}
+		}else{
+			echo "nononono";
+		}
+			
 	}
 
 	public function publicacion()
