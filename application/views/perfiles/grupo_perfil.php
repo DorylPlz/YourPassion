@@ -69,7 +69,7 @@
                                 <li><a data-toggle="tab" href="#calendar-tab">Calendario</a></li>
 
                             <?php if($CheckAdm == 'true'){?>
-                                <li><a href="">Modificar perfil</a></li>
+                                <li><a href="<?php echo site_url('grupo/mod_grupo?profile=');?><?php echo $dataGrupo['id_grupo']; ?>">Modificar perfil</a></li>
                             <?php } ?>
                             </ul>
 

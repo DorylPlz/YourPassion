@@ -24,6 +24,33 @@ class grupo extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+	public function mod_grupo()
+	{
+		$this->load->helper('form');
+		$this->load->model('group_model');
+		$this->load->model('essentials_model');
+		$id = $this->input->get('profile');
+		$usuId = $this->session->userdata('id_usu');
+		$idImg = 'B-'.$id.'';
+		$data['grupo'] = $this->group_model->getGrupo($id);
+		$check = $this->group_model->CheckAdm($usuId, $id);
+		$data['tipogrupo'] = $this->group_model->getTipo();
+		$data['generosgrupo'] = $this->group_model->getGeneros();
+		$data['regiones'] = $this->essentials_model->getRegion();
+		$data['comunas'] = $this->essentials_model->getComuna();
+		$data['imgPerfil'] = $this->essentials_model->getImgPerfil($idImg);
+		if($check != 'false'){
+	
+			$this->load->view('header');
+			$this->load->view('perfiles/modGrupo',$data);
+			$this->load->view('footer');
+
+		}else{
+			header("Location: " . site_url("grupo/perfil_grupo?profile=$id"));
+		}
+
+	}
+
 	public function subirGaleria()
 	{
  		$this->load->model('group_model');
@@ -53,7 +80,7 @@ class grupo extends CI_Controller {
 					$_FILES['multipleFiles']['size']= $files['multipleFiles']['size'][$i];    
 					$this->upload->initialize($config);
 					if($this->upload->do_upload('multipleFiles')){
-						$this->db->query("INSERT INTO galeria(img_ruta, fk_id_usu_img) VALUES ('".$gruId."_".$time."_".$i.".jpg' , 'B-".$gruId."')");
+						$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$gruId."_".$time."_".$i.".jpg' , 1 , 'B-".$gruId."')");
 					}
 					header("Location: " . site_url("grupo/perfil_grupo?profile=$gruId"));
 				}
@@ -211,6 +238,33 @@ class grupo extends CI_Controller {
 			header("Location: " . site_url("profile/perfil_usuario?up=$email"));
 		}
 	}
+	public function cambio_img(){
+		$this->load->database();
+		$this->load->model('group_model');
+		$id = $this->input->post('grupo');
+		$idUsu = $this->session->userdata('id_usu');
+		$this->load->helper('date_helper');
+		$time = get_date_hour();
+		$check = $this->group_model->CheckAdm($idUsu, $id);
 
+		if($check != 'false'){
+			$config['allowed_types'] = 'jpg';
+			$config['upload_path'] = './assets/images/profile/';
+			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
+			$config['remove_spaces'] = TRUE;
+			$config['overwrite'] = TRUE;
+			$this->load->library('upload',$config);
+			if($this->upload->do_upload('image')){
+				$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$id."_".$time.".jpg' , 2 , 'B-".$id."')");
+				header("Location: mod_grupo?profile=".$id."");
+			}else{
+				echo 1;
+			}
+		}else{
+			header("Location: perfil_grupo?profile=".$id."");
+		}
+		
+		//header("Location: modificar_Perfil?nick=$nick&profile=$id");
+	}
 
 }
