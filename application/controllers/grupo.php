@@ -9,6 +9,7 @@ class grupo extends CI_Controller {
 		$id = $this->input->get('profile');
 		$usuId = $this->session->userdata('id_usu');
 		$data['grupo'] = $this->group_model->getGrupo($id);
+		$data['publicaciones'] = $this->group_model->getPublicaciones($id);
 		$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
 		//$data['nintegrantes'] = $this->group_model->getnIntegrantes($id);
 		$data['integrantes'] = $this->group_model->getintegrantes($id);
@@ -36,7 +37,7 @@ class grupo extends CI_Controller {
 				'fecha' => get_date(),
 				'fk_id_grupo' => $grupo
 			);
-			
+
 			$ingreso = $this->group_model->npublicacion($publicacion);
 			if($ingreso == 'true'){
 				header("Location: " . site_url("grupo/perfil_grupo?profile=$grupo"));

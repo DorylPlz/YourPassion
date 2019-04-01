@@ -92,10 +92,13 @@ We suggest that you contact the host to confirm availability and rates before su
                                 <?php if($CheckAdm == 'true'){?>
                                     <li class="active"><a href="#hotel-publicacion" data-toggle="tab">Publicacion</a></li>
                                     <li><a href="#hotel-description" data-toggle="tab">Descripción</a></li>
-                                <li><a href="#hotel-reviews" data-toggle="tab">Opiniones</a></li>
+                                    <li><a href="#hotel-reviews" data-toggle="tab">Opiniones</a></li>
+                                    <li><a href="#hotel-publication" data-toggle="tab">Publicaciones</a></li>
                                 <?php }else{ ?>
                                     <li class="active"><a href="#hotel-description" data-toggle="tab">Descripción</a></li>
                                     <li><a href="#hotel-reviews" data-toggle="tab">Opiniones</a></li>
+                                    
+                                    <li><a href="#hotel-publication" data-toggle="tab">Publicaciones</a></li>
                                     <li><a href="#hotel-write-review" data-toggle="tab">Escribe una Opinión</a></li>
                                 <?php } ?>
                             </ul>
@@ -221,6 +224,7 @@ We suggest that you contact the host to confirm availability and rates before su
                                     </div>
                                     <a href="#" class="button full-width btn-large">Ver más opiniones</a>
                                 </div>
+                                
                             <?php }else{ ?>
                                 <div class="tab-pane fade in active" id="hotel-description">
                                     <div class="intro table-wrapper full-width hidden-table-sms">
@@ -316,6 +320,42 @@ We suggest that you contact the host to confirm availability and rates before su
                                     <a href="#" class="button full-width btn-large">Ver más opiniones</a>
                                 </div>
                             <?php } ?>
+
+
+                            <div class="tab-pane fade" id="hotel-publication">
+                                    
+                                    <div class="guest-reviews">
+                                        <h2>Publicaciones</h2>
+
+                                        <?php if($publicaciones != null){ foreach($publicaciones as $p){?>
+                                            <div class="guest-review table-wrapper">
+                                            <div class="col-xs-3 col-md-2 author table-cell">
+                                                <p class="date"><?php echo $p['fecha'];?></p>
+                                            </div>
+                                                <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                    <div class="comment-header clearfix">
+                                                        <h4 class="comment-title">"<?php echo $p['Titulo'];?>"</h4>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p><?php echo $p['texto'];?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php }}else{ ?>
+                                            <div class="guest-review table-wrapper">
+                                                <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                    <div class="comment-header clearfix">
+                                                        <h2 class="comment-title">No hay publicaciones para mostrar</h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <?php } ?>
+
+
+                                    </div>
+                                </div>
+
 
                                 <div class="tab-pane fade" id="hotel-reviews">
                                     <div class="intro table-wrapper full-width hidden-table-sms">

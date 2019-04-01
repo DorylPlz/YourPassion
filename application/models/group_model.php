@@ -23,6 +23,15 @@ class group_model extends CI_Model {
 
     }
 
+    public function getPublicaciones($id)
+    {
+        
+        $result = $this->db->query("SELECT * FROM publicación WHERE fk_id_grupo = '".$id."'");
+
+        return $result->result_array();
+
+    }
+
     public function npublicacion($publicacion)
     {
        try{
