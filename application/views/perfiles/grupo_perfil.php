@@ -26,8 +26,10 @@
                             <ul class="tabs">
                                 <li class="active"><a data-toggle="tab" href="#photos-tab">Imagenes</a></li>
                                 <li><a data-toggle="tab" href="#calendar-tab">Calendario</a></li>
-                                <li><a href="">Modificar perfil</a></li>
 
+                            <?php if($CheckAdm == 'true'){?>
+                                <li><a href="">Modificar perfil</a></li>
+                            <?php } ?>
                             </ul>
 
                             <div class="tab-content">
@@ -87,11 +89,134 @@ We suggest that you contact the host to confirm availability and rates before su
                         
                         <div id="hotel-features" class="tab-container">
                             <ul class="tabs">
-                                <li class="active"><a href="#hotel-description" data-toggle="tab">Descripción</a></li>
+                                <?php if($CheckAdm == 'true'){?>
+                                    <li class="active"><a href="#hotel-publicacion" data-toggle="tab">Publicacion</a></li>
+                                    <li><a href="#hotel-description" data-toggle="tab">Descripción</a></li>
+                                <?php }else{ ?>
+                                    <li class="active"><a href="#hotel-description" data-toggle="tab">Descripción</a></li>
+                                <?php } ?>
                                 <li><a href="#hotel-reviews" data-toggle="tab">Opiniones</a></li>
                                 <li><a href="#hotel-write-review" data-toggle="tab">Escribe una Opinión</a></li>
                             </ul>
                             <div class="tab-content">
+
+                            <?php if($CheckAdm == 'true'){?>
+
+                                <div class="tab-pane fade in active" id="hotel-publicacion">
+                                <h2>Nueva Publicación</h2>
+                                    <div class="intro table-wrapper full-width hidden-table-sms">
+                                        <form class="review-form" method="POST" action="<?php echo site_url('grupo/publicacion'); ?>">
+                                            <div class="form-group">
+                                                <textarea class="input-text full-width" name="texto" placeholder="Publicación" rows="5"></textarea>
+                                                <input type="hidden" name="grupo" value="<?php echo $dataGrupo['id_grupo'];?>" />
+                                            </div>
+                                            
+                                            <div class="form-group col-md-5 no-float no-padding no-margin">
+                                                <button type="submit" class="btn-large full-width">Publicar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="long-description">
+                                    
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                <div class="tab-pane fade" id="hotel-description">
+                                    <div class="intro table-wrapper full-width hidden-table-sms">
+                                        <div class="col-sm-5 col-lg-12 features table-cell">
+                                            <ul>
+                                                <li><label>Integrantes:</label><?php $i = 0; foreach($integrantes as $nIntegrantes){$i++;} echo $i; ?></li>
+                                                <li><label>Formación:</label><?php echo $dataGrupo['gru_formacion']; ?></li>
+                                                <li><label>Tipo:</label><?php echo $dataGrupo['tipo_nombre']; ?></li>
+                                                <li><label>Estilo:</label><?php echo $dataGrupo['gen_nombre']; ?></li>
+                                                <li><label>Región:</label><?php echo $dataGrupo['region_nombre']; ?></li>
+                                                <li><label>Comuna:</label><?php echo $dataGrupo['comu_nombre']; ?></li>
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="long-description">
+                                        <h2>Descripción del Grupo</h2>
+                                        <p>
+                                            <?php if($dataGrupo['gru_desc'] != ""){echo $dataGrupo['gru_desc'];}else{ echo "No hay descripción para mostrar";} ?>
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="hotel-reviews">
+                                    <div class="intro table-wrapper full-width hidden-table-sms">
+                                        <div class="rating table-cell col-sm-12">
+                                            <span class="score">3.9/5.0</span>
+                                            <div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div>
+                                            <a href="#" class="goto-writereview-pane button green btn-small full-width">DA TU OPINION</a>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="guest-reviews">
+                                        <h2>Opiniones</h2>
+                                        <div class="guest-review table-wrapper">
+                                            <div class="col-xs-3 col-md-2 author table-cell">
+                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                                <p class="name">Jessica Brown</p>
+                                                <p class="date">NOV, 12, 2013</p>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                <div class="comment-header clearfix">
+                                                    <h4 class="comment-title">We had great experience while our stay and Hilton Hotels!</h4>
+                                                    <div class="review-score">
+                                                        <div class="five-stars-container"><div class="five-stars" style="width: 80%;"></div></div>
+                                                        <span class="score">4.0/5.0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="guest-review table-wrapper">
+                                            <div class="col-xs-3 col-md-2 author table-cell">
+                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                                <p class="name">David Jhon</p>
+                                                <p class="date">NOV, 12, 2013</p>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                <div class="comment-header clearfix">
+                                                    <h4 class="comment-title">I love the speediness of their services.</h4>
+                                                    <div class="review-score">
+                                                        <div class="five-stars-container"><div class="five-stars" style="width: 64%;"></div></div>
+                                                        <span class="score">3.2/5.0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="guest-review table-wrapper">
+                                            <div class="col-xs-3 col-md-2 author table-cell">
+                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                                <p class="name">Kyle Martin</p>
+                                                <p class="date">NOV, 12, 2013</p>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                <div class="comment-header clearfix">
+                                                    <h4 class="comment-title">When you look outside from the windows its breath taking.</h4>
+                                                    <div class="review-score">
+                                                        <div class="five-stars-container"><div class="five-stars" style="width: 76%;"></div></div>
+                                                        <span class="score">3.8/5.0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="button full-width btn-large">Ver más opiniones</a>
+                                </div>
+                            <?php }else{ ?>
                                 <div class="tab-pane fade in active" id="hotel-description">
                                     <div class="intro table-wrapper full-width hidden-table-sms">
                                         <div class="col-sm-5 col-lg-12 features table-cell">
@@ -114,6 +239,79 @@ We suggest that you contact the host to confirm availability and rates before su
                                     </div>
                                 </div>
                                 
+                                <div class="tab-pane fade" id="hotel-reviews">
+                                    <div class="intro table-wrapper full-width hidden-table-sms">
+                                        <div class="rating table-cell col-sm-12">
+                                            <span class="score">3.9/5.0</span>
+                                            <div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div>
+                                            <a href="#" class="goto-writereview-pane button green btn-small full-width">DA TU OPINION</a>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="guest-reviews">
+                                        <h2>Opiniones</h2>
+                                        <div class="guest-review table-wrapper">
+                                            <div class="col-xs-3 col-md-2 author table-cell">
+                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                                <p class="name">Jessica Brown</p>
+                                                <p class="date">NOV, 12, 2013</p>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                <div class="comment-header clearfix">
+                                                    <h4 class="comment-title">We had great experience while our stay and Hilton Hotels!</h4>
+                                                    <div class="review-score">
+                                                        <div class="five-stars-container"><div class="five-stars" style="width: 80%;"></div></div>
+                                                        <span class="score">4.0/5.0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="guest-review table-wrapper">
+                                            <div class="col-xs-3 col-md-2 author table-cell">
+                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                                <p class="name">David Jhon</p>
+                                                <p class="date">NOV, 12, 2013</p>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                <div class="comment-header clearfix">
+                                                    <h4 class="comment-title">I love the speediness of their services.</h4>
+                                                    <div class="review-score">
+                                                        <div class="five-stars-container"><div class="five-stars" style="width: 64%;"></div></div>
+                                                        <span class="score">3.2/5.0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="guest-review table-wrapper">
+                                            <div class="col-xs-3 col-md-2 author table-cell">
+                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                                <p class="name">Kyle Martin</p>
+                                                <p class="date">NOV, 12, 2013</p>
+                                            </div>
+                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                <div class="comment-header clearfix">
+                                                    <h4 class="comment-title">When you look outside from the windows its breath taking.</h4>
+                                                    <div class="review-score">
+                                                        <div class="five-stars-container"><div class="five-stars" style="width: 76%;"></div></div>
+                                                        <span class="score">3.8/5.0</span>
+                                                    </div>
+                                                </div>
+                                                <div class="comment-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="button full-width btn-large">Ver más opiniones</a>
+                                </div>
+                            <?php } ?>
+
                                 <div class="tab-pane fade" id="hotel-reviews">
                                     <div class="intro table-wrapper full-width hidden-table-sms">
                                         <div class="rating table-cell col-sm-12">

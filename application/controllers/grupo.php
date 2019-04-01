@@ -7,13 +7,44 @@ class grupo extends CI_Controller {
 	{
 		$this->load->model('group_model');
 		$id = $this->input->get('profile');
+		$usuId = $this->session->userdata('id_usu');
 		$data['grupo'] = $this->group_model->getGrupo($id);
+		$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
 		//$data['nintegrantes'] = $this->group_model->getnIntegrantes($id);
 		$data['integrantes'] = $this->group_model->getintegrantes($id);
 
 		$this->load->view('header');
 		$this->load->view('perfiles/grupo_perfil',$data);
 		$this->load->view('footer');
+	}
+
+	public function publicacion()
+	{
+		$this->load->model('group_model');
+		$this->load->helper('date_helper');
+		$texto = $this->input->post('texto');
+		$grupo = $this->input->post('grupo');
+		$usuId = $this->session->userdata('id_usu');
+
+		$CheckAdm = $this->group_model->CheckAdm($usuId, $grupo);
+
+		if($CheckAdm == 'true'){
+			$publicacion = array(
+				'texto' => $texto,
+				'fecha' => get_date(),
+				'fk_id_grupo' => $grupo
+			);
+
+			$ingreso = $this->group_model->npublicacion($publicacion);
+			if($ingreso == 'true'){
+				header("Location: " . site_url("grupo/perfil_grupo?profile=$grupo"));
+			}else{
+				header("Location: " . site_url('grupo/perfil_grupo?profile='));
+			}
+
+		}else{
+			header("Location: " . site_url('grupo/perfil_grupo?profile='));
+		}
 	}
 
 	public function invNusu()

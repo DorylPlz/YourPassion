@@ -22,6 +22,37 @@ class group_model extends CI_Model {
         return $result;
 
     }
+
+    public function npublicacion($publicacion)
+    {
+       try{
+            $this->db->insert('publicación',$publicacion);
+            return 'true';
+       }catch(Exception $e){
+           return 'false';
+       }
+
+    }
+
+    public function CheckAdm($usuId, $id)
+    {
+        if($usuId != null){
+            $result = $this->db->query("SELECT usu_nivel FROM usu_grupo WHERE fk_id_usu = '".$usuId."' && fk_id_grupo = '".$id."' && entrada_estado = 1 && usu_nivel = 2");
+            if($result->num_rows() > 0 ){
+                return 'true';
+            }else{
+                return 'false';
+            }
+
+        }else{
+            return 'false';
+        }
+        
+
+        
+
+    }
+
     public function getintegrantes($id)
     {
         
