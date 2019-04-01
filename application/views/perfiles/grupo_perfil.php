@@ -92,11 +92,12 @@ We suggest that you contact the host to confirm availability and rates before su
                                 <?php if($CheckAdm == 'true'){?>
                                     <li class="active"><a href="#hotel-publicacion" data-toggle="tab">Publicacion</a></li>
                                     <li><a href="#hotel-description" data-toggle="tab">Descripción</a></li>
+                                <li><a href="#hotel-reviews" data-toggle="tab">Opiniones</a></li>
                                 <?php }else{ ?>
                                     <li class="active"><a href="#hotel-description" data-toggle="tab">Descripción</a></li>
+                                    <li><a href="#hotel-reviews" data-toggle="tab">Opiniones</a></li>
+                                    <li><a href="#hotel-write-review" data-toggle="tab">Escribe una Opinión</a></li>
                                 <?php } ?>
-                                <li><a href="#hotel-reviews" data-toggle="tab">Opiniones</a></li>
-                                <li><a href="#hotel-write-review" data-toggle="tab">Escribe una Opinión</a></li>
                             </ul>
                             <div class="tab-content">
 
@@ -106,6 +107,10 @@ We suggest that you contact the host to confirm availability and rates before su
                                 <h2>Nueva Publicación</h2>
                                     <div class="intro table-wrapper full-width hidden-table-sms">
                                         <form class="review-form" method="POST" action="<?php echo site_url('grupo/publicacion'); ?>">
+                                            <div class="form-group col-md-5 no-float no-padding">
+                                                <h4 class="title">Titulo</h4>
+                                                <input type="text" name="titulo" class="input-text full-width" placeholder="Titulo" />
+                                            </div>
                                             <div class="form-group">
                                                 <textarea class="input-text full-width" name="texto" placeholder="Publicación" rows="5"></textarea>
                                                 <input type="hidden" name="grupo" value="<?php echo $dataGrupo['id_grupo'];?>" />
