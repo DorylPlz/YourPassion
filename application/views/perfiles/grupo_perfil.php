@@ -514,7 +514,9 @@
                     <div class="sidebar col-md-3">
                         <article class="detailed-logo">
                             <figure>
-                                <img width="114" height="85" src="http://placehold.it/114x85" alt="">
+                                <?php foreach($imgPerfil as $imgP){ ?>
+                                    <img style="width:114px; height:85px; position:relative;" src="<?php echo base_url('assets/images/profile'); ?>/<?php echo $imgP['img_ruta'];?>" alt="">
+                                   <?php } ?>
                             </figure>
                             <div class="details">
                                 <h2 class="box-title"><?php echo $dataGrupo['gru_nombre']; ?><small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space"><?php echo $dataGrupo['comu_nombre']; ?>, <?php echo $dataGrupo['region_nombre']; ?></span></small></h2>

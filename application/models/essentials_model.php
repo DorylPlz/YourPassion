@@ -87,7 +87,7 @@ class essentials_model extends CI_Model {
     public function getImgPerfil($idImg)
     {
         
-        $result = $this->db->query("SELECT img_ruta FROM galeria WHERE fk_id_usu_img = '".$idImg."' && img_tipo = 2");
+        $result = $this->db->query("SELECT img_ruta FROM galeria WHERE fk_id_usu_img = '".$idImg."' && img_tipo = 2 LIMIT 1");
 
         return $result->result_array();
 

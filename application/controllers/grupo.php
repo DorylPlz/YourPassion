@@ -19,6 +19,7 @@ class grupo extends CI_Controller {
 		//$data['nintegrantes'] = $this->group_model->getnIntegrantes($id);
 		$data['integrantes'] = $this->group_model->getintegrantes($id);
 
+		$data['imgPerfil'] = $this->essentials_model->getImgPerfil($idImg);
 		$this->load->view('header');
 		$this->load->view('perfiles/grupo_perfil',$data);
 		$this->load->view('footer');
