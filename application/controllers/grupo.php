@@ -7,11 +7,15 @@ class grupo extends CI_Controller {
 	{
 		$this->load->helper('form');
 		$this->load->model('group_model');
+		$this->load->model('essentials_model');
 		$id = $this->input->get('profile');
 		$usuId = $this->session->userdata('id_usu');
+		$idImg = 'B-'.$id.'';
 		$data['grupo'] = $this->group_model->getGrupo($id);
 		$data['publicaciones'] = $this->group_model->getPublicaciones($id);
 		$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
+
+		$data['galeria'] = $this->essentials_model->getGaleria($idImg);
 		//$data['nintegrantes'] = $this->group_model->getnIntegrantes($id);
 		$data['integrantes'] = $this->group_model->getintegrantes($id);
 
@@ -25,7 +29,7 @@ class grupo extends CI_Controller {
  		$this->load->model('group_model');
 		$this->load->database();
 		$this->load->helper('date_helper');
-		$time = get_date();
+		$time = get_date_hour_s();
 		$gruId = $this->input->post('grupo');
 		$idUsu = $this->session->userdata('id_usu');
 		
@@ -40,7 +44,7 @@ class grupo extends CI_Controller {
 					$config['upload_path'] = './assets/images/galeria/';
 					$config['remove_spaces'] = TRUE;
 					$config['overwrite'] = TRUE;
-					$config['file_name'] = ''.$time.'_'.$i.'.jpg';
+					$config['file_name'] = ''.$gruId.'_'.$time.'_'.$i.'.jpg';
 					$this->load->library('upload');
 					$_FILES['multipleFiles']['name']= $files['multipleFiles']['name'][$i];
 					$_FILES['multipleFiles']['type']= $files['multipleFiles']['type'][$i];

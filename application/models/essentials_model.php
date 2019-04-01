@@ -74,7 +74,15 @@ class essentials_model extends CI_Model {
         return $configmail;
 
     }
+    
+    public function getGaleria($idImg)
+    {
+        
+        $result = $this->db->query("SELECT img_ruta FROM galeria WHERE fk_id_usu_img = '".$idImg."'");
 
+        return $result->result_array();
+
+    }
 
 }
 ?>

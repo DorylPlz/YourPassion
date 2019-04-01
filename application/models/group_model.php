@@ -23,6 +23,8 @@ class group_model extends CI_Model {
 
     }
 
+
+
     public function getPublicaciones($id)
     {
         

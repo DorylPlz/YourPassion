@@ -77,16 +77,18 @@
                                 <div id="photos-tab" class="tab-pane fade in active">
                                     <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
                                         <ul class="slides">
-                                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                                            <li><img src="http://placehold.it/900x500" alt="" /></li>
+                                            <?php if($galeria != null){ foreach($galeria as $img){?>
+                                                <li style="width:900px; height:500px;display: block; position:relative; overflow:hidden;"><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt=" YourPassion" /></li>
+                                            <?php }}else{ ?>
+                                                <li><img src="<?php echo base_url('assets/images/'); ?>/YP-logo_full-black.png" alt="" /></li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                     <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
                                         <ul class="slides">
-                                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                                            <li><img src="http://placehold.it/70x70" alt="" /></li>
+                                        <?php foreach($galeria as $img){?>
+                                                <li><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt="" /></li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                     <?php if($CheckAdm == 'true'){?>
