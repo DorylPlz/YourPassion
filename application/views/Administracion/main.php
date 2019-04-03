@@ -84,10 +84,11 @@
 
                                         <div class="tab-content">
                                             <div id="home" class="tab-pane fade in active">
-                                                <a href="#">
-                                                    
-                                                    <?php if($SolicitudesL->num_rows() > 0){ foreach($SolicitudesL->result_array() as $L){ ?>
+                                            <?php if($SolicitudesL->num_rows() > 0){ foreach($SolicitudesL->result_array() as $L){ ?>
 
+                                                <a onclick="openModal(<?php echo $L['id_local'];?>)">
+                                                    
+                                                    
                                                         <div class="icon-box style1 fourty-space">
                                                             <i class="soap-icon-support yellow-bg"></i>
                                                             <span class="time pull-right"><?php echo $L['local_creacion']; ?></span>
@@ -98,8 +99,9 @@
                                                         <div class="icon-box style1 fourty-space">
                                                             <p class="box-title">No hay solicitudes pendientes</p>
                                                         </div>
-                                                    <?php } ?>
+                                                    
                                                 </a>
+                                                <?php } ?>
                                                 <a href="#">
                                                     <div class="load-more">. . . . . . . . . . . . . </div>
                                                 </a>
@@ -846,3 +848,75 @@
                 </div>
             </div>
         </section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalNotificacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificacionTitulo"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      
+
+
+
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Rechazar</button>
+        <button type="button" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    function openModal(id) {
+        
+        jQuery('#modalNotificacion').modal('toggle');
+        jQuery("#notificacionTitulo").html("");
+        jQuery("#versiones").html("");
+        jQuery("#TituloModal").append("Versiones historicas del documento " + id);
+        jQuery.ajax({
+            url: '@Url.Action("MostrarVersiones", "Archivo")',
+            type: 'POST',
+            data: {
+                doc: id
+            },
+            success: function(respuesta){
+                var json = JSON.parse(respuesta);
+                
+                        
+                $.each(json, function (key, value) {
+                    var fechaSQL = value.FECHA;
+                    var sqlDateArr1 = fechaSQL.split("-");
+                    var sYear = sqlDateArr1[0];
+                    var sMonth = (Number(sqlDateArr1[1])).toString();
+                    var sqlDateArr2 = sqlDateArr1[2].split("T");
+                    var sDay = sqlDateArr2[0];
+                    $("#versiones").append(
+                        "<tr><td>" + value.N_VERSION + "</td><td>" + sDay +"/"+ sMonth +"/"+ sYear +"</td><td><button class='btn btn-primary' onclick='Descarga("+value.ID_VERSION+")' >Descarga</button></td></tr>")
+
+                        });
+
+
+            },
+            error: function () {
+                console.log();
+            }
+        });
+
+
+    }
+
+</script>

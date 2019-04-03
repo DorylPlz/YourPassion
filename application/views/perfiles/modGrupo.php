@@ -64,11 +64,6 @@ $("#genero").change(function() {
 
 });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.min.css">
-
 
 
 <?php foreach($grupo->result_array() as $dataGrupo){ ?>

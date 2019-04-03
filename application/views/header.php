@@ -60,7 +60,12 @@
                           }
                       }
                 </script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.min.css">
+
+
     <!-- CSS for IE -->
     <!--[if lte IE 9]>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/ie.css'); ?>" />
