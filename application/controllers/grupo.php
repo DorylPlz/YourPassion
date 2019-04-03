@@ -52,6 +52,25 @@ class grupo extends CI_Controller {
 
 	}
 
+	public function nuevaDesc()
+	{
+		$this->load->helper('form');
+		$this->load->model('group_model');
+		$this->load->model('essentials_model');
+		$id = $this->input->post('grupo');
+		$desc = $this->input->post('ndesc');
+		$usuId = $this->session->userdata('id_usu');
+		$check = $this->group_model->CheckAdm($usuId, $id);
+
+		if($check != 'false'){
+			$ndesc = $this->group_model->nuevaDesc($id, $desc);
+			echo json_encode($ndesc);
+		}else{
+			echo json_encode(2);
+		}
+
+	}
+
 	public function subirGaleria()
 	{
  		$this->load->model('group_model');

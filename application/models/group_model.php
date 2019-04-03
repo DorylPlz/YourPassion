@@ -189,6 +189,17 @@ class group_model extends CI_Model {
         return $result;
 
     }
+
+    public function nuevaDesc($id, $desc)
+    {
+        try{
+            $result = $this->db->query("UPDATE grupo SET gru_desc = '".$desc."' WHERE id_grupo = '".$id."' LIMIT 1");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
 }
 
 ?>

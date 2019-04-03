@@ -1,5 +1,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
 <script language="javascript" type="text/javascript">  
+
+
 $(document).ready(function(){
 
 //Creación de grupo
@@ -61,7 +64,10 @@ $("#genero").change(function() {
 
 });
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@8.8.1/dist/sweetalert2.min.css">
 
 
 
@@ -122,15 +128,13 @@ $("#genero").change(function() {
                         
                         <div class="col-sm-8 col-md-9">
                             <div class="travelo-box">
-                                <form class="contact-form" action="contact-us-handler.php" method="post" onsubmit="return false;">
                                     <h4 class="box-title">Modificar descripción</h4>
                                     <div class="alert small-box" style="display: none;"></div>
                                     <div class="form-group">
                                         <label>Descripción</label>
-                                        <textarea name="desc" rows="6" class="input-text full-width" placeholder="Descripción"></textarea>
+                                        <textarea id="desc" rows="6" class="input-text full-width" placeholder="Descripción"></textarea>
                                     </div>
-                                    <button type="submit" class="btn-medium uppercase">Modificar</button>
-                                </form>
+                                    <button type="submit" onclick="NuevaDesc(<?php echo $dataGrupo['id_grupo']; ?>)" class="btn-medium uppercase">Modificar</button>
                             </div>
 
                             <div class="col-sm-13 col-md-13">
@@ -238,5 +242,56 @@ $("#genero").change(function() {
                 </div>
             </div>
         </section>
+        <script>
+       
+       function NuevaDesc(grupo) {
+        
+        var ndesc = $("#desc").val();
+        $.ajax({
+            url: '<?php echo site_url('grupo/nuevaDesc'); ?>',
+            type: 'POST',
+            data: {
+                grupo: grupo,
+                ndesc: ndesc
+            },
+            success: function (respuesta) {
+                if(respuesta == 1){
+                    Swal.fire({
+                        title: 'Se ha modificado la descripción',
+                        type: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                }else if(respuesta == 0){
+                    Swal.fire({
+                        title: 'Ha ocurrido un error',
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                }else{
+                    Swal.fire({
+                        title: 'Acceso denegado',
+                        type: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                }
+                
+
+
+            },
+            error: function () {
+                Swal.fire({
+                        title: 'Ha ocurrido un error',
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+            }
+        });
+    }
+       </script>
+
 
 <?php } ?>
