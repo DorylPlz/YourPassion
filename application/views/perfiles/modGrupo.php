@@ -142,18 +142,19 @@ $("#genero").change(function() {
                             <div id="home" class="tab-pane fade in active">
                                     <h2>Modificación de grupo: <?php echo $dataGrupo['gru_nombre']; ?></h2>
                                             <h5 class="skin-color">Información básica</h5>
-                                            <form method="post" action="new_group">
+                                            <form method="post" action="<?php echo site_url('grupoAjax/Modificar'); ?>">
                                                 <input type="hidden" value="<?php echo $this->session->userdata('id_usu2');?>" name="key" />
                                                 <input type="hidden" value="<?php echo $this->session->userdata('email');?>" name="key2" />
+                                                <input type="hidden" value="<?php echo $dataGrupo['id_grupo']; ?>" name="grupo" />
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Nombre</label>
-                                                        <input type="text" name="nombre_grupo" class="input-text full-width">
+                                                        <input type="text" name="nombre_grupo" class="input-text full-width" placeholder="<?php echo $dataGrupo['gru_nombre']; ?>">
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <div class="form-group">
                                                             <label>Fecha de Formación</label>
-                                                            <input type="date" name="fformacion" class="input-text full-width form-control" placeholder="Día-Mes-Año" required/>
+                                                            <input type="date" name="fformacion" class="input-text full-width form-control" placeholder="Día-Mes-Año"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -192,7 +193,7 @@ $("#genero").change(function() {
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Región</label>
                                                         <select class="full-width" name="region" id="parent_selection">
-                                                            <option value="">-- Please Select --</option>
+                                                            <option value="">-- Seleccionar Región --</option>
                                                             <?php foreach ($regiones->result_array() as $region){?>
                                                                <option value="<?php echo $region['n_region']; ?>"><?php echo $region['region_nombre']; ?></option>
                                                             <?php } ?>
@@ -213,11 +214,11 @@ $("#genero").change(function() {
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Email de contacto del grupo</label>
-                                                        <input type="email" class="input-text full-width" name="email_grupo">
+                                                        <input type="email" class="input-text full-width" name="email_grupo" placeholder="<?php echo $dataGrupo['gru_email']; ?>">
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Numero de contacto</label>
-                                                        <input type="number" class="input-text full-width" name="n_grupo">
+                                                        <input type="number" class="input-text full-width" name="n_grupo" placeholder="<?php echo $dataGrupo['gru_tel']; ?>">
                                                     </div>
                                                 </div>
                                             
@@ -248,7 +249,55 @@ $("#genero").change(function() {
         
         var ndesc = $("#desc").val();
         $.ajax({
-            url: '<?php echo site_url('grupo/nuevaDesc'); ?>',
+            url: '<?php echo site_url('grupoAjax/nuevaDesc'); ?>',
+            type: 'POST',
+            data: {
+                grupo: grupo,
+                ndesc: ndesc
+            },
+            success: function (respuesta) {
+                if(respuesta == 1){
+                    Swal.fire({
+                        title: 'Se ha modificado la descripción',
+                        type: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                }else if(respuesta == 0){
+                    Swal.fire({
+                        title: 'Ha ocurrido un error',
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                }else{
+                    Swal.fire({
+                        title: 'Acceso denegado',
+                        type: 'warning',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                }
+                
+
+
+            },
+            error: function () {
+                Swal.fire({
+                        title: 'Ha ocurrido un error',
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+            }
+        });
+    }
+
+    function Modificar(grupo) {
+        
+        var ndesc = $("#desc").val();
+        $.ajax({
+            url: '<?php echo site_url('grupoAjax/nuevaDesc'); ?>',
             type: 'POST',
             data: {
                 grupo: grupo,

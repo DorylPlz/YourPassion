@@ -200,6 +200,17 @@ class group_model extends CI_Model {
         }
 
     }
+
+    public function Modificar($id, $columna, $data)
+    {
+        try{
+            $this->db->query("UPDATE `grupo` SET ".$columna." = '".$data."' WHERE `id_grupo` = '".$id."'");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
 }
 
 ?>
