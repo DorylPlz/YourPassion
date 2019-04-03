@@ -16,7 +16,7 @@
                                 <br />
                                 <div class="row block">
                                     <div class="col-sm-6 col-md-3">
-                                        <a href="hotel-list-view.html">
+                                        <a href="<?php echo site_url('main/grupos'); ?>">
                                             <div class="fact blue">
                                                 <div class="numbers counters-box">
                                                     <dl>
@@ -29,7 +29,7 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 col-md-3">
-                                        <a href="flight-list-view.html">
+                                        <a href="<?php echo site_url('main/locales'); ?>">
                                             <div class="fact yellow">
                                                 <div class="numbers counters-box">
                                                     <dl>
@@ -42,7 +42,7 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 col-md-3">
-                                        <a href="car-list-view.html">
+                                        <a href="#">
                                             <div class="fact red">
                                                 <div class="numbers counters-box">
                                                     <dl>
@@ -55,7 +55,7 @@
                                         </a>
                                     </div>
                                     <div class="col-sm-6 col-md-3">
-                                        <a href="cruise-list-view.html">
+                                        <a href="<?php echo site_url('main/eventos'); ?>">
                                             <div class="fact green">
                                                 <div class="numbers counters-box">
                                                     <dl>
