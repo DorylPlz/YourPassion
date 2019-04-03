@@ -26,6 +26,7 @@ class usr extends CI_Controller {
 					$type2encrypt = $this->enc_model->encdata(1);
 					$idencrypt = $this->enc_model->encdata($fila->id_usu);
 					$id = $fila->id_usu;
+					$nivel = $this->enc_model->encdata($fila->usu_tipo);
 
 					if($fila->usu_tipo == 2){
 						$data = array(
@@ -33,7 +34,8 @@ class usr extends CI_Controller {
 							'usu_tipo' => $type2encrypt,
 							'id_usu' => $id,
 							'id_usu2' => $idencrypt,
-							'login' => true
+							'login' => true,
+							'nivel' => true
 						);
 					}else{
 						$data = array(
@@ -41,7 +43,8 @@ class usr extends CI_Controller {
 							'usu_tipo' => $type1encrypt,
 							'id_usu' => $id,
 							'id_usu2' => $idencrypt,
-							'login' => true
+							'login' => true,
+							'nivel' => false
 						);
 
 					}

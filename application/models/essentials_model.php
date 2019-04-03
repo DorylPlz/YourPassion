@@ -93,5 +93,17 @@ class essentials_model extends CI_Model {
 
     }
 
+    public function checkNivel($id)
+    {
+    	
+        $result = $this->db->query("SELECT usu_tipo FROM usuarios WHERE id_usu = '".$id."' LIMIT 1");
+        foreach($result->result() as $nivel){
+            $perm = $nivel->usu_tipo;
+        }
+
+        return $perm;
+
+    }
+
 }
 ?>
