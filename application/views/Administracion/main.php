@@ -3,7 +3,7 @@
                 <div id="main">
                     <div class="tab-container full-width-style arrow-left dashboard">
                         <ul class="tabs">
-                            <li class="active"><a data-toggle="tab" href="#dashboard"><i class="soap-icon-anchor circle"></i>Dashboard</a></li>
+                            <li class="active"><a data-toggle="tab" href="#dashboard"><i class="soap-icon-address circle"></i>Información general</a></li>
                             <li class=""><a data-toggle="tab" href="#profile"><i class="soap-icon-user circle"></i>Profile</a></li>
                             <li class=""><a data-toggle="tab" href="#booking"><i class="soap-icon-businessbag circle"></i>Booking</a></li>
                             <li class=""><a data-toggle="tab" href="#wishlist"><i class="soap-icon-wishlist circle"></i>Wishlist</a></li>
@@ -12,8 +12,7 @@
                         </ul>
                         <div class="tab-content">
                             <div id="dashboard" class="tab-pane fade in active">
-                                <h1 class="no-margin skin-color">Hi Jessica, Welcome to Travelo!</h1>
-                                <p>All your trips booked with us will appear here and you’ll be able to manage everything!</p>
+                                <h1 class="no-margin skin-color">Administración</h1>
                                 <br />
                                 <div class="row block">
                                     <div class="col-sm-6 col-md-3">
@@ -21,14 +20,10 @@
                                             <div class="fact blue">
                                                 <div class="numbers counters-box">
                                                     <dl>
-                                                        <dt class="display-counter" data-value="3200">0</dt>
-                                                        <dd>Hotels to Stay</dd>
+                                                        <dt class="display-counter" data-value="<?php echo $getGrupos->num_rows();?>">0</dt>
+                                                        <dd>Grupos</dd>
                                                     </dl>
-                                                    <i class="icon soap-icon-hotel"></i>
-                                                </div>
-                                                <div class="description">
-                                                    <i class="icon soap-icon-longarrow-right"></i>
-                                                    <span>View Hotels</span>
+                                                    <i class="icon soap-icon-friends"></i>
                                                 </div>
                                             </div>
                                         </a>
@@ -38,14 +33,10 @@
                                             <div class="fact yellow">
                                                 <div class="numbers counters-box">
                                                     <dl>
-                                                        <dt class="display-counter" data-value="4509">0</dt>
-                                                        <dd>Airlines to Travel</dd>
+                                                        <dt class="display-counter" data-value="<?php echo $getLocal->num_rows();?>">0</dt>
+                                                        <dd>Locales</dd>
                                                     </dl>
-                                                    <i class="icon soap-icon-plane"></i>
-                                                </div>
-                                                <div class="description">
-                                                    <i class="icon soap-icon-longarrow-right"></i>
-                                                    <span>View Flights</span>
+                                                    <i class="icon soap-icon-support"></i>
                                                 </div>
                                             </div>
                                         </a>
@@ -55,14 +46,10 @@
                                             <div class="fact red">
                                                 <div class="numbers counters-box">
                                                     <dl>
-                                                        <dt class="display-counter" data-value="3250">0</dt>
-                                                        <dd>VIP Transports</dd>
+                                                        <dt class="display-counter" data-value="<?php echo $getProductora->num_rows();?>">0</dt>
+                                                        <dd>Productoras</dd>
                                                     </dl>
-                                                    <i class="icon soap-icon-car"></i>
-                                                </div>
-                                                <div class="description">
-                                                    <i class="icon soap-icon-longarrow-right"></i>
-                                                    <span>View Cars</span>
+                                                    <i class="icon soap-icon-hotel-1"></i>
                                                 </div>
                                             </div>
                                         </a>
@@ -72,203 +59,108 @@
                                             <div class="fact green">
                                                 <div class="numbers counters-box">
                                                     <dl>
-                                                        <dt class="display-counter" data-value="1570">0</dt>
-                                                        <dd>Celebrity Cruises</dd>
+                                                        <dt class="display-counter" data-value="<?php echo $getEventos->num_rows();?>">0</dt>
+                                                        <dd>Eventos Activos</dd>
                                                     </dl>
-                                                    <i class="icon soap-icon-cruise flip-effect"></i>
-                                                </div>
-                                                <div class="description">
-                                                    <i class="icon soap-icon-longarrow-right"></i>
-                                                    <span>View Cruises</span>
+                                                    <i class="icon soap-icon-conference"></i>
                                                 </div>
                                             </div>
                                         </a>
-                                    </div>
-                                </div>
-                                <div class="notification-area">
-                                    <div class="info-box block">
-                                        <span class="close"></span>
-                                        <p>This is your Dashboard, the place to check your Profile, respond to Reservation Requests, view upcoming Trip Information, and much more.</p>
-                                        <br />
-                                        <ul class="circle">
-                                            <li><span class="skin-color">Learn How It Works</span> — Watch a short video that shows you how Travelo works.</li>
-                                            <li><span class="skin-color">Get Help</span> — View our help section and FAQs to get started on Travelo. </li>
-                                        </ul>
                                     </div>
                                 </div>
                                 
                                 <div class="row block">
                                     <div class="col-md-6 notifications">
-                                        <h2>Notifications</h2>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-plane-right takeoff-effect yellow-bg"></i>
-                                                <span class="time pull-right">JUST NOW</span>
-                                                <p class="box-title">London to Paris flight in <span class="price">$120</span></p>
+
+                                        <h2>Notificaciones</h2>
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#home">Local <span class="price"><?php echo $SolicitudesL->num_rows(); ?></span></a> </li>
+                                            <li><a data-toggle="tab" href="#menu1">Productora <span class="price"><?php echo $SolicitudesP->num_rows(); ?></span></a></li>
+                                        </ul>
+
+
+
+
+
+                                        <div class="tab-content">
+                                            <div id="home" class="tab-pane fade in active">
+                                                <a href="#">
+                                                    
+                                                    <?php if($SolicitudesL->num_rows() > 0){ foreach($SolicitudesL->result_array() as $L){ ?>
+
+                                                        <div class="icon-box style1 fourty-space">
+                                                            <i class="soap-icon-support yellow-bg"></i>
+                                                            <span class="time pull-right"><?php echo $L['local_creacion']; ?></span>
+                                                            <p class="box-title"><?php echo $L['local_nombre']; ?></p>
+                                                        </div>
+
+                                                    <?php }}else{ ?>
+                                                        <div class="icon-box style1 fourty-space">
+                                                            <p class="box-title">No hay solicitudes pendientes</p>
+                                                        </div>
+                                                    <?php } ?>
+                                                </a>
+                                                <a href="#">
+                                                    <div class="load-more">. . . . . . . . . . . . . </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-hotel blue-bg"></i>
-                                                <span class="time pull-right">10 Mins ago</span>
-                                                <p class="box-title">Hilton hotel &amp; resorts in <span class="price">$247</span></p>
+                                            <div id="menu1" class="tab-pane fade">
+                                            <?php if($SolicitudesP->num_rows() > 0){ foreach($SolicitudesP->result_array() as $P){ ?>
+
+                                                <a href="#">
+                                                    <div class="icon-box style1 fourty-space">
+                                                        <i class="soap-icon-hotel-1 red-bg"></i>
+                                                        <span class="time pull-right"><?php echo $P['prod_fregistro']; ?></span>
+                                                        <p class="box-title"><?php echo $L['prod_nombre']; ?></p>
+                                                    </div>
+                                                </a>
+                                                <?php }}else{ ?>
+                                                        <div class="icon-box style1 fourty-space">
+                                                            <p class="box-title">No hay solicitudes pendientes</p>
+                                                        </div>
+                                                    <?php } ?>
+                                                <a href="#">
+                                                    <div class="load-more">. . . . . . . . . . . . . </div>
+                                                </a>
+
+
+
                                             </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-car red-bg"></i>
-                                                <span class="time pull-right">39 Mins ago</span>
-                                                <p class="box-title">Economy car for 2 days in <span class="price">$39</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-cruise green-bg"></i>
-                                                <span class="time pull-right">1 hour ago</span>
-                                                <p class="box-title">Baja Mexico 4 nights in <span class="price">$537</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-hotel blue-bg"></i>
-                                                <span class="time pull-right">2 hours ago</span>
-                                                <p class="box-title">Roosevelt hotel in <span class="price">$170</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-hotel blue-bg"></i>
-                                                <span class="time pull-right">3 hours ago</span>
-                                                <p class="box-title">Cleopatra Resort in <span class="price">$247</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-car red-bg"></i>
-                                                <span class="time pull-right">3 hours ago</span>
-                                                <p class="box-title">Elite Car per day in <span class="price">$48.99</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="icon-box style1 fourty-space">
-                                                <i class="soap-icon-cruise green-bg"></i>
-                                                <span class="time pull-right">last night</span>
-                                                <p class="box-title">Rome to Africa 1 week in <span class="price">$875</span></p>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="load-more">. . . . . . . . . . . . . </div>
-                                        </a>
+                                        </div>
+
+
+
                                     </div>
                                     <div class="col-md-6">
-                                        <h2>Recent Activity</h2>
+                                        <h2>Ultimos Eventos</h2>
                                         <div class="recent-activity">
                                             <ul>
+                                                <?php if($getEventos->num_rows() > 0){foreach($getEventos->result_array() as $E){ ?>
                                                 <li>
                                                     <a href="#">
-                                                        <i class="icon soap-icon-plane-right circle takeoff-effect yellow-color"></i>
-                                                        <span class="price"><small>avg/person</small>$120</span>
+                                                        <i class="icon soap-icon-conference circle green-color"></i>
+                                                        <span class="price"><small>desde</small>$5000</span>
                                                         <h4 class="box-title">
-                                                            Indianapolis to Paris<small>Oneway flight</small>
+                                                        <?php echo $P['eve_nombre']; ?><small><?php echo $P['eve_fecha']; ?></small>
                                                         </h4>
                                                     </a>
                                                 </li>
-                                                <li>
+                                                <?php }}else{ ?>
+                                                    <li>
                                                     <a href="#">
-                                                        <i class="icon soap-icon-car circle red-color"></i>
-                                                        <span class="price"><small>per day</small>$45.39</span>
                                                         <h4 class="box-title">
-                                                            Economy Car<small>bmw mini</small>
+                                                            No hay eventos para mostrar
                                                         </h4>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-cruise circle green-color"></i>
-                                                        <span class="price"><small>from</small>$578</span>
-                                                        <h4 class="box-title">
-                                                            Jacksonville to Asia<small>4 nights</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-hotel circle blue-color"></i>
-                                                        <span class="price"><small>Avg/night</small>$620</span>
-                                                        <h4 class="box-title">
-                                                            Hilton Hotel &amp; Resorts<small>Paris france</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-hotel circle blue-color"></i>
-                                                        <span class="price"><small>avg/night</small>$170</span>
-                                                        <h4 class="box-title">
-                                                            Roosevelt Hotel<small>new york</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="icon soap-icon-plane-right circle takeoff-effect yellow-color"></i>
-                                                        <span class="price"><small>avg/person</small>$348</span>
-                                                        <h4 class="box-title">
-                                                            Mexico to England<small>return flight</small>
-                                                        </h4>
-                                                    </a>
-                                                </li>
+                                                <?php } ?>
                                             </ul>
-                                            <a href="#" class="button green btn-small full-width">VIEW ALL ACTIVITIES</a>
+                                            <a href="#" class="button green btn-small full-width">Ver más</a>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <h4>Benefits of Tavelo Account</h4>
-                                        <ul class="benefits triangle hover">
-                                            <li><a href="#">Faster bookings with lesser clicks</a></li>
-                                            <li><a href="#">Track travel history &amp; manage bookings</a></li>
-                                            <li class="active"><a href="#">Manage profile &amp; personalize experience</a></li>
-                                            <li><a href="#">Receive alerts &amp; recommendations</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4 previous-bookings image-box style14">
-                                        <h4>Your Previous Bookings</h4>
-                                        <article class="box">
-                                            <figure class="no-padding">
-                                                <a title="" href="#">
-                                                    <img alt="" src="http://placehold.it/63x59" width="63" height="59">
-                                                </a>
-                                            </figure>
-                                            <div class="details">
-                                                <h5 class="box-title"><a href="#">Half-Day Island Tour</a><small class="fourty-space"><span class="price">$35</span> Family Package</small></h5>
-                                            </div>
-                                        </article>
-                                        <article class="box">
-                                            <figure class="no-padding">
-                                                <a title="" href="#">
-                                                    <img alt="" src="http://placehold.it/63x59" width="63" height="59">
-                                                </a>
-                                            </figure>
-                                            <div class="details">
-                                                <h5 class="box-title"><a href="#">Ocean Park Tour</a><small class="fourty-space"><span class="price">$26</span> Per Person</small></h5>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h4>Need Travelo Help?</h4>
-                                        <div class="contact-box">
-                                            <p>We would be more than happy to help you. Our team advisor are 24/7 at your service to help you.</p>
-                                            <address class="contact-details">
-                                                <span class="contact-phone"><i class="soap-icon-phone"></i> 1-800-123-HELLO</span>
-                                                <br>
-                                                <a class="contact-email" href="#">help@travelo.com</a>
-                                            </address>
-                                        </div>
-                                    </div>
-                                </div>
+                            
                             </div>
                             <div id="profile" class="tab-pane fade">
                                 <div class="view-profile">

@@ -211,6 +211,17 @@ class group_model extends CI_Model {
         }
 
     }
+    public function getGrupos()
+    {
+        
+        $result = $this->db->query("SELECT * FROM grupo");
+
+        return $result;
+
+    }
+
+
+    
 }
 
 ?>

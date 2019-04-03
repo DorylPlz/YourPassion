@@ -17,6 +17,14 @@ class productora_model extends CI_Model {
         }
         return $id;
     }
+    public function getProductora()
+    {
+        
+        $result = $this->db->query("SELECT * FROM productora");
+
+        return $result;
+
+    }
 
 }
 ?>

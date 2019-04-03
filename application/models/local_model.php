@@ -45,5 +45,15 @@ class local_model extends CI_Model {
         }
 
     }
+
+    public function getLocal()
+    {
+        
+        $result = $this->db->query("SELECT * FROM local");
+
+        return $result;
+
+    }
+
 }
 ?>
