@@ -23,6 +23,32 @@ class adm_model extends CI_Model {
         return $result;
 
     }
+
+    public function estadoLocal($id, $data)
+    {
+        try{
+
+            $result = $this->db->query("UPDATE `local` SET local_estado = '".$data."' WHERE `id_local` = '".$id."'");
+        
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
+
+    public function estadoProd($id, $data)
+    {
+        try{
+
+            $result = $this->db->query("UPDATE `productora` SET prod_estado = '".$data."' WHERE id_productora = '".$id."'");
+        
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
     
 }
 ?>

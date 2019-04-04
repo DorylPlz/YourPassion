@@ -20,8 +20,8 @@ class administracion extends CI_Controller {
 			$data['SolicitudesL'] = $this->adm_model->solicitudesLocal();
 			$data['SolicitudesP'] = $this->adm_model->solicitudesProd();
 			$data['getGrupos'] = $this->group_model->getGrupos();
-			$data['getLocal'] = $this->local_model->getLocal();
-			$data['getProductora'] = $this->productora_model->getProductora();
+			$data['getLocal'] = $this->local_model->getLocales();
+			$data['getProductora'] = $this->productora_model->getProductoras();
 			$data['getEventos'] = $this->evento_model->getEventos();
 			
 

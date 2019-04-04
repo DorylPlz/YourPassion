@@ -46,7 +46,16 @@ class local_model extends CI_Model {
 
     }
 
-    public function getLocal()
+    public function getLocal($id)
+    {
+        
+        $result = $this->db->query("SELECT * FROM local WHERE id_local = ".$id."");
+
+        return $result->result();
+
+    }
+
+    public function getLocales()
     {
         
         $result = $this->db->query("SELECT * FROM local");

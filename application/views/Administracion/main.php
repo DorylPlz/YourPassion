@@ -86,7 +86,7 @@
                                             <div id="home" class="tab-pane fade in active">
                                             <?php if($SolicitudesL->num_rows() > 0){ foreach($SolicitudesL->result_array() as $L){ ?>
 
-                                                <a onclick="openModal(<?php echo $L['id_local'];?>)">
+                                                <a onclick="openModalL(<?php echo $L['id_local'];?>)">
                                                     
                                                     
                                                         <div class="icon-box style1 fourty-space">
@@ -109,11 +109,11 @@
                                             <div id="menu1" class="tab-pane fade">
                                             <?php if($SolicitudesP->num_rows() > 0){ foreach($SolicitudesP->result_array() as $P){ ?>
 
-                                                <a href="#">
+                                                <a onclick="openModalP(<?php echo $P['id_productora'];?>)">
                                                     <div class="icon-box style1 fourty-space">
                                                         <i class="soap-icon-hotel-1 red-bg"></i>
                                                         <span class="time pull-right"><?php echo $P['prod_fregistro']; ?></span>
-                                                        <p class="box-title"><?php echo $L['prod_nombre']; ?></p>
+                                                        <p class="box-title"><?php echo $P['prod_nombre']; ?></p>
                                                     </div>
                                                 </a>
                                                 <?php }}else{ ?>
@@ -850,66 +850,326 @@
         </section>
 
 
-<!-- Modal -->
-<div class="modal fade" id="modalNotificacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Local -->
+<div class="modal fade" id="modalNotificacionL" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="notificacionTitulo"></h5>
+        <h5 class="modal-title" id="notificacionTitulo">Información del local</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         
-      
+        <table style="width:100%">
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th> 
+                <th>Rut</th>
+                <th>Dueño</th>
+                <th>Rut Dueño</th>
+                <th>Fecha de Registro</th>
+            </tr>
+            <tr>
+                <td id="nombreLocal"></td>
+                <td id="emailLocal"></td> 
+                <td id="rutLocal"></td>
+                <td id="dueñoLocal"></td>
+                <td id="rutDueño"></td> 
+                <td id="registroLocal"></td> 
+            </tr>
+            
+        </table>
 
-
-
-
-
-
-
-
-
+        <hr/>
+            <div class="container" style="width:100%; height:100%;">
+            <h3>Carnet</h3>
+                <div >
+                    <img style="width:100%; height:100%;" id="carnetLocal" src="" alt="">
+                </div>
+            
+            </div><br/>
+        <hr/>  
+            <div class="container" style="width:100%; height:100%;">
+            <h3>Documento de propiedad</h3>
+                <div >
+                    <img style="width:100%; height:100%;" id="propiedadLocal" src="" alt="">
+                </div>
+            </div><br/>
+        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Rechazar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+        <button type="button" id="rechazarLocalbtn" onclick="rechazarLocal()" class="btn btn-danger" data-dismiss="modal">Rechazar</button>
+        <button type="button" id="aceptarLocalbtn" onclick="aceptarLocal()" class="btn btn-secundary" data-dismiss="modal">Aceptar</button>
       </div>
     </div>
   </div>
 </div>
-<script>
-    function openModal(id) {
+
+
+
+<!-- Productora -->
+<div class="modal fade" id="modalNotificacionP" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificacionTitulo">Información de la Productora</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
         
-        jQuery('#modalNotificacion').modal('toggle');
-        jQuery("#notificacionTitulo").html("");
-        jQuery("#versiones").html("");
-        jQuery("#TituloModal").append("Versiones historicas del documento " + id);
+        <table style="width:100%">
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th> 
+                <th>Numero</th> 
+                <th>Rut</th>
+                <th>Dueño</th>
+                <th>Rut Dueño</th>
+                <th>Fecha de Registro</th>
+            </tr>
+            <tr>
+                <td id="nombreProd"></td>
+                <td id="emailProd"></td> 
+                <td id="numeroProd"></td> 
+                <td id="rutProd"></td>
+                <td id="dueñoProd"></td>
+                <td id="rutDueñoProd"></td> 
+                <td id="registroProd"></td> 
+            </tr>
+            
+        </table>
+
+        <hr/>
+            <div class="container" style="width:100%; height:100%;">
+            <h3>Carnet</h3>
+                <div >
+                    <img style="width:100%; height:100%;" id="carnetProd" src="" alt="">
+                </div>
+            
+            </div><br/>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="rechazarProdbtn" onclick="rechazarProd()" class="btn btn-danger" data-dismiss="modal">Rechazar</button>
+        <button type="button" id="aceptarProdbtn" onclick="aceptarProd()" class="btn btn-secundary" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function openModalL(id) {
+        
+        jQuery('#modalNotificacionL').modal('toggle');
+        jQuery("#nombreLocal").html("");
+        jQuery("#emailLocal").html("");
+        jQuery("#rutLocal").html("");
+        jQuery("#dueñoLocal").html("");
+        jQuery("#rutDueño").html("");
+        jQuery("#registroLocal").html("");
+        jQuery("#carnetLocal").html("");
+        jQuery("#propiedadLocal").html("");
         jQuery.ajax({
-            url: '@Url.Action("MostrarVersiones", "Archivo")',
+            url: '<?php echo site_url('admAjax/modalSolicitudesL'); ?>',
             type: 'POST',
             data: {
-                doc: id
+                id: id
             },
             success: function(respuesta){
+                console.log(respuesta);
                 var json = JSON.parse(respuesta);
                 
                         
-                $.each(json, function (key, value) {
-                    var fechaSQL = value.FECHA;
-                    var sqlDateArr1 = fechaSQL.split("-");
-                    var sYear = sqlDateArr1[0];
-                    var sMonth = (Number(sqlDateArr1[1])).toString();
-                    var sqlDateArr2 = sqlDateArr1[2].split("T");
-                    var sDay = sqlDateArr2[0];
-                    $("#versiones").append(
-                        "<tr><td>" + value.N_VERSION + "</td><td>" + sDay +"/"+ sMonth +"/"+ sYear +"</td><td><button class='btn btn-primary' onclick='Descarga("+value.ID_VERSION+")' >Descarga</button></td></tr>")
+                jQuery.each(json, function (key, value) {
+                    jQuery("#nombreLocal").html(""+value.local_nombre+"");
+                    jQuery("#emailLocal").html(""+value.local_email+"");
+                    jQuery("#rutLocal").html(""+value.local_rut+"");
+                    jQuery("#dueñoLocal").html(""+value.local_dueño_nombre+"");
+                    jQuery("#rutDueño").html(""+value.local_dueño_rut+"");
+                    jQuery("#registroLocal").html(""+value.local_creacion+"");
+                    jQuery("#carnetLocal").attr("src", "<?php echo base_url('assets/images/local_documentos'); ?>/" + value.local_img_carnet + ""); 
+                    jQuery("#propiedadLocal").attr("src", "<?php echo base_url('assets/images/local_documentos'); ?>/" + value.local_img_propiedad + ""); 
+                    jQuery("#aceptarLocalbtn").attr("onclick", "aceptarLocal("+value.id_local+")"); 
+                    jQuery("#rechazarLocalbtn").attr("onclick", "rechazarLocal("+value.id_local+")"); 
+                });
 
-                        });
+
+            },
+            error: function () {
+                console.log();
+            }
+        });
 
 
+    }
+
+
+    function aceptarLocal(id) {
+        
+        jQuery.ajax({
+            url: '<?php echo site_url('admAjax/aceptarLocal'); ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function(respuesta){
+                var json = JSON.parse(respuesta);
+                Swal.fire({
+                            title: 'Se ha aceptado al local',
+                            text: "Se recargará la pagina",
+                            type: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continuar'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+            },
+            error: function () {
+                console.log();
+            }
+        });
+
+
+    }
+
+    function rechazarLocal(id) {
+        
+        jQuery.ajax({
+            url: '<?php echo site_url('admAjax/rechazarLocal'); ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function(respuesta){
+                var json = JSON.parse(respuesta);
+                Swal.fire({
+                            title: 'Se ha rechazado al local',
+                            text: "Se recargará la pagina",
+                            type: 'error',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continuar'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })  
+                
+            },
+            error: function () {
+                console.log();
+            }
+        });
+
+
+    }
+
+</script>
+
+<script>
+    function openModalP(id) {
+        
+        jQuery('#modalNotificacionP').modal('toggle');
+        jQuery("#nombreProd").html("");
+        jQuery("#emailProd").html("");
+        jQuery("#numProd").html("");
+        jQuery("#rutProd").html("");
+        jQuery("#dueñoProd").html("");
+        jQuery("#rutDueñoProd").html("");
+        jQuery("#registroProd").html("");
+        jQuery("#carnetProd").html("");
+        jQuery.ajax({
+            url: '<?php echo site_url('admAjax/modalSolicitudesP'); ?>',
+            type: 'POST',
+            data: {
+                id: id
+            },
+            success: function(respuesta){
+                console.log(respuesta);
+                var json = JSON.parse(respuesta);
+                
+                        
+                jQuery.each(json, function (key, value) {
+                    jQuery("#nombreProd").html(""+value.prod_nombre+"");
+                    jQuery("#emailProd").html(""+value.prod_email+"");
+                    jQuery("#numProd").html(""+value.prod_tel+"");
+                    jQuery("#rutProd").html(""+value.prod_rut+"");
+                    jQuery("#dueñoProd").html(""+value.prod_nomdueño+"");
+                    jQuery("#rutDueñoProd").html(""+value.prod_rutdueño+"");
+                    jQuery("#registroProd").html(""+value.prod_fregistro+"");
+                    jQuery("#carnetProd").attr("src", "<?php echo base_url('assets/images/productora_documentos'); ?>/" + value.prod_cidueño + ""); 
+                    jQuery("#aceptarProdbtn").attr("onclick", "aceptarProd("+value.id_productora+")"); 
+                    jQuery("#rechazarProdbtn").attr("onclick", "rechazarProd("+value.id_productora+")"); 
+                });
+
+
+            },
+            error: function () {
+                console.log();
+            }
+        });
+
+
+    }
+
+
+    function aceptarProd(id) {
+        
+        jQuery.ajax({
+            url: '<?php echo site_url('admAjax/aceptarProd'); ?>',
+            type: 'POST',
+            data: {
+                idprod: id
+            },
+            success: function(respuesta){
+                var json = JSON.parse(respuesta);
+                Swal.fire({
+                            title: 'Se ha aceptado a la productora',
+                            text: "Se recargará la pagina",
+                            type: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continuar'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+            },
+            error: function () {
+                console.log();
+            }
+        });
+
+
+    }
+
+    function rechazarProd(id) {
+        
+        jQuery.ajax({
+            url: '<?php echo site_url('admAjax/rechazarProd'); ?>',
+            type: 'POST',
+            data: {
+                idprod: id
+            },
+            success: function(respuesta){
+                var json = JSON.parse(respuesta);
+                Swal.fire({
+                            title: 'Se ha rechazado la productora',
+                            text: "Se recargará la pagina",
+                            type: 'error',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continuar'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })  
+                
             },
             error: function () {
                 console.log();
