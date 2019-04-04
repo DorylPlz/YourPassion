@@ -440,7 +440,8 @@ function list(array_list)
                                                     <div class="col-sm-6 col-md-4">
                                                         <article class="box">
                                                             <figure>
-                                                                <a class="hover-effect" title="" href="<?php echo site_url('grupo/perfil_grupo?profile=');?><?php echo $misgrupos['fk_id_grupo']; ?>&nombre=<?php echo $misgrupos['gru_nombre']; ?>"><img width="300" height="160" alt="" src="http://placehold.it/300x160"></a>
+                                                                <a class="hover-effect" title="" href="<?php echo site_url('grupo/perfil_grupo?profile=');?><?php echo $misgrupos['fk_id_grupo']; ?>&nombre=<?php echo $misgrupos['gru_nombre']; ?>">
+                                                                <img style="width:300px; height:160px;position:relative;" src="<?php echo base_url('assets/images/profile'); ?>/<?php echo $misgrupos['img_ruta'];?>" alt=""></a>
                                                             </figure>
                                                             <div class="details">
                                                                 <a class="pull-right button uppercase" href="<?php echo site_url('grupo/perfil_grupo?profile=');?><?php echo $misgrupos['fk_id_grupo']; ?>&nombre=<?php echo $misgrupos['gru_nombre']; ?>" title="View all">Ir</a>
