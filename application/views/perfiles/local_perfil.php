@@ -1,11 +1,13 @@
+        <?php foreach($localData as $local){ ?>
+        
         <div class="page-title-container">
             <div class="container">
                 <div class="page-title pull-left">
-                    <h2 class="entry-title">Evento detallado</h2>
+                    <h2 class="entry-title"><?php echo $local->local_nombre; ?></h2>
                 </div>
                 <ul class="breadcrumbs pull-right">
-                    <li><a href="#">Eventos</a></li>
-                    <li class="active">Evento detallado</li>
+                    <li><a href="#">Locales</a></li>
+                    <li class="active">Local detallado</li>
                 </ul>
             </div>
         </div>
@@ -18,21 +20,26 @@
                                 <li class="active"><a data-toggle="tab" href="#photos-tab">Imagenes</a></li>
                                 <li><a data-toggle="tab" href="#map-tab">Lugar</a></li>
                                 <li><a data-toggle="tab" href="#calendar-tab">Calendario</a></li>
+                                <?php if($CheckAdm == 'true'){?>
+                                    <li><a href="<?php echo site_url('grupo/mod_grupo?profile=');?>">Modificar perfil</a></li>
+                                <?php } ?>
                             </ul>
                             <div class="tab-content">
                                 <div id="photos-tab" class="tab-pane fade in active">
                                     <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
                                         <ul class="slides">
-                                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                                            <li><img src="http://placehold.it/900x500" alt="" /></li>
-                                            <li><img src="http://placehold.it/900x500" alt="" /></li>
+                                        <?php if($galeria != null){ foreach($galeria as $img){?>
+                                                <li style="width:900px; height:500px;display: block; position:relative; overflow:hidden;"><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt=" YourPassion" /></li>
+                                            <?php }}else{ ?>
+                                                <li><img src="<?php echo base_url('assets/images/'); ?>/YP-logo_full-black.png" alt="" /></li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                     <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
                                         <ul class="slides">
-                                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                                            <li><img src="http://placehold.it/70x70" alt="" /></li>
-                                            <li><img src="http://placehold.it/70x70" alt="" /></li>
+                                        <?php foreach($galeria as $img){?>
+                                                <li><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt="" /></li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -88,97 +95,72 @@ We suggest that you contact the host to confirm availability and rates before su
                                     <div class="intro table-wrapper full-width hidden-table-sms">
                                         <div class="col-sm-5 col-lg-12 features table-cell">
                                             <ul>
-                                                <li><label>Calificación de local:</label>4 estrellas</li>
-                                                <li><label>Cupos maximos:</label>100</li>
-                                                <li><label>Cupos disponibles:</label>50</li>
-                                                <li><label>Dirección:</label>Calle falsa #123</li>
-                                                <li><label>Región:</label>Santiago</li>
-                                                <li><label>NºContacto:</label>+56912345678</li>
-                                                <li><label>Email:</label>email@contacto.cl</li>
+                                                <li><label>Región:</label><?php echo $local->region_nombre;?></li>
+                                                <li><label>Comuna:</label><?php echo $local->comu_nombre; ?></li>
+                                                <li><label>Calle:</label><?php echo $local->loc_calle; ?></li>
+                                                <li><label>Numero:</label><?php echo $local->loc_numero; ?></li>
                                             </ul>
                                         </div>
                                         
                                     </div>
                                     <div class="long-description">
                                         <h2>Descripción del Evento</h2>
-                                        <p>
-                                            Sed aliquam nunc eget velit imperdiet, in rutrum mauris malesuada. Quisque ullamcorper vulputate nisi, et fringilla ante convallis quis. Nullam vel tellus non elit suscipit volutpat. Integer id felis et nibh rutrum dignissim ut non risus. In tincidunt urna quis sem luctus, sed accumsan magna pellentesque. Donec et iaculis tellus. Vestibulum ut iaculis justo, auctor sodales lectus. Donec et tellus tempus, dignissim maurornare, consequat lacus. Integer dui neque, scelerisque nec sollicitudin sit amet, sodales a erat. Duis vitae condimentum ligula. Integer eu mi nisl. Donec massa dui, commodo id arcu quis, venenatis scelerisque velit.
-<br /><br />
-Praesent eros turpis, commodo vel justo at, pulvinar mollis eros. Mauris aliquet eu quam id ornare. Morbi ac quam enim. Cras vitae nulla condimentum, semper dolor non, faucibus dolor. Vivamus adipiscing eros quis orci fringilla, sed pretium lectus viverra. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec nec velit non odio aliquam suscipit. Sed non neque faucibus, condimentum lectus at, accumsan enim. Fusce pretium egestas cursus. Etiam consectetur, orci vel rutrum volutpat, odio odio pretium nisiodo tellus libero et urna. Sed commodo ipsum ligula, id volutpat risus vehicula in. Pellentesque non massa eu nibh posuere bibendum non sed enim. Maecenas lobortis nulla sem, vel egestas dui ullamcorper ac.
-<br /><br />
-Sed scelerisque lectus sit amet faucibus sodales. Proin ut risus tortor. Etiam fermentum tellus auctor, fringilla sapien et, congue quam. In a luctus tortor. Suspendisse eget tempor libero, ut sollicitudin ligula. Nulla vulputate tincidunt est non congue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus at est imperdiet, dapibus ipsum vel, lacinia nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus id interdum lectus, ut elementum elit. Nullam a molestie magna. Praesent eros turpis, commodo vel justo at, pulvinar mollis eros. Mauris aliquet eu quam id ornare. Morbi ac quam enim. Cras vitae nulla condimentum, semper dolor non, faucibus dolor. Vivamus adipiscing eros quis orci fringilla, sed pretium lectus viverra.
-                                        </p>
+                                        <?php if($local->local_desc != null){ ?>
+                                            <p>
+                                                <?php echo $local->local_desc; ?>
+                                            </p>
+                                        <?php }else{ ?>
+                                            <p>
+                                                 No hay descripción para mostrar
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 
                                 <div class="tab-pane fade" id="hotel-reviews">
                                     <div class="intro table-wrapper full-width hidden-table-sms">
                                         <div class="rating table-cell col-sm-12">
-                                            <span class="score">3.9/5.0</span>
-                                            <div class="five-stars-container"><div class="five-stars" style="width: 78%;"></div></div>
+                                            <span class="score"><?php echo $promedio; ?>/5.0</span>
+                                            <div class="five-stars-container"><div class="five-stars" style="width: <?php echo $calificacion; ?>%;"></div></div>
                                             <a href="#" class="goto-writereview-pane button green btn-small full-width">DA TU OPINION</a>
                                         </div>
                                         
                                     </div>
                                     <div class="guest-reviews">
                                         <h2>Opiniones</h2>
-                                        <div class="guest-review table-wrapper">
-                                            <div class="col-xs-3 col-md-2 author table-cell">
-                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
-                                                <p class="name">Jessica Brown</p>
-                                                <p class="date">NOV, 12, 2013</p>
-                                            </div>
-                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
-                                                <div class="comment-header clearfix">
-                                                    <h4 class="comment-title">We had great experience while our stay and Hilton Hotels!</h4>
-                                                    <div class="review-score">
-                                                        <div class="five-stars-container"><div class="five-stars" style="width: 80%;"></div></div>
-                                                        <span class="score">4.0/5.0</span>
+                                        
+                                        <?php if($reviews->num_rows() > 0 ){ foreach($reviews as $rev){ ?>
+                                            <div class="guest-review table-wrapper">
+                                                <div class="col-xs-3 col-md-2 author table-cell">
+                                                    <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
+                                                    <p class="name">Jessica Brown</p>
+                                                    <p class="date">NOV, 12, 2013</p>
+                                                </div>
+                                                <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                    <div class="comment-header clearfix">
+                                                        <h4 class="comment-title">We had great experience while our stay and Hilton Hotels!</h4>
+                                                        <div class="review-score">
+                                                            <div class="five-stars-container"><div class="five-stars" style="width: 80%;"></div></div>
+                                                            <span class="score">4.0/5.0</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
                                                     </div>
                                                 </div>
-                                                <div class="comment-content">
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="guest-review table-wrapper">
-                                            <div class="col-xs-3 col-md-2 author table-cell">
-                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
-                                                <p class="name">David Jhon</p>
-                                                <p class="date">NOV, 12, 2013</p>
-                                            </div>
-                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
-                                                <div class="comment-header clearfix">
-                                                    <h4 class="comment-title">I love the speediness of their services.</h4>
-                                                    <div class="review-score">
-                                                        <div class="five-stars-container"><div class="five-stars" style="width: 64%;"></div></div>
-                                                        <span class="score">3.2/5.0</span>
+                                        <?php  }}else{ ?>
+                                            <div class="guest-review table-wrapper">
+                                                <div class="col-xs-9 col-md-10 table-cell comment-container">
+                                                    
+                                                    <div class="comment-content">
+                                                        <p>No hay opiniones para mostrar</p>
                                                     </div>
                                                 </div>
-                                                <div class="comment-content">
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="guest-review table-wrapper">
-                                            <div class="col-xs-3 col-md-2 author table-cell">
-                                                <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
-                                                <p class="name">Kyle Martin</p>
-                                                <p class="date">NOV, 12, 2013</p>
-                                            </div>
-                                            <div class="col-xs-9 col-md-10 table-cell comment-container">
-                                                <div class="comment-header clearfix">
-                                                    <h4 class="comment-title">When you look outside from the windows its breath taking.</h4>
-                                                    <div class="review-score">
-                                                        <div class="five-stars-container"><div class="five-stars" style="width: 76%;"></div></div>
-                                                        <span class="score">3.8/5.0</span>
-                                                    </div>
-                                                </div>
-                                                <div class="comment-content">
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's stand dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <?php } ?>
+
+
                                     </div>
                                     <a href="#" class="button full-width btn-large">Ver más opiniones</a>
                                 </div>
@@ -220,133 +202,42 @@ Sed scelerisque lectus sit amet faucibus sodales. Proin ut risus tortor. Etiam f
                     <div class="sidebar col-md-3">
                         <article class="detailed-logo">
                             <figure>
-                                <img width="114" height="85" src="http://placehold.it/114x85" alt="">
+                                <img style="width:114px; height:85px;" src="<?php if($local->img_ruta != null){echo base_url('assets/images/profile/local'); echo "/"; echo $local->img_ruta;}else{ echo base_url("assets/images/logoYP.png");} ?>" alt="">
                             </figure>
                             <div class="details">
-                                <h2 class="box-title">Nombre Evento<small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space">nombre local</span></small></h2>
+                                <h2 class="box-title"><?php echo $local->local_nombre; ?><small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space"><?php echo $local->region_nombre; ?>, <?php echo $local->comu_nombre; ?></span></small></h2>
                                 <span class="price clearfix">
-                                    <span class="pull-right">$3.000</span>
                                 </span>
                                 <div class="feedback clearfix">
-                                    <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                                    <span class="review pull-right">270 reviews</span>
+                                    <div title="3 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: <?php echo $calificacion; ?>%;"></span></div>
+                                    <span class="review pull-right"><?php echo $reviews->num_rows();?> Reviews</span>
                                 </div>
-                                <a class="button yellow full-width uppercase btn-small">Comprar entrada</a>
+                                <a class="button yellow full-width uppercase btn-small">Contactar</a>
                             </div>
                         </article>
                         <div class="travelo-box">
-                            <h4>Otros eventos</h4>
+                            <h4>Eventos</h4>
                             <div class="image-box style14">
+                                <?php if($eventos->num_rows > 0){foreach($eventos as $eve){ ?>
+                                   
                                 <article class="box">
                                     <figure>
                                         <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
                                     </figure>
                                     <div class="details">
-                                        <h5 class="box-title"><a href="#">Plaza Tour Eiffel</a></h5>
+                                        <h5 class="box-title"><a href="#"><?php echo $eve->nombre; ?></a></h5>
                                         <label class="price-wrapper">
-                                            <span class="price-per-unit">$170</span>avg/night
+                                            <span class="price-per-unit"><?php echo $eve->eve_hora;?></span> <?php echo $eve->eve_fecha;?>
                                         </label>
                                     </div>
                                 </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Sultan Gardens</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$620</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
-                                <article class="box">
-                                    <figure>
-                                        <a href="#"><img src="http://placehold.it/63x59" alt="" /></a>
-                                    </figure>
-                                    <div class="details">
-                                        <h5 class="box-title"><a href="#">Park Central</a></h5>
-                                        <label class="price-wrapper">
-                                            <span class="price-per-unit">$322</span>avg/night
-                                        </label>
-                                    </div>
-                                </article>
+                                <?php  }}else{ ?>
+                                    <article class="box">
+                                        <div class="details">
+                                            <h5 class="box-title"><a href="#">No hay eventos registrados</a></h5>
+                                        </div>
+                                    </article>
+                                <?php } ?>
                             </div>
                         </div>
                         
@@ -355,4 +246,4 @@ Sed scelerisque lectus sit amet faucibus sodales. Proin ut risus tortor. Etiam f
             </div>
         </section>
 
-    
+        <?php } ?>

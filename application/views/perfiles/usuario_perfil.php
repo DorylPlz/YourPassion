@@ -469,10 +469,11 @@ function list(array_list)
                                                     <div class="col-sm-6 col-md-4">
                                                         <article class="box">
                                                             <figure>
-                                                                <a class="hover-effect" title="" href="<?php echo site_url('grupo/perfil_grupo?profile=');?><?php echo $mislocales['fk_id_local']; ?>&nombre=<?php echo $mislocales['local_nombre']; ?>"><img width="300" height="160" alt="" src="http://placehold.it/300x160"></a>
+                                                                <a class="hover-effect" title="" href="<?php echo site_url('local/perfil_local');?>/<?php echo $mislocales['fk_id_local']; ?>/<?php echo $mislocales['local_nombre']; ?>">
+                                                                <img width="300" height="160" alt="" src="http://placehold.it/300x160"></a>
                                                             </figure>
                                                             <div class="details">
-                                                                <a class="pull-right button uppercase" href="<?php echo $mislocales['fk_id_local']; ?>" title="View all">Ir</a>
+                                                                <a class="pull-right button uppercase" href="<?php echo site_url('local/perfil_local');echo"/"; echo $mislocales['fk_id_local']; ?>/<?php echo $mislocales['local_nombre']; ?>" title="View all">Ir</a>
                                                                 <h4 class="box-title"><?php echo $mislocales['local_nombre']; ?></h4>
                                                                 <label class="price-wrapper">
                                                                 </label>

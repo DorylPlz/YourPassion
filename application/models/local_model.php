@@ -49,7 +49,13 @@ class local_model extends CI_Model {
     public function getLocal($id)
     {
         
-        $result = $this->db->query("SELECT * FROM local WHERE id_local = ".$id."");
+        $result = $this->db->query("SELECT * 
+                                    FROM local loc
+                                    LEFT JOIN localizacion Dir ON loc.fk_id_localizacion = Dir.id_localizacion
+                                    LEFT JOIN comunas Com ON Dir.fk_id_comuna = Com.id_comuna
+                                    LEFT JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                                    LEFT JOIN galeria Gal ON loc.id_usu_img = CONCAT('C-', Gal.fk_id_usu_img) && Gal.img_tipo = 2
+                                    WHERE id_local = ".$id."");
 
         return $result->result();
 

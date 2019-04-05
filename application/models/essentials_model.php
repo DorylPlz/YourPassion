@@ -24,6 +24,37 @@ class essentials_model extends CI_Model {
 
     }
 
+    public function getReviews($id,$tipo)
+    {
+        if($tipo == 1){
+            $columna = 'fk_id_grupo';
+        }else if($tipo == 2){
+            $columna = 'fk_id_local';
+        }else if($tipo == 3){
+            $columna = 'fk_evento_id';
+        }
+        $result = $this->db->query("SELECT * FROM comentario WHERE ".$columna." = ".$id."");
+
+        return $result;
+
+    }
+    public function getReviewsSum($id,$tipo)
+    {
+        if($tipo == 1){
+            $columna = 'fk_id_grupo';
+        }else if($tipo == 2){
+            $columna = 'fk_id_local';
+        }else if($tipo == 3){
+            $columna = 'fk_evento_id';
+        }
+        //$result = $this->db->query("SELECT SUM(com_calificacion) FROM comentario WHERE ".$columna." = ".$id."");
+        $this->db->select_sum('com_calificacion');
+        $this->db->where(''.$columna.' = '.$id.'');
+        $result = $this->db->get('comentario')->row();
+        return $result->com_calificacion;
+
+    }
+
     public function n_genero($new_genero,$id_usu)
     {
         
@@ -102,6 +133,37 @@ class essentials_model extends CI_Model {
         }
 
         return $perm;
+
+    }
+
+    public function CheckAdm($usuId, $id, $tipo)
+    {
+
+        if($tipo == 1){
+            $tabla = 'usu_grupo';
+            $columna = 'fk_id_grupo';
+        }else if($tipo == 2){
+            $tabla = 'usu_local';
+            $columna = 'fk_id_local';
+        }else if($tipo == 3){
+            $tabla = 'prod_usu';
+            $columna = 'fk_id_prod';
+        }
+
+        if($usuId != null){
+            $result = $this->db->query("SELECT usu_nivel FROM ".$tabla." WHERE fk_id_usu = ".$usuId." && ".$columna." = ".$id." && entrada_estado = 1 && usu_nivel = 2");
+            if($result->num_rows() > 0 ){
+                return 'true';
+            }else{
+                return 'false';
+            }
+
+        }else{
+            return 'false';
+        }
+        
+
+        
 
     }
 

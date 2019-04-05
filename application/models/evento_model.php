@@ -16,6 +16,21 @@ class evento_model extends CI_Model {
         return $result;
 
     }
+
+    public function getEventosList($id,$tipo)
+    {
+        if($tipo == 1){
+            $columna = 'fk_grupo';
+        }else if($tipo == 2){
+            $columna = 'fk_local';
+        }else if($tipo == 3){
+            $columna = 'fk_productora';
+        }
+        $result = $this->db->query("SELECT * FROM evento WHERE eve_estado = 1 && '".$columna."' = '".$id."'");
+        
+        return $result;
+
+    }
     
 }
 ?>
