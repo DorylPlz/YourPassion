@@ -3,12 +3,11 @@
 class grupo extends CI_Controller {
 
 	
-	public function perfil_grupo()
+	public function perfil_grupo($id,$nombre)
 	{
 		$this->load->helper('form');
 		$this->load->model('group_model');
 		$this->load->model('essentials_model');
-		$id = $this->input->get('profile');
 		$usuId = $this->session->userdata('id_usu');
 		$idImg = 'B-'.$id.'';
 		$data['grupo'] = $this->group_model->getGrupo($id);

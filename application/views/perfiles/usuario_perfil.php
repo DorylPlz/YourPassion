@@ -440,12 +440,12 @@ function list(array_list)
                                                     <div class="col-sm-6 col-md-4">
                                                         <article class="box">
                                                             <figure>
-                                                                <a class="hover-effect" title="" href="<?php echo site_url('grupo/perfil_grupo?profile=');?><?php echo $misgrupos['fk_id_grupo']; ?>&nombre=<?php echo $misgrupos['gru_nombre']; ?>">
-                                                                <img style="width:300px; height:160px;position:relative;" src="<?php echo base_url('assets/images/profile'); ?>/<?php echo $misgrupos['img_ruta'];?>" alt=""></a>
+                                                                <a class="hover-effect" title="" href="<?php echo site_url('grupo/perfil_grupo');echo "/";?><?php echo $misgrupos['fk_id_grupo']; ?>/<?php echo $misgrupos['gru_nombre']; ?>">
+                                                                <img style="width:300px; height:160px;position:relative;" src="<?php if($misgrupos['img_ruta'] != null){ echo base_url('assets/images/profile'); ?>/<?php echo $misgrupos['img_ruta'];}else{echo base_url('assets/images/logoYP.png');}?>" alt=""></a>
                                                                 
                                                             </figure>
                                                             <div class="details">
-                                                                <a class="pull-right button uppercase" href="<?php echo site_url('grupo/perfil_grupo?profile=');?><?php echo $misgrupos['fk_id_grupo']; ?>&nombre=<?php echo $misgrupos['gru_nombre']; ?>" title="View all">Ir</a>
+                                                                <a class="pull-right button uppercase" href="<?php echo site_url('grupo/perfil_grupo');echo "/";?><?php echo $misgrupos['fk_id_grupo']; ?>/<?php echo $misgrupos['gru_nombre']; ?>" title="View all">Ir</a>
                                                                 <h4 class="box-title"><?php echo $misgrupos['gru_nombre']; ?></h4>
                                                                 <label class="price-wrapper">
                                                                     <?php echo $misgrupos['gen_nombre']; ?><br/><?php echo $misgrupos['tipo_nombre']; ?>
@@ -470,7 +470,8 @@ function list(array_list)
                                                         <article class="box">
                                                             <figure>
                                                                 <a class="hover-effect" title="" href="<?php echo site_url('local/perfil_local');?>/<?php echo $mislocales['fk_id_local']; ?>/<?php echo $mislocales['local_nombre']; ?>">
-                                                                <img width="300" height="160" alt="" src="http://placehold.it/300x160"></a>
+                                                                <img style="width:300px; height:160px;position:relative;" src="<?php if($mislocales['img_ruta'] != null){echo base_url('assets/images/profile'); ?>/<?php echo $mislocales['img_ruta'];}else{echo base_url('assets/images/logoYP.png');}?>" alt=""></a>
+                                                                
                                                             </figure>
                                                             <div class="details">
                                                                 <a class="pull-right button uppercase" href="<?php echo site_url('local/perfil_local');echo"/"; echo $mislocales['fk_id_local']; ?>/<?php echo $mislocales['local_nombre']; ?>" title="View all">Ir</a>
