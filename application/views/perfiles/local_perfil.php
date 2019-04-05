@@ -104,7 +104,7 @@ We suggest that you contact the host to confirm availability and rates before su
                                         
                                     </div>
                                     <div class="long-description">
-                                        <h2>Descripción del Evento</h2>
+                                        <h2>Descripción del Local</h2>
                                         <?php if($local->local_desc != null){ ?>
                                             <p>
                                                 <?php echo $local->local_desc; ?>
