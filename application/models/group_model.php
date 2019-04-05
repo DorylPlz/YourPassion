@@ -28,7 +28,7 @@ class group_model extends CI_Model {
     public function getPublicaciones($id)
     {
         
-        $result = $this->db->query("SELECT * FROM publicación WHERE fk_id_grupo = '".$id."'");
+        $result = $this->db->query("SELECT * FROM publicación WHERE fk_id_grupo = '".$id."' ORDER BY id_entrada DESC");
 
         return $result->result_array();
 
@@ -97,7 +97,18 @@ class group_model extends CI_Model {
         return $result;
 
     }
+    public function grupoNombre($id)
+    {
+        
+        $get_id = $this->db->query("SELECT gru_nombre FROM grupo WHERE id_grupo = ".$id." LIMIT 1");
+        foreach($get_id->result() as $id_array) {
+            $nombre = $id_array->gru_nombre;
+            
+        }
 
+        return $nombre;
+
+    }
     public function new_group($n_group)
     {
         

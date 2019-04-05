@@ -21,7 +21,7 @@
                                 <li><a data-toggle="tab" href="#map-tab">Lugar</a></li>
                                 <li><a data-toggle="tab" href="#calendar-tab">Calendario</a></li>
                                 <?php if($CheckAdm == 'true'){?>
-                                    <li><a href="<?php echo site_url('grupo/mod_grupo?profile=');?>">Modificar perfil</a></li>
+                                    <li><a href="<?php echo site_url('local/mod_local');echo"/"; echo $local->id_local; echo"/"; echo $local->local_nombre;?>">Modificar perfil</a></li>
                                 <?php } ?>
                             </ul>
                             <div class="tab-content">

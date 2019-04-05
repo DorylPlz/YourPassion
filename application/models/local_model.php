@@ -71,5 +71,16 @@ class local_model extends CI_Model {
 
     }
 
+
+    public function nuevaDesc($id, $desc)
+    {
+        try{
+            $result = $this->db->query("UPDATE local SET local_desc = '".$desc."' WHERE id_local = '".$id."' LIMIT 1");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
 }
 ?>

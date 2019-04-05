@@ -3,25 +3,33 @@
 class grupo extends CI_Controller {
 
 	
-	public function perfil_grupo($id,$nombre)
+	public function perfil_grupo($id="",$nombre="")
 	{
-		$this->load->helper('form');
-		$this->load->model('group_model');
-		$this->load->model('essentials_model');
-		$usuId = $this->session->userdata('id_usu');
-		$idImg = 'B-'.$id.'';
-		$data['grupo'] = $this->group_model->getGrupo($id);
-		$data['publicaciones'] = $this->group_model->getPublicaciones($id);
-		$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
+		if($id != null){
+            if($nombre != null){
 
-		$data['galeria'] = $this->essentials_model->getGaleria($idImg);
-		//$data['nintegrantes'] = $this->group_model->getnIntegrantes($id);
-		$data['integrantes'] = $this->group_model->getintegrantes($id);
+				$this->load->helper('form');
+				$this->load->model('group_model');
+				$this->load->model('essentials_model');
+				$usuId = $this->session->userdata('id_usu');
+				$idImg = 'B-'.$id.'';
+				$data['grupo'] = $this->group_model->getGrupo($id);
+				$data['publicaciones'] = $this->group_model->getPublicaciones($id);
+				$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
 
-		$data['imgPerfil'] = $this->essentials_model->getImgPerfil($idImg);
-		$this->load->view('header');
-		$this->load->view('perfiles/grupo_perfil',$data);
-		$this->load->view('footer');
+				$data['galeria'] = $this->essentials_model->getGaleria($idImg);
+				$data['integrantes'] = $this->group_model->getintegrantes($id);
+
+				$data['imgPerfil'] = $this->essentials_model->getImgPerfil($idImg);
+				$this->load->view('header');
+				$this->load->view('perfiles/grupo_perfil',$data);
+				$this->load->view('footer');
+			}else{
+                header('Location: ' . base_url(""));
+            }
+        }else{
+            header('Location: ' . base_url(""));
+        }
 	}
 
 	public function mod_grupo()
@@ -32,6 +40,7 @@ class grupo extends CI_Controller {
 		$id = $this->input->get('profile');
 		$usuId = $this->session->userdata('id_usu');
 		$idImg = 'B-'.$id.'';
+		$nombre = $this->group_model->grupoNombre($id);
 		$data['grupo'] = $this->group_model->getGrupo($id);
 		$check = $this->group_model->CheckAdm($usuId, $id);
 		$data['tipogrupo'] = $this->group_model->getTipo();
@@ -46,7 +55,7 @@ class grupo extends CI_Controller {
 			$this->load->view('footer');
 
 		}else{
-			header("Location: " . site_url("grupo/perfil_grupo?profile=$id"));
+			header("Location: " . site_url("grupo/perfil_grupo/$id/$nombre"));
 		}
 
 	}
@@ -59,7 +68,7 @@ class grupo extends CI_Controller {
 		$time = get_date_hour_s();
 		$gruId = $this->input->post('grupo');
 		$idUsu = $this->session->userdata('id_usu');
-		
+		$nombre = $this->group_model->grupoNombre($gruId);
 		$check = $this->group_model->CheckAdm($idUsu, $gruId);
 
 		if($check != 'false'){
@@ -82,7 +91,7 @@ class grupo extends CI_Controller {
 					if($this->upload->do_upload('multipleFiles')){
 						$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$gruId."_".$time."_".$i.".jpg' , 1 , 'B-".$gruId."')");
 					}
-					header("Location: " . site_url("grupo/perfil_grupo?profile=$gruId"));
+					header("Location: " . site_url("grupo/perfil_grupo/$gruId/$nombre"));
 				}
 			}else{
 				echo 'error';
@@ -103,7 +112,7 @@ class grupo extends CI_Controller {
 		$usuId = $this->session->userdata('id_usu');
 
 		$CheckAdm = $this->group_model->CheckAdm($usuId, $grupo);
-
+		$nombre = $this->group_model->grupoNombre($grupo);
 		if($CheckAdm == 'true'){
 			$publicacion = array(
 				'Titulo' => $titulo,
@@ -114,13 +123,13 @@ class grupo extends CI_Controller {
 
 			$ingreso = $this->group_model->npublicacion($publicacion);
 			if($ingreso == 'true'){
-				header("Location: " . site_url("grupo/perfil_grupo?profile=$grupo"));
+				header("Location: " . site_url("grupo/perfil_grupo/$grupo/$nombre"));
 			}else{
-				header("Location: " . site_url('grupo/perfil_grupo?profile='));
+				header("Location: " . site_url('grupo/perfil_grupo'));
 			}
 			
 		}else{
-			header("Location: " . site_url('grupo/perfil_grupo?profile='));
+			header("Location: " . site_url('grupo/perfil_grupo'));
 		}
 	}
 
@@ -255,6 +264,7 @@ class grupo extends CI_Controller {
 			$config['overwrite'] = TRUE;
 			$this->load->library('upload',$config);
 			if($this->upload->do_upload('image')){
+				$this->db->query("UPDATE galeria SET img_tipo = 1 WHERE fk_id_usu_img = 'B-".$id."' LIMIT 1");
 				$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$id."_".$time.".jpg' , 2 , 'B-".$id."')");
 				header("Location: mod_grupo?profile=".$id."");
 			}else{
