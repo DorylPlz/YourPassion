@@ -167,7 +167,16 @@ $("#genero").change(function() {
                                                         <select class="full-width" name="comuna" id="child_selection">
                                                         </select>
                                                     </div>
-                                                   
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Calle</label>
+                                                        <input type="text" class="input-text full-width" name="calle_local" placeholder="<?php echo $dataLocal->loc_calle; ?>">
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Numero</label>
+                                                        <input type="number" class="input-text full-width" name="n_calle" placeholder="<?php echo $dataLocal->loc_numero; ?>">
+                                                    </div>
                                                 </div> 
                                             
                                                 <hr>

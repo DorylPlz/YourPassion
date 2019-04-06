@@ -31,6 +31,8 @@ class localAjax extends CI_Controller {
 		$idlocal = $this->input->post('local');
 		$nombre = $this->input->post('nombre_local');
 		$comuna = $this->input->post('comuna');
+		$calle = $this->input->post('calle_local');
+		$numDir = $this->input->post('n_calle');
 		$email = $this->input->post('email_local');
 		$numero = $this->input->post('n_local');
 		$usuId = $this->session->userdata('id_usu');
@@ -42,13 +44,13 @@ class localAjax extends CI_Controller {
 				$this->local_model->Modificar($idlocal, 'local_nombre', $nombre);
 			}
 
-			
+
 			if($comuna){
+
 				$direccion = array(
-					'loc_calle' => '',
-					'loc_numero' => '',
-					'loc_cod_postal' => '',
-					'fk_id_comuna' => $comuna
+					'fk_id_comuna' => $comuna,
+					'loc_calle' => $calle,
+					'loc_numero' => $numDir
 				);
 		
 				$id_localizacion = $this->essentials_model->n_ubicacion($direccion);
