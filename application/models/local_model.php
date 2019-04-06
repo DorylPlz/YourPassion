@@ -82,5 +82,16 @@ class local_model extends CI_Model {
         }
 
     }
+
+    public function Modificar($id, $columna, $data)
+    {
+        try{
+            $this->db->query("UPDATE `local` SET ".$columna." = '".$data."' WHERE `id_local` = '".$id."'");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
 }
 ?>
