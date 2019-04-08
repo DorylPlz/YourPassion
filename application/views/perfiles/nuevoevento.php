@@ -66,97 +66,77 @@ $("#genero").change(function() {
 </script>
 
 
-<?php foreach($grupo->result_array() as $dataGrupo){ ?>
-
         <section id="content">
             <div class="container">
                 <div id="main">
                     <div class="row">
                         <div class="col-sm-4 col-md-3">
-                            
-                        
-                            <article class="detailed-logo">
+                        <article class="detailed-logo">
                                 <figure>
-                                <?php if($imgPerfil != null){ foreach($imgPerfil as $img){?>
-                                        <img style="width:114px; height:85px; position:relative;" src="<?php echo base_url('assets/images/profile'); ?>/<?php echo $img['img_ruta'];?>" alt="">
-                                    <?php }}else{ ?>
                                         <img style="width:114px; height:85px; position:relative;" src="<?php echo base_url('assets/images/'); ?>/logoYP.png" alt="">
-                                    <?php } ?>
+                                   
                                 </figure>
                                 <div class="details">
-                                    <h2 class="box-title"><?php echo $dataGrupo['gru_nombre']; ?><small><i class="soap-icon-departure yellow-color"></i><span class="fourty-space"><?php echo $dataGrupo['comu_nombre']; ?>, <?php echo $dataGrupo['region_nombre']; ?></span></small></h2>
-                                    <!--<span class="price clearfix">
-                                        <span class="pull-right">5</span>
-                                    </span>-->
 
                                         <form method="POST" action="<?=site_url("grupo/cambio_img")?>" enctype="multipart/form-data">
-                                              <input type="hidden" class="form-control" name="grupo" id="grupo" value="<?php echo $dataGrupo['id_grupo']; ?>">
+                                             <br/>
+                                            <a  class="button yellow full-width uppercase btn-small">Imagen de perfil de evento</a>
+                                         <hr/>
+                                             
                                             <div class="col-md-12" data-for="message">
                                                 <input type="file" name="image" id="image"><br/>
                                             </div>
+                                            <br/>
                                             
-                                            <button href="" value="upload" type="submit" class="button yellow full-width uppercase btn-small">Cambiar imagen de perfil</button>
-                                         
-                                        </form>
                                 </div>
                             </article>
                         
                         
                         
                         
-                        
+<!--                         
                             <div class="travelo-box contact-us-box">
                                 
                                     <ul class="contact-address">
                                         <li class="address">
                                             <i class="soap-icon-address circle"></i>
                                             <h5 class="title">Detalles</h5>
-                                            <p><label>Formación:</label><?php echo $dataGrupo['gru_formacion']; ?></p>
-                                            <p><label>Tipo:</label><?php echo $dataGrupo['tipo_nombre']; ?></p>
-                                            <p><label>Estilo:</label><?php echo $dataGrupo['gen_nombre']; ?></p>
+                                            <p><label>Formación:</label><?php ?></p>
+                                            <p><label>Tipo:</label><?php ?></p>
+                                            <p><label>Estilo:</label><?php ?></p>
                                         </li>
                                     </ul>
                                
-                            </div>
+                            </div> -->
+
 
                         </div>
                         
                         <div class="col-sm-8 col-md-9">
-                            <div class="travelo-box">
-                                    <h4 class="box-title">Modificar descripción</h4>
-                                    <div class="alert small-box" style="display: none;"></div>
-                                    <div class="form-group">
-                                        <label>Descripción</label>
-                                        <textarea id="desc" rows="6" class="input-text full-width" placeholder="Descripción"></textarea>
-                                    </div>
-                                    <button type="submit" onclick="NuevaDesc(<?php echo $dataGrupo['id_grupo']; ?>)" class="btn-medium uppercase">Modificar</button>
-                            </div>
+
 
                             <div class="col-sm-13 col-md-13">
                             <div class="travelo-box">
                             <div id="home" class="tab-pane fade in active">
-                                    <h2>Modificación de grupo: <?php echo $dataGrupo['gru_nombre']; ?></h2>
+                                    <h2>Modificación de grupo: <?php ?></h2>
                                             <h5 class="skin-color">Información básica</h5>
-                                            <form method="post" action="<?php echo site_url('grupoAjax/Modificar'); ?>">
-                                                <input type="hidden" value="<?php echo $this->session->userdata('id_usu2');?>" name="key" />
-                                                <input type="hidden" value="<?php echo $this->session->userdata('email');?>" name="key2" />
-                                                <input type="hidden" value="<?php echo $dataGrupo['id_grupo']; ?>" name="grupo" />
+                                            
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Nombre</label>
-                                                        <input type="text" name="nombre_grupo" class="input-text full-width" placeholder="<?php echo $dataGrupo['gru_nombre']; ?>">
+                                                        <input type="text" name="nombre_eve" class="input-text full-width" placeholder="<?php ?>">
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <div class="form-group">
-                                                            <label>Fecha de Formación</label>
-                                                            <input type="date" name="fformacion" class="input-text full-width form-control" placeholder="Día-Mes-Año"/>
+                                                            <label>Fecha a Realizar</label>
+                                                            <input type="date" name="frealizar" class="input-text full-width form-control" placeholder="Día-Mes-Año"/>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Tipo</label>
-                                                        <select class="full-width" name="tipo_grupo">
+                                                        <select class="full-width" name="tipo_eve">
                                                             <option value="">--Seleccionar--</option>
                                                             <?php foreach ($tipogrupo->result_array() as $tipo){?>
                                                                     <option value="<?php echo $tipo['id_tipo']; ?>"><?php echo $tipo['tipo_nombre']; ?></option>
@@ -167,7 +147,7 @@ $("#genero").change(function() {
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Genero</label>
-                                                        <select class="full-width" name="genero_grupo" id="genero">
+                                                        <select class="full-width" name="genero_eve" id="genero">
                                                                     <option value="">--Seleccionar--</option>
                                                                     <option value="0">Mi genero no aparece</option>
                                                                     <?php foreach ($generosgrupo->result_array() as $genero){?>
@@ -203,23 +183,51 @@ $("#genero").change(function() {
                                                    
                                                 </div> 
                                             
+                                                <div class="row form-group">
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Calle</label>
+                                                        <input type="text" class="input-text full-width" name="calle_eve" placeholder="<?php ?>">
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Numero Local</label>
+                                                        <input type="number" class="input-text full-width" name="nDir" placeholder="<?php ?>">
+                                                    </div>
+                                                </div>
                                                 <hr>
                                                 <h5 class="skin-color">Contacto</h5>
                                             
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                                        <label>Email de contacto del grupo</label>
-                                                        <input type="email" class="input-text full-width" name="email_grupo" placeholder="<?php echo $dataGrupo['gru_email']; ?>">
+                                                        <label>Email de contacto</label>
+                                                        <input type="email" class="input-text full-width" name="email_eve" placeholder="<?php ?>">
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Numero de contacto</label>
-                                                        <input type="number" class="input-text full-width" name="n_grupo" placeholder="<?php echo $dataGrupo['gru_tel']; ?>">
+                                                        <input type="number" class="input-text full-width" name="num_eve" placeholder="<?php ?>">
                                                     </div>
-                                                </div>
+                                                </div><hr/>
+
+                                                <h5 class="skin-color">Descripción</h5>
                                             
+                                                <div class="row form-group">
+
+                                                    <div class="col-xs-12 col-sm-6 col-md-8">
+                                                        <div class="alert small-box" style="display: none;"></div>
+                                                        <div class="form-group">
+                                                            <label>Descripción</label>
+                                                            <textarea name="desc" rows="6" class="input-text full-width" placeholder="Descripción"></textarea>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+
                                             
                                                 <hr>
-                                                <button type="submit" class="btn-medium uppercase">Modificar</button>
+                                                
+                                                <button type="submit" value="upload" class="btn-medium uppercase">Crear</button>
                                             </form>
                                   </div>
                             </div>
@@ -337,5 +345,3 @@ $("#genero").change(function() {
     }
        </script>
 
-
-<?php } ?>
