@@ -17,6 +17,26 @@ class productora_model extends CI_Model {
         }
         return $id;
     }
+
+    public function getProdUsu($emaildecrypt)
+    {
+        $get_id = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_mail = '".$emaildecrypt."' LIMIT 1");
+        foreach($get_id->result() as $id_array) {
+            $id = $id_array->id_usu;
+        }
+
+
+        $result = $this->db->query("SELECT produsu.fk_id_prod, produsu.usu_nivel, Prod.id_productora, Prod.prod_nombre
+                FROM prod_usu produsu
+                INNER JOIN productora Prod ON Prod.id_productora = produsu.fk_id_prod
+                WHERE produsu.fk_id_usu =  '" . $id . "'");
+        if($result->num_rows > 0){
+            return $result;
+        }else{
+            return null;
+        }
+    }
+
     public function getProductoras()
     {
         
