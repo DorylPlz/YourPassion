@@ -91,6 +91,9 @@
                             <?php if($this->session->userdata('nivel') == true){?>
                                 <li><a href="<?=site_url("administracion/perfil_adm")?>">Administración</a></li>
                             <?php } ?>
+                            <?php if($this->session->userdata('login') == true){?>
+                                <li><a href="<?=site_url("evento/nuevoEvento")?>">Organizar Evento</a></li>
+                            <?php } ?>
                         </ul>
                         <ul class="quick-menu pull-right">
                             <li><a href="<?=site_url("usr/logOut")?>">Cerrar sesión</a></li>
@@ -185,6 +188,9 @@
                         <li><a href="<?=site_url("profile/perfil_usuario?up=")?><?php echo $this->session->userdata('email'); ?>">Mi cuenta</a></li>
                         <?php if($this->session->userdata('nivel') == true){?>
                             <li><a href="<?=site_url("administracion/perfil_adm")?>">Administración</a></li>
+                            <?php } ?>
+                            <?php if($this->session->userdata('login') == true){?>
+                                <li><a href="<?=site_url("evento/nuevoEvento")?>">Organizar Evento</a></li>
                             <?php } ?>
                         <li><a href="<?=site_url("usr/logOut")?>">Cerrar sesión</a></li>
                     </ul>
