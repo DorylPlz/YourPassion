@@ -207,6 +207,7 @@ $("#genero").change(function() {
                                                     </div>
                                                 </div><hr/>
 
+
                                                 <h5 class="skin-color">Descripción</h5>
                                             
                                                 <div class="row form-group">
@@ -220,8 +221,21 @@ $("#genero").change(function() {
                                                     </div>
 
 
-                                                </div>
+                                                </div><hr/>
+                                                
+                                                <h5 class="skin-color">Precio</h5>
+                                            
+                                                <div class="row form-group">
 
+                                                 <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Precio</label>
+                                                        <input type="number" class="input-text full-width" name="precio" placeholder="0"> <br/>
+                                                    <p>Si es gratis, dejar en 0</p>
+
+                                                    </div>
+
+
+                                                </div>
 
 
                                             
