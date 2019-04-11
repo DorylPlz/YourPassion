@@ -13,6 +13,7 @@ class productora_model extends CI_Model {
         $id_prod = $get_id = $this->db->query("SELECT id_productora FROM productora ORDER BY id_productora DESC LIMIT 1");
         foreach($get_id->result() as $id_array) {
             $id = $id_array->id_productora;
+            $this->db->query("UPDATE productora SET id_usu_img = 'D-".$id."' WHERE id_productora = '".$id."' LIMIT 1");
             $this->db->query("INSERT INTO prod_usu(fk_id_usu, fk_id_prod, prod_nivel) VALUES (".$id_usu.",".$id.",2)");
         }
         return $id;
@@ -26,7 +27,7 @@ class productora_model extends CI_Model {
         }
 
 
-        $result = $this->db->query("SELECT produsu.fk_id_prod, produsu.usu_nivel, Prod.id_productora, Prod.prod_nombre
+        $result = $this->db->query("SELECT produsu.fk_id_prod, produsu.usu_nivel, Prod.id_productora, Prod.prod_nombre, Prod.id_usu_img
                 FROM prod_usu produsu
                 INNER JOIN productora Prod ON Prod.id_productora = produsu.fk_id_prod
                 WHERE produsu.fk_id_usu =  '" . $id . "'");

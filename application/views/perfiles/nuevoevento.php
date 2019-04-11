@@ -78,7 +78,7 @@ $("#genero").change(function() {
                                 </figure>
                                 <div class="details">
 
-                                        <form method="POST" action="<?=site_url("grupo/cambio_img")?>" enctype="multipart/form-data">
+                                        <form method="POST" action="<?=site_url("evento/nuevo_evento")?>" enctype="multipart/form-data">
                                              <br/>
                                             <a  class="button yellow full-width uppercase btn-small">Imagen de perfil de evento</a>
                                          <hr/>
@@ -124,12 +124,12 @@ $("#genero").change(function() {
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Nombre</label>
-                                                        <input type="text" name="nombre_eve" class="input-text full-width" placeholder="<?php ?>">
+                                                        <input type="text" name="nombre_eve" class="input-text full-width" placeholder="<?php ?>" required>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <div class="form-group">
                                                             <label>Fecha a Realizar</label>
-                                                            <input type="date" name="frealizar" class="input-text full-width form-control" placeholder="Día-Mes-Año"/>
+                                                            <input type="date" name="frealizar" class="input-text full-width form-control" placeholder="Día-Mes-Año" required/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -142,6 +142,12 @@ $("#genero").change(function() {
                                                                     <option value="<?php echo $tipo['id_tipo']; ?>"><?php echo $tipo['tipo_nombre']; ?></option>
                                                             <?php } ?>
                                                         </select>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Hora</label>
+                                                            <input type="time" name="Hrealizar" class="input-text full-width form-control" placeholder="Día-Mes-Año" required/>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row form-group">
@@ -177,7 +183,7 @@ $("#genero").change(function() {
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Comuna</label>
 
-                                                        <select class="full-width" name="comuna" id="child_selection">
+                                                        <select class="full-width" name="comuna" id="child_selection" required>
                                                         </select>
                                                     </div>
                                                    
@@ -186,11 +192,11 @@ $("#genero").change(function() {
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Calle</label>
-                                                        <input type="text" class="input-text full-width" name="calle_eve" placeholder="<?php ?>">
+                                                        <input type="text" class="input-text full-width" name="calle_eve" placeholder="<?php ?>" required>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Numero Local</label>
-                                                        <input type="number" class="input-text full-width" name="nDir" placeholder="<?php ?>">
+                                                        <input type="number" class="input-text full-width" name="nDir" placeholder="<?php ?>" >
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -199,11 +205,11 @@ $("#genero").change(function() {
                                                 <div class="row form-group">
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Email de contacto</label>
-                                                        <input type="email" class="input-text full-width" name="email_eve" placeholder="<?php ?>">
+                                                        <input type="email" class="input-text full-width" name="email_eve" placeholder="<?php ?>" required>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                                         <label>Numero de contacto</label>
-                                                        <input type="number" class="input-text full-width" name="num_eve" placeholder="<?php ?>">
+                                                        <input type="number" class="input-text full-width" name="num_eve" placeholder="<?php ?>" required>
                                                     </div>
                                                 </div><hr/>
 
@@ -223,7 +229,7 @@ $("#genero").change(function() {
 
                                                 </div><hr/>
                                                 
-                                                <h5 class="skin-color">Precio</h5>
+                                                <h5 class="skin-color">Publicación</h5>
                                             
                                                 <div class="row form-group">
 
@@ -233,7 +239,22 @@ $("#genero").change(function() {
                                                     <p>Si es gratis, dejar en 0</p>
 
                                                     </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                                        <label>Publicar como:</label>
+                                                        <select class="full-width" name="publicacion" id="parent_selection" required>
+                                                            <option value="0">Anonimo</option>
+                                                            <?php foreach ($getGruposUsu->result_array() as $g){?>
+                                                               <option value="<?php echo $g['id_usu_img']; ?>">Grupo: <?php echo $g['gru_nombre']; ?></option>
+                                                            <?php } ?>
+                                                            <?php foreach ($getLocalesUsu->result_array() as $l){?>
+                                                               <option value="<?php echo $l['id_usu_img']; ?>">Local: <?php echo $l['local_nombre']; ?></option>
+                                                            <?php } ?>
+                                                            <?php foreach ($getProdUsu->result_array() as $p){?>
+                                                               <option value="<?php echo $p['id_usu_img']; ?>">Productora: <?php echo $p['prod_nombre']; ?></option>
+                                                            <?php } ?>
+                                                        </select>
 
+                                                    </div>
 
                                                 </div>
 

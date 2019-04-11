@@ -31,6 +31,18 @@ class evento_model extends CI_Model {
         return $result;
 
     }
+    public function new_evento($n_eve)
+    {
+        $this->db->insert('evento',$n_eve);
+        $get_id = $this->db->query("SELECT id_evento FROM evento ORDER BY id_evento DESC LIMIT 1");
+        foreach($get_id->result() as $id_array) {
+            $id = $id_array->id_evento;
+            $this->db->query("UPDATE evento SET id_usu_img = 'E-".$id."' WHERE id_evento = '".$id."' LIMIT 1");
+        }
+
+        return $id;
+
+    }
     
 }
 ?>
