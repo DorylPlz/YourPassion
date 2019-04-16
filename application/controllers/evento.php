@@ -60,6 +60,8 @@ class evento extends CI_Controller {
 		$precio = $this->input->post('precio');  
 		$publicacion = $this->input->post('publicacion');  
 
+		$this->load->helper('date_helper');
+		$time = get_date_hour();
 		$id_usu = $this->enc_model->decdata($this->session->userdata('id_usu2'));
 
 		if($genero_eve == 0){
@@ -101,8 +103,29 @@ class evento extends CI_Controller {
 			);
 
 			$id_evento = $this->evento_model->new_evento($n_eve);
-			//$this->group_model->adm_grupo($id_grupo,$id_usu);
 
+			$val_eve = array(
+				'val_costo' => $precio,
+				'val_fecha' => $frealizar,
+				'fk_id_evento' => $id_evento,
+				'fk_id_usu' => $publicacion
+	
+				);
+
+			$addprecio = $this->evento_model->valor_evento($val_eve);
+
+
+			$config['allowed_types'] = 'jpg';
+			$config['upload_path'] = './assets/images/evento/';
+			$config['file_name'] = ''.$id_evento.'_'.$time.'.jpg';
+			$config['remove_spaces'] = TRUE;
+			$config['overwrite'] = TRUE;
+			$this->load->library('upload',$config);
+			if($this->upload->do_upload('image')){
+				$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$id_evento."_".$time.".jpg' , 2 , 'E-".$id_evento."')");
+			}else{
+				echo 1;
+			}
 		print_r($n_eve);
 
 

@@ -43,6 +43,17 @@ class evento_model extends CI_Model {
         return $id;
 
     }
+    public function valor_evento($val_eve)
+    {
+        try{
+            $insert = $this->db->insert('valor',$val_eve);
+
+            return 1;
+
+        }catch(Exception $e){
+            return 0;
+        }
+    }
     
 }
 ?>
