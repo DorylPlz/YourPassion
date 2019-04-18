@@ -206,8 +206,65 @@ class evento extends CI_Controller {
 
 
 	}
+	public function mod_eve()
+	{
+		$this->load->helper('form');
+		$this->load->model('evento_model');
+		$this->load->model('group_model');
+		$this->load->model('essentials_model');
+		$ideve = $this->input->get('profile');
+		$usuId = $this->session->userdata('id_usu');
+		$idImg = 'E-'.$ideve.'';
+		$nombre = $this->evento_model->getNombre($ideve);
+		$data['evento'] = $this->evento_model->getEvento($ideve);
+		$check = $this->evento_model->CheckAdm($usuId, $ideve);
+		$data['tipogrupo'] = $this->group_model->getTipo();
+		$data['generosgrupo'] = $this->group_model->getGeneros();
+		$data['regiones'] = $this->essentials_model->getRegion();
+		$data['comunas'] = $this->essentials_model->getComuna();
+		$data['imgPerfil'] = $this->essentials_model->getImgPerfil($idImg);
+		if($check != 0){
+	
+			$this->load->view('header');
+			$this->load->view('perfiles/modEve',$data);
+			$this->load->view('footer');
 
+		}else{
+			header("Location: " . site_url("evento/Perfil/$ideve/$nombre"));
+		}
 
+	}
+
+	public function cambio_img(){
+		$this->load->database();
+		$this->load->model('evento_model');
+		$id = $this->input->post('ideve');
+		$nombre = $this->evento_model->getNombre($id);
+		$idUsu = $this->session->userdata('id_usu');
+		$this->load->helper('date_helper');
+		$time = get_date_hour();
+		$check = $this->evento_model->CheckAdm($idUsu, $id);
+
+		if($check != 'false'){
+			$config['allowed_types'] = 'jpg';
+			$config['upload_path'] = './assets/images/evento/';
+			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
+			$config['remove_spaces'] = TRUE;
+			$config['overwrite'] = TRUE;
+			$this->load->library('upload',$config);
+			if($this->upload->do_upload('image')){
+				$this->db->query("UPDATE galeria SET img_tipo = 1 WHERE fk_id_usu_img = 'E-".$id."' LIMIT 1");
+				$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$id."_".$time.".jpg' , 2 , 'E-".$id."')");
+				header("Location: mod_eve?profile=".$id."");
+			}else{
+				echo 1;
+			}
+		}else{
+			header("Location: Perfil/$id/$nombre");
+		}
+		
+		//header("Location: modificar_Perfil?nick=$nick&profile=$id");
+	}
 	
 
 }

@@ -111,6 +111,27 @@ class evento_model extends CI_Model {
             return 0;
         }
     }
+
+    public function modPrecio($id,$val_eve)
+    {
+        try{
+            $this->db->query("UPDATE `valor` SET val_costo = '".$val_eve."' WHERE `fk_id_evento` = '".$id."'");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
+
+    public function Modificar($id, $columna, $data)
+    {
+        try{
+            $this->db->query("UPDATE `evento` SET ".$columna." = '".$data."' WHERE `id_evento` = '".$id."'");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
     
 }
 ?>
