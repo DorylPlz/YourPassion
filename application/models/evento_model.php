@@ -42,7 +42,14 @@ class evento_model extends CI_Model {
         return $nombre;
 
     }
+    public function eveUsu($id)
+    {
+        
+        $result = $this->db->query("SELECT * FROM evento WHERE fk_id_adm = '".$id."' && eve_estado = 1");
 
+        return $result;
+
+    }
     public function getEvento($id)
     {
         

@@ -10,12 +10,14 @@ class grupo extends CI_Controller {
 
 				$this->load->helper('form');
 				$this->load->model('group_model');
+				$this->load->model('evento_model');
 				$this->load->model('essentials_model');
 				$usuId = $this->session->userdata('id_usu');
 				$idImg = 'B-'.$id.'';
 				$data['grupo'] = $this->group_model->getGrupo($id);
 				$data['publicaciones'] = $this->group_model->getPublicaciones($id);
 				$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
+				$data['eveUsu'] = $this->evento_model->eveUsu($usuId);
 
 				$data['galeria'] = $this->essentials_model->getGaleria($idImg);
 				$data['integrantes'] = $this->group_model->getintegrantes($id);

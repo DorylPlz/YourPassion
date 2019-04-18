@@ -527,7 +527,7 @@
                                     <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
                                     <span class="review pull-right">270 reviews</span>
                                 </div>
-                                <a class="button yellow full-width uppercase btn-small">Contactar</a>
+                                <button class="button yellow full-width uppercase btn-small">Contactar</button>
                             </div>
                         </article>
                         <div class="travelo-box">
