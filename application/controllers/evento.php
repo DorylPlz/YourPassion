@@ -38,6 +38,76 @@ class evento extends CI_Controller {
 
 	}
 
+
+
+	public function Perfil($id="",$nombre="")
+	{
+		if($id != null){
+            if($nombre != null){
+
+				$this->load->helper('form');
+				$this->load->model('evento_model');
+				$this->load->model('essentials_model');
+				$usuId = $this->session->userdata('id_usu');
+				$idImg = 'E-'.$id.'';
+				$data['eventoPerfil'] = $this->evento_model->getEvento($id);
+				$data['GruposEve'] = $this->evento_model->getInvitados($id);
+				$data['galeria'] = $this->essentials_model->getGaleria($idImg);
+				$data['CheckAdm'] = $this->evento_model->CheckAdm($usuId, $id);
+				$this->load->view('header');
+				$this->load->view('perfiles/evento_perfil',$data);
+				$this->load->view('footer');
+			}else{
+                header('Location: ' . base_url(""));
+            }
+        }else{
+            header('Location: ' . base_url(""));
+        }
+	}
+
+	public function subirGaleria()
+	{
+ 		$this->load->model('evento_model');
+		$this->load->database();
+		$this->load->helper('date_helper');
+		$time = get_date_hour_s();
+		$eveId = $this->input->post('evento');
+		$idUsu = $this->session->userdata('id_usu');
+		$nombre = $this->evento_model->getNombre($eveId);
+		$check = $this->evento_model->CheckAdm($idUsu, $eveId);
+
+		if($check != 0){
+			if($this->input->post('submit') && count($_FILES['multipleFiles']['name']) > 0){
+				$cantidad = count($_FILES['multipleFiles']['name']);
+				$files = $_FILES;
+				for ($i=0; $i < $cantidad; $i++){
+					$config['allowed_types'] = 'jpg|jpeg|png';
+					$config['upload_path'] = './assets/images/evento/galeria/';
+					$config['remove_spaces'] = TRUE;
+					$config['overwrite'] = TRUE;
+					$config['file_name'] = ''.$eveId.'_'.$time.'_'.$i.'.jpg';
+					$this->load->library('upload');
+					$_FILES['multipleFiles']['name']= $files['multipleFiles']['name'][$i];
+					$_FILES['multipleFiles']['type']= $files['multipleFiles']['type'][$i];
+					$_FILES['multipleFiles']['tmp_name']= $files['multipleFiles']['tmp_name'][$i];
+					$_FILES['multipleFiles']['error']= $files['multipleFiles']['error'][$i];
+					$_FILES['multipleFiles']['size']= $files['multipleFiles']['size'][$i];    
+					$this->upload->initialize($config);
+					if($this->upload->do_upload('multipleFiles')){
+						$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$eveId."_".$time."_".$i.".jpg' , 1 , 'E-".$eveId."')");
+					}
+					header("Location: " . site_url("evento/Perfil/$eveId/$nombre"));
+				}
+			}else{
+				header("Location: " . site_url("evento/Perfil/$eveId/$nombre"));
+			}
+		}else{
+			echo "nononono";
+		}
+			
+	}
+
+
 	public function nuevo_evento(){
 
 		$this->load->helper('form');
@@ -52,7 +122,7 @@ class evento extends CI_Controller {
 		$genero_eve = $this->input->post('genero_eve');  
 		$new_genero = $this->input->post('new_genero');  
 		$comuna = $this->input->post('comuna');  
-		$calle_eve = $this->input->post('calle_eve');  marty
+		$calle_eve = $this->input->post('calle_eve'); 
 		$nDir = $this->input->post('nDir');  
 		$email_eve = $this->input->post('email_eve');  
 		$num_eve = $this->input->post('num_eve');  
@@ -64,6 +134,7 @@ class evento extends CI_Controller {
 		$time = get_date_hour();
 		$id_usu = $this->enc_model->decdata($this->session->userdata('id_usu2'));
 
+		try{
 		if($genero_eve == 0){
 			
 			$ngenero = $this->essentials_model->n_genero($new_genero,$id_usu);
@@ -76,7 +147,6 @@ class evento extends CI_Controller {
 			
 			$genero = $genero_eve;
 		}
-
 
 		$direccion = array(
 			'loc_calle' => $calle_eve,
@@ -98,7 +168,10 @@ class evento extends CI_Controller {
 			'eve_hora' => $Hrealizar,
 			'eve_nombre' => $nombre_eve,
 			'eve_tipo' => $tipo_eve,
-			'fk_id_localizacion' => $localizacion
+			'fk_id_localizacion' => $localizacion,
+			'eve_numero' => $num_eve,
+			'eve_mail' => $email_eve,
+			'fk_id_adm' => $id_usu
 
 			);
 
@@ -126,7 +199,10 @@ class evento extends CI_Controller {
 			}else{
 				echo 1;
 			}
-		print_r($n_eve);
+			header("Location: " . site_url("evento/Perfil/$id_evento/$nombre_eve"));
+		}catch(Exception $e){
+			echo "Ha ocurrido un error";
+		}
 
 
 	}
