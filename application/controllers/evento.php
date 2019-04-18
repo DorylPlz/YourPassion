@@ -52,7 +52,7 @@ class evento extends CI_Controller {
 		$genero_eve = $this->input->post('genero_eve');  
 		$new_genero = $this->input->post('new_genero');  
 		$comuna = $this->input->post('comuna');  
-		$calle_eve = $this->input->post('calle_eve');  
+		$calle_eve = $this->input->post('calle_eve');  marty
 		$nDir = $this->input->post('nDir');  
 		$email_eve = $this->input->post('email_eve');  
 		$num_eve = $this->input->post('num_eve');  
