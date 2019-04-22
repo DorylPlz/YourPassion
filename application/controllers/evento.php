@@ -246,7 +246,7 @@ class evento extends CI_Controller {
 		$check = $this->evento_model->CheckAdm($idUsu, $id);
 
 		if($check != 'false'){
-			$config['allowed_types'] = 'jpg';
+			$config['allowed_types'] = 'jpg|png|jpeg';
 			$config['upload_path'] = './assets/images/evento/';
 			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
 			$config['remove_spaces'] = TRUE;
