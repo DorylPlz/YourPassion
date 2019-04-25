@@ -89,7 +89,7 @@ class local extends CI_Controller {
 		$check = $this->essentials_model->CheckAdm($idUsu, $id, 2);
 
 		if($check != 'false'){
-			$config['allowed_types'] = 'jpg';
+			$config['allowed_types'] = 'jpg|png|jpeg';
 			$config['upload_path'] = './assets/images/profile/local/';
 			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
 			$config['remove_spaces'] = TRUE;

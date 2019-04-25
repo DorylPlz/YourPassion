@@ -188,7 +188,7 @@ class evento extends CI_Controller {
 			$addprecio = $this->evento_model->valor_evento($val_eve);
 
 
-			$config['allowed_types'] = 'jpg';
+			$config['allowed_types'] = 'jpg|png|jpeg';
 			$config['upload_path'] = './assets/images/evento/';
 			$config['file_name'] = ''.$id_evento.'_'.$time.'.jpg';
 			$config['remove_spaces'] = TRUE;
@@ -246,7 +246,7 @@ class evento extends CI_Controller {
 		$check = $this->evento_model->CheckAdm($idUsu, $id);
 
 		if($check != 'false'){
-			$config['allowed_types'] = 'jpg';
+			$config['allowed_types'] = 'jpg|png|jpeg';
 			$config['upload_path'] = './assets/images/evento/';
 			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
 			$config['remove_spaces'] = TRUE;
@@ -266,5 +266,142 @@ class evento extends CI_Controller {
 		//header("Location: modificar_Perfil?nick=$nick&profile=$id");
 	}
 	
+	public function invEvento()
+	{
+		$this->load->helper('form');
+		$this->load->model('evento_model');
+		$this->load->model('group_model');
+		$this->load->model('essentials_model');
+		$invitado = $this->input->post('invitado');
+		$evento = $this->input->post('evento');
+		$comentario = $this->input->post('comentario');
+		$usuId = $this->session->userdata('id_usu');
+
+		$checkAdm = $this->evento_model->CheckAdm($usuId, $evento);
+		if($checkAdm == 1){
+			$invitacion = array(
+				'fk_id_grupo' => $invitado,
+				'fk_id_evento' => $evento,
+				'comentario' => $comentario,
+				'estado' => 0,
+				'fk_id_usu' => $usuId
+			);
+			$registro = $this->evento_model->registroInvitación($invitacion);
+			if($registro == 'false'){
+				$data['estado'] = '<h1 class="title">Ha ocurrido un error</h1>
+				<p>Intentalo nuevamente, si el problema persiste, no dudes en contactarnos
+				<br /><br />
+				contacto@yourpassionweb.com
+				</p>';
+			}else if($registro == 'true'){
+				$data['estado'] = '<h1 class="title">Ya hay una invitación pendiente</h1>
+				<p>Se te notificará cuando el grupo haya respondido a la invitación
+				<br /><br />
+				</p>';
+			}else{
+				try{
+					$this->load->model('enc_model');
+					$gru_mail = $this->group_model->getEmail($invitado);
+					$idinv = $this->enc_model->encdata($registro);
+					$this->load->library("email");		
+					$configmail = $this->essentials_model->configEmail();
+					$text='<h1>Han invitado a tu grupo a un evento</h1><br/> <p>Para poder confirmar la asistencia, debes seguir el siguiente vinculo<br/><br/> <a href="http://www.yourpassionweb.com/index.php/evento/conf_asistencia/1/'.$idinv.'">Confirmar asistencia</a><br/>En caso de no poder asistir, selecciona el siguiente vinculo: <a href="http://www.yourpassionweb.com/index.php/evento/conf_asistencia/0/'.$idinv.'">Rechazar asistencia</a><hr/>Favor de no responder este Email, nosotros no revisamos esta casilla.</p><hr/><img height="40" width="150" src="http://www.yourpassionweb.com/assets/images/YP-logo_full-black.png"<img/>';
+					
+ 					$this->email->initialize($configmail);
+					$this->email->from('no-reply@yourpassionweb.com');
+					$this->email->to($gru_mail); 
+					$this->email->subject('Invitación a evento');
+					$this->email->message($text);
+					$this->email->send(); 
+				}catch(Exception $e){
+				}
+				
+				$data['estado'] = '<h1 class="title">La invitación se ha enviado</h1>
+				<p>Se notificará a los integrantes del grupo sobre su invitación
+				<br /><br />
+				Cuando hayan confirmado se mostrará el grupo en el perfil del evento
+				</p>';
+			}
+
+		}else{
+			$data['estado'] = '<h1 class="title">Usted no tiene autorización para realizar esta accion</h1>
+				<p>Contactese con el administrador de este evento.
+				<br /><br />
+				</p>';
+		}
+		$this->load->view('header');
+		$this->load->view('confirm_newusu',$data);
+		$this->load->view('footer');
+
+	}
+
+	public function conf_asistencia($conf="",$id="")
+	{
+		if($conf != null){
+			if($id != null){
+				if($this->session->userdata('login')){
+					$this->load->model('enc_model');
+					$this->load->model('evento_model');
+					$this->load->model('group_model');
+					$idUsu = $this->session->userdata('id_usu');
+					$idinv = $this->enc_model->decdata($id);
+					$invitacion = $this->evento_model->getInvitacion($idinv);
+					foreach($invitacion->result() as $inv){
+						$idgru = $inv->fk_id_grupo;
+						$idEve = $inv->fk_id_evento;
+					}
+					$checkAdmGru = $this->group_model->CheckAdm($idUsu, $idgru);
+					if($checkAdmGru == 'true'){
+						$cambioEstado = $this->evento_model->confInv($idinv,$conf);
+
+						if($cambioEstado == 1){
+							$nombreEve = $this->evento_model->getNombre($idEve);
+							$data['estado'] = '<h1 class="title">Has confirmado la asistencia</h1>
+							<p>Ahora ya se mostrará tu grupo en el perfil del evento.
+
+							<br />
+							Para ir al evento, pincha <a href="http://www.yourpassionweb.com/index.php/evento/Perfil/'.$idEve.'/'.$nombreEve.'">aquí</a>
+							<br />
+							</p>';
+						}else{
+							$data['estado'] = '<h1 class="title">Ha ocurrido un error</h1>
+							<p>Intentalo nuevamente, si el problema persiste, no dudes en contactarnos
+							<br /><br />
+							contacto@yourpassionweb.com
+							</p>';
+						}
+
+					}else{
+						$data['estado'] = '<h1 class="title">No tienes permisos para realizar esta accion</h1>
+							<p>Contactate con el administrador de este grupo.
+							<br /><br />
+							</p>';
+					}
+						
+				}else{
+					header("Location: " . site_url("../main/login/"));
+				}
+
+			}else{
+				$data['estado'] = '<h1 class="title">Ha ocurrido un error</h1>
+				<p>Intentalo nuevamente, si el problema persiste, no dudes en contactarnos
+				<br /><br />
+				contacto@yourpassionweb.com
+				</p>';
+			}
+				
+		}else{
+			$data['estado'] = '<h1 class="title">Ha ocurrido un error</h1>
+			<p>Intentalo nuevamente, si el problema persiste, no dudes en contactarnos
+			<br /><br />
+			contacto@yourpassionweb.com
+			</p>';
+		}
+		$this->load->view('header');
+		$this->load->view('confirm_newusu',$data);
+		$this->load->view('footer');
+			
+	
+	}
 
 }

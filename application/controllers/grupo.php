@@ -18,7 +18,6 @@ class grupo extends CI_Controller {
 				$data['publicaciones'] = $this->group_model->getPublicaciones($id);
 				$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
 				$data['eveUsu'] = $this->evento_model->eveUsu($usuId);
-
 				$data['galeria'] = $this->essentials_model->getGaleria($idImg);
 				$data['integrantes'] = $this->group_model->getintegrantes($id);
 
@@ -78,7 +77,7 @@ class grupo extends CI_Controller {
 				$cantidad = count($_FILES['multipleFiles']['name']);
 				$files = $_FILES;
 				for ($i=0; $i < $cantidad; $i++){
-					$config['allowed_types'] = 'jpg|png';
+					$config['allowed_types'] = 'jpg|png|jpeg';
 					$config['upload_path'] = './assets/images/galeria/';
 					$config['remove_spaces'] = TRUE;
 					$config['overwrite'] = TRUE;
@@ -259,7 +258,7 @@ class grupo extends CI_Controller {
 		$check = $this->group_model->CheckAdm($idUsu, $id);
 
 		if($check != 'false'){
-			$config['allowed_types'] = 'jpg';
+			$config['allowed_types'] = 'jpg|png|jpeg';
 			$config['upload_path'] = './assets/images/profile/';
 			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
 			$config['remove_spaces'] = TRUE;

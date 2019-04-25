@@ -109,6 +109,18 @@ class group_model extends CI_Model {
         return $nombre;
 
     }
+    public function getEmail($id)
+    {
+        
+        $get_id = $this->db->query("SELECT gru_email FROM grupo WHERE id_grupo = ".$id." LIMIT 1");
+        foreach($get_id->result() as $id_array) {
+            $email = $id_array->gru_email;
+            
+        }
+
+        return $email;
+
+    }
     public function new_group($n_group)
     {
         

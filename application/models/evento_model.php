@@ -139,6 +139,49 @@ class evento_model extends CI_Model {
         }
 
     }
+    public function registroInvitación($invitacion)
+    {
+        $select = $this->db->select('*')->from('inveve')->where($invitacion)->get();
+        if($select->num_rows() > 0 ){
+            return 'true';
+        }else{
+            
+            try{
+                $insert = $this->db->insert('inveve',$invitacion);
+                $get_id = $this->db->query("SELECT id_entrada FROM inveve WHERE estado = 0 ORDER BY id_entrada  DESC LIMIT 1");
+                foreach($get_id->result() as $id_array) {
+                    $id = $id_array->id_entrada;
+                }
+                return $id;
+    
+            }catch(Exception $e){
+                return 'false';
+            }
+        }
+
+    }
+
+    public function getInvitacion($id)
+    {
+        $select = $this->db->query("SELECT * FROM inveve WHERE id_entrada = '".$id."' ORDER BY id_entrada  DESC LIMIT 1");
+
+        return $select;
+
+    }
+
+    public function confInv($id,$conf)
+    {
+        try{
+            $update = $this->db->query("UPDATE `inveve` SET estado = '".$conf."' WHERE `id_entrada` = '".$id."'");
+
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+
+    }
+    
     
 }
 ?>

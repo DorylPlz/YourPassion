@@ -14,38 +14,6 @@
 <script src="<?php echo base_url('assets/js/packages/daygrid/main.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/packages/timegrid/main.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/packages/list/main.js'); ?>"></script>
-<script>
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-      },
-      defaultDate: '2019-03-12',
-      editable: true,
-      navLinks: true, // can click day/week names to navigate views
-      eventLimit: true, // allow "more" link when too many events
-      events: {
-        url: 'php/get-events.php',
-        failure: function() {
-          document.getElementById('script-warning').style.display = 'block'
-        }
-      },
-      loading: function(bool) {
-        document.getElementById('loading').style.display =
-          bool ? 'block' : 'none';
-      }
-    });
-
-    calendar.render();
-  });
-
-</script>
 
 
         <div class="page-title-container">
@@ -527,7 +495,38 @@
                                     <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
                                     <span class="review pull-right">270 reviews</span>
                                 </div>
-                                <button class="button yellow full-width uppercase btn-small">Contactar</button>
+                                <?php if($this->session->userdata('login')){ ?>
+                                <a href="#invitarEvento" class="button yellow full-width uppercase btn-small soap-popupbox">Invitar a evento</a>
+
+                                <div id="invitarEvento" class="travelo-login-box travelo-box">
+                                                    <form action="<?php echo site_url('evento/invEvento'); ?>" method="post">
+                                                        <div class="form-group">
+                                                            <label>Invitación a mi evento:</label>
+                                                            <label>Seleccione evento</label>
+                                                            <input type="hidden" name="invitado" value="<?php echo $dataGrupo['id_grupo']; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                        <div class="selector">
+                                                            <select class="full-width" name="evento">
+                                                            <?php foreach($eveUsu->result_array() as $e){ ?>
+                                                                <option value="<?php echo $e['id_evento']; ?>"><?php echo $e['eve_nombre']; ?></option>
+                                                            <?php } ?>
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="seperator"></div>
+                                                        <div class="form-group">
+                                                            <label>Comentario</label>
+                                                            <textarea rows="4" class="input-text full-width" placeholder="Comentario" name="comentario"></textarea>
+                                                        </div>
+                                                            <div class="seperator"></div>
+                                                            <button type="submit" class="full-width btn-medium">Invitar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+
+                                <?php } ?>
                             </div>
                         </article>
                         <div class="travelo-box">
@@ -548,6 +547,7 @@
                                         </div>
                                     </article>
                                 <?php } ?>
+                                <?php if($CheckAdm == 'true'){?>
                                 <article class="box">
                                         <figure>
                                             <a href="#invitar" class="soap-popupbox"><img src="<?php echo base_url("assets/images/plus.png");?>" alt="" /></a>
@@ -576,6 +576,7 @@
                                                 </div>
 
                                     </article>
+                                <?php } ?>
 
                             </div>
                         </div>
