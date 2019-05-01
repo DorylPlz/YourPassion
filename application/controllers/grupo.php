@@ -20,6 +20,7 @@ class grupo extends CI_Controller {
 				$data['eveUsu'] = $this->evento_model->eveUsu($usuId);
 				$data['galeria'] = $this->essentials_model->getGaleria($idImg);
 				$data['integrantes'] = $this->group_model->getintegrantes($id);
+				$data['seguido'] = $this->group_model->seguidoUsuGru($id,$usuId);
 
 				$data['imgPerfil'] = $this->essentials_model->getImgPerfil($idImg);
 				$this->load->view('header');

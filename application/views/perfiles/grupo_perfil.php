@@ -495,9 +495,15 @@
                                     <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
                                     <span class="review pull-right">270 reviews</span>
                                 </div>
-                                <?php if($this->session->userdata('login')){ ?>
-                                <a href="#invitarEvento" class="button yellow full-width uppercase btn-small soap-popupbox">Invitar a evento</a>
 
+                                <?php if($this->session->userdata('login')){ ?>
+                                <a href="#invitarEvento" class="button yellow full-width uppercase btn-small soap-popupbox">Invitar a evento</a><hr/>
+
+                                <?php if($seguido == 0){?>
+                                    <button onclick="seguirGrupo(<?php echo $dataGrupo['id_grupo'];?>)" class="button green full-width uppercase btn-small soap-popupbox">Seguir</button>
+                                <?php }else if($seguido == 1){ ?>
+                                    <button onclick="dejarSeguir(<?php echo $dataGrupo['id_grupo'];?>)" class="button red full-width uppercase btn-small soap-popupbox">Dejar de seguir</button>
+                                <?php } ?>
                                 <div id="invitarEvento" class="travelo-login-box travelo-box">
                                                     <form action="<?php echo site_url('evento/invEvento'); ?>" method="post">
                                                         <div class="form-group">
@@ -552,6 +558,7 @@
                                         <figure>
                                             <a href="#invitar" class="soap-popupbox"><img src="<?php echo base_url("assets/images/plus.png");?>" alt="" /></a>
                                         </figure>
+                                        
                                     
                                         <div class="details">
                                             <h5 class="box-title"><a href="#invitar" class="soap-popupbox">Invitar nuevo integrante</a></h5>
@@ -585,4 +592,84 @@
                 </div>
             </div>
         </section>
+        <script>
+        function seguirGrupo(grupo) {
+        
+            jQuery.ajax({
+                url: '<?php echo site_url('grupoAjax/seguir'); ?>',
+                type: 'POST',
+                data: {
+                    grupo: grupo
+                },
+                success: function (respuesta) {
+                    if(respuesta == 1){
+                        Swal.fire({
+                            title: 'Ha empezado a seguir al grupo',
+                            type: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continuar'
+                        }).then(() => {
+                            location.reload();
+                        })
+                    }else if(respuesta == 0){
+                        Swal.fire({
+                            title: 'Ha ocurrido un error',
+                            type: 'error',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continuar'
+                        })
+                    }
+                },
+                error: function () {
+                    
+                        Swal.fire({
+                            title: 'Ha ocurrido un error',
+                            type: 'error',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Continuar'
+                        })
+                    
+                }
+            });
+        }
+        function dejarSeguir(grupo) {
+        
+        jQuery.ajax({
+            url: '<?php echo site_url('grupoAjax/dejarSeguir'); ?>',
+            type: 'POST',
+            data: {
+                grupo: grupo
+            },
+            success: function (respuesta) {
+                if(respuesta == 1){
+                    Swal.fire({
+                        title: 'Ha dejado de seguir al grupo',
+                        type: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    }).then(() => {
+                        location.reload();
+                    })
+                }else if(respuesta == 0){
+                    Swal.fire({
+                        title: 'Ha ocurrido un error',
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                }
+            },
+            error: function () {
+                
+                    Swal.fire({
+                        title: 'Ha ocurrido un error',
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Continuar'
+                    })
+                
+            }
+        });
+    }
+    </script>
 <?php } ?>

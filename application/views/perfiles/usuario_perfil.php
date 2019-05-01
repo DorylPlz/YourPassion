@@ -232,16 +232,16 @@ function list(array_list)
                                     <hr>
                                     <h2>Grupos a los que sigue</h2>
                                     <div class="suggestions image-carousel style2" data-animation="slide" data-item-width="170" data-item-margin="22">
-                                        <ul class="slides">
+                                        <ul class="slides" >
                                             
-                                            <?php if($getSeguidos != 0){
-                                                foreach ($perfil->result_array() as $row){?>
+                                            <?php if($getSeguidos != null){
+                                                foreach($getSeguidos as $grs){?>
 
-                                                <li>
-                                                    <a href="<?php echo site_url('main/perfil_grupo'); ?>" class="hover-effect">
-                                                        <img src="http://placehold.it/170x170" alt="" />
+                                                <li style="width: 170px; float: left; display: block;">
+                                                    <a href="<?php echo site_url('grupo/perfil_grupo');echo "/"; echo $grs->id_grupo; echo "/"; echo $grs->gru_nombre; ?>" class="hover-effect">
+                                                        <img style="width: 170px; float: left; display: block;" src="<?php if($grs->img_ruta != null){echo base_url('assets/images/profile'); ?>/<?php echo $grs->img_ruta;}else{echo base_url('assets/images/logoYP.png');}?>" alt="">
                                                     </a>
-                                                    <h5 class="caption">Grupo 1</h5>
+                                                    <h5 class="caption"><?php echo $grs->gru_nombre; ?></h5>
                                                 </li>
 
 
@@ -397,27 +397,26 @@ function list(array_list)
                             <div id="wishlist" class="tab-pane fade">
                                 <h2>Tus grupos seguidos</h2>
                                 <div class="row image-box listing-style2 add-clearfix">
-                                    
-                                    <?php if($getSeguidos != 0){
-                                                foreach ($perfil->result_array() as $row){?>
+                                     
+                                    <?php if($getSeguidos != null){
+                                                foreach ($getSeguidos as $gs){?>
 
                                     <div class="col-sm-6 col-md-4">
                                         <article class="box">
                                             <figure>
-                                                <a class="hover-effect" title="" href="#"><img width="300" height="160" alt="" src="http://placehold.it/300x160"></a>
+                                                <a class="hover-effect" style="width:300px; height:160px;position:relative;" title="" href="<?php echo site_url('grupo/perfil_grupo');echo "/"; echo $gs->id_grupo; echo "/"; echo $gs->gru_nombre; ?>"><img width="300" height="160" alt="" src="<?php if($gs->img_ruta != null){echo base_url('assets/images/profile'); ?>/<?php echo $gs->img_ruta;}else{echo base_url('assets/images/logoYP.png');}?>"></a>
                                             </figure>
                                             <div class="details">
-                                                <a class="pull-right button uppercase" href="" title="View all">select</a>
-                                                <h4 class="box-title">Savona to Italy</h4>
+                                                <a class="pull-right button uppercase" href="<?php echo site_url('grupo/perfil_grupo');echo "/"; echo $gs->id_grupo; echo "/"; echo $gs->gru_nombre; ?>" title="View all">Ver</a>
+                                                <h4 class="box-title"><?php echo $gs->gru_nombre;?></h4>
                                                 <label class="price-wrapper">
-                                                    <span class="price-per-unit">$170</span>avg/night
+                                                    <span class="price-per-unit"></span>
                                                 </label>
                                             </div>
                                         </article>
                                     </div>
-                                    <?php }}else{ ?><div class="col-sm-6 col-md-4"><p>No hay grupos para mostrar</p><?php } ?>
+                                    <?php }}else{ ?><div class="col-sm-6 col-md-4"><p>No hay grupos para mostrar</p></div><?php } ?>
 
-                                    </div>
                                 </div>
                             </div>
 

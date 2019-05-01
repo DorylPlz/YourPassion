@@ -93,6 +93,40 @@ class grupoAjax extends CI_Controller {
 		}
 
 	}
+
+	public function seguir()
+	{
+		$this->load->model('group_model');
+		$this->load->model('essentials_model');
+		$this->load->helper('date_helper');
+		$grupo = $this->input->post('grupo');
+		$idUsu = $this->session->userdata('id_usu');
+		$fecha = get_date();
+		$ingreso = array(
+			'fecha_entrada' => $fecha,
+			'fk_id_grupo' => $grupo,
+			'fk_id_usu' => $idUsu,
+			'seguidor_estado' => 1
+		);
+		$result = $this->group_model->seguidor($ingreso);
+
+		echo $result;
+
+
+	}
+	public function dejarSeguir()
+	{
+		$this->load->model('group_model');
+		$this->load->model('essentials_model');
+		$grupo = $this->input->post('grupo');
+		$idUsu = $this->session->userdata('id_usu');
+
+		$result = $this->group_model->seguidorDejar($grupo, $idUsu);
+
+		echo $result;
+
+
+	}
 	
 
 }

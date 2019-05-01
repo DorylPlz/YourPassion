@@ -244,7 +244,52 @@ class group_model extends CI_Model {
 
     }
 
+    public function seguidoUsuGru($idGru, $idUsu)
+    {
+        
+        try{
+            $result = $this->db->query("SELECT * FROM grupo_seguidor WHERE fk_id_usu = '" . $idUsu . "' && fk_id_grupo = '".$idGru."' && seguidor_estado = 1 LIMIT 1 ");
 
+            if($result->num_rows() > 0 ){
+                
+                return 1;
+                
+            }else{
+                return 0;
+            }
+        }catch(Exception $e){
+            return 2;
+        }
+
+    }
+
+    public function seguidor($ingreso)
+    {
+        
+        try{
+            $this->db->insert('grupo_seguidor',$ingreso);
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
+    public function seguidorDejar($idGru, $idUsu)
+    {
+        
+        try{
+                $result = $this->db->query("SELECT id_entrada FROM grupo_seguidor WHERE fk_id_usu = '" . $idUsu . "' && fk_id_grupo = '".$idGru."' && seguidor_estado = 1 LIMIT 1 ");
+                foreach($result->result() as $r){
+                    $resultado = $r->id_entrada;
+                    $this->db->query("UPDATE `grupo_seguidor` SET seguidor_estado = 0 WHERE `id_entrada` = '".$resultado."'");
+                }
+                return 1;
+
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
     
 }
 
