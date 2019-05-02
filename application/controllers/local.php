@@ -21,7 +21,7 @@ class local extends CI_Controller {
                 if($calificacion != null){
                     $x = $calificacion/5;
                     $porcentaje = $x * 100;
-                    $numrows = $calificacion->num_rows();
+                    $numrows = $reviews->num_rows();
                     if($numrows != 0){
                         $promedio = $calificacion/$numrows;
                     }else{

@@ -14,6 +14,25 @@ class grupo extends CI_Controller {
 				$this->load->model('essentials_model');
 				$usuId = $this->session->userdata('id_usu');
 				$idImg = 'B-'.$id.'';
+				$reviews = $this->essentials_model->getReviews($id, 1);
+				$calificacion = $this->essentials_model->getReviewsSum($id, 1);
+				if($calificacion != null){
+                    $x = $calificacion/5;
+                    $porcentaje = $x * 100;
+                    $numrows = $reviews->num_rows();
+                    if($numrows != 0){
+                        $promedio = $calificacion/$numrows;
+                    }else{
+                        $promedio = 2.5;
+                    }
+                }else{
+                    $porcentaje = 50;
+                    $promedio = 2.5;
+				}
+				
+                $data['calificacion'] = $porcentaje;
+				$data['promedio'] = $promedio;
+                $data['reviews'] = $reviews;
 				$data['grupo'] = $this->group_model->getGrupo($id);
 				$data['publicaciones'] = $this->group_model->getPublicaciones($id);
 				$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
