@@ -292,7 +292,7 @@ $("#genero").change(function() {
         
         var ndesc = $("#desc").val();
         $.ajax({
-            url: '<?php echo site_url('grupoAjax/nuevaDesc'); ?>',
+            url: '<?php echo site_url('grupoAjax/dejarSeguir'); ?>',
             type: 'POST',
             data: {
                 grupo: grupo,

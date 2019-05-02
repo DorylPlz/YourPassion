@@ -21,7 +21,7 @@ class local extends CI_Controller {
                 if($calificacion != null){
                     $x = $calificacion/5;
                     $porcentaje = $x * 100;
-                    $numrows = $calificacion->num_rows();
+                    $numrows = $reviews->num_rows();
                     if($numrows != 0){
                         $promedio = $calificacion/$numrows;
                     }else{
@@ -89,7 +89,7 @@ class local extends CI_Controller {
 		$check = $this->essentials_model->CheckAdm($idUsu, $id, 2);
 
 		if($check != 'false'){
-			$config['allowed_types'] = 'jpg';
+			$config['allowed_types'] = 'jpg|png|jpeg';
 			$config['upload_path'] = './assets/images/profile/local/';
 			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
 			$config['remove_spaces'] = TRUE;

@@ -14,13 +14,32 @@ class grupo extends CI_Controller {
 				$this->load->model('essentials_model');
 				$usuId = $this->session->userdata('id_usu');
 				$idImg = 'B-'.$id.'';
+				$reviews = $this->essentials_model->getReviews($id, 1);
+				$calificacion = $this->essentials_model->getReviewsSum($id, 1);
+				if($calificacion != null){
+                    $x = $calificacion/5;
+                    $porcentaje = $x * 100;
+                    $numrows = $reviews->num_rows();
+                    if($numrows != 0){
+                        $promedio = $calificacion/$numrows;
+                    }else{
+                        $promedio = 2.5;
+                    }
+                }else{
+                    $porcentaje = 50;
+                    $promedio = 2.5;
+				}
+				
+                $data['calificacion'] = $porcentaje;
+				$data['promedio'] = $promedio;
+                $data['reviews'] = $reviews;
 				$data['grupo'] = $this->group_model->getGrupo($id);
 				$data['publicaciones'] = $this->group_model->getPublicaciones($id);
 				$data['CheckAdm'] = $this->group_model->CheckAdm($usuId, $id);
 				$data['eveUsu'] = $this->evento_model->eveUsu($usuId);
-
 				$data['galeria'] = $this->essentials_model->getGaleria($idImg);
 				$data['integrantes'] = $this->group_model->getintegrantes($id);
+				$data['seguido'] = $this->group_model->seguidoUsuGru($id,$usuId);
 
 				$data['imgPerfil'] = $this->essentials_model->getImgPerfil($idImg);
 				$this->load->view('header');
@@ -78,7 +97,7 @@ class grupo extends CI_Controller {
 				$cantidad = count($_FILES['multipleFiles']['name']);
 				$files = $_FILES;
 				for ($i=0; $i < $cantidad; $i++){
-					$config['allowed_types'] = 'jpg|png';
+					$config['allowed_types'] = 'jpg|png|jpeg';
 					$config['upload_path'] = './assets/images/galeria/';
 					$config['remove_spaces'] = TRUE;
 					$config['overwrite'] = TRUE;
@@ -259,7 +278,7 @@ class grupo extends CI_Controller {
 		$check = $this->group_model->CheckAdm($idUsu, $id);
 
 		if($check != 'false'){
-			$config['allowed_types'] = 'jpg';
+			$config['allowed_types'] = 'jpg|png|jpeg';
 			$config['upload_path'] = './assets/images/profile/';
 			$config['file_name'] = ''.$id.'_'.$time.'.jpg';
 			$config['remove_spaces'] = TRUE;

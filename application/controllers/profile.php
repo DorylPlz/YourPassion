@@ -45,7 +45,7 @@ class profile extends CI_Controller {
 		
 
 		//Obtener grupos seguidos, eventos asistidos o por asistir y opiniones realizadas
-		$data['getSeguidos'] = $this->usr_model->getSeguidos($emaildecrypt);
+
 		//$data['getEventos'] = $this->usr_model->getEventos($emaildecrypt);
 		$data['getopiniones'] = $this->usr_model->getOpiniones($emaildecrypt);
 
@@ -59,6 +59,7 @@ class profile extends CI_Controller {
 			$id = $usudata->id_usu;
 
 		}
+		$data['getSeguidos'] = $this->usr_model->getSeguidos($id);
 		$data['invGrupos'] = $this->usr_model->checkInvitacionesGrupo($id);
 
 

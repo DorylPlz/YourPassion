@@ -86,28 +86,22 @@ class usr_model extends CI_Model {
         return $result;
     }
 
-    function getSeguidos($emaildecrypt){
+    function getSeguidos($id){
        
-        $get_id = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_mail = '".$emaildecrypt."' LIMIT 1");
+        
+        $get_seguidos = $this->db->query("SELECT * FROM grupo_seguidor gs 
+                                            INNER JOIN grupo gru ON gru.id_grupo = gs.fk_id_grupo
+                                            LEFT JOIN galeria gal ON gal.fk_id_usu_img = gru.id_usu_img && gal.img_tipo = 2
+                                            WHERE gs.fk_id_usu = '".$id."' && gs.seguidor_estado = 1");
 
-            if($get_id->num_rows > 0){
-            
-                foreach($get_id->result() as $id_array) {
-                    $id = $id_array->id_usu;
+        if($get_seguidos->num_rows > 0){
 
-                   $get_seguidos = $this->db->query("SELECT * FROM grupo_seguidor WHERE fk_id_usu = '".$id."'");
+            return $get_seguidos->result();
 
-                    if($get_seguidos->num_rows > 0){
-
-                        return $get_seguidos;
-
-                    }else{
-                        return 0;
-                    }
-               
-               }
-            
+        }else{
+            return null;
         }
+
     }
 
     function getEventos($emaildecrypt){

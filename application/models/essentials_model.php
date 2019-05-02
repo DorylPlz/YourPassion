@@ -33,7 +33,10 @@ class essentials_model extends CI_Model {
         }else if($tipo == 3){
             $columna = 'fk_evento_id';
         }
-        $result = $this->db->query("SELECT * FROM comentario WHERE ".$columna." = ".$id."");
+        $result = $this->db->query("SELECT * FROM comentario com 
+                                    INNER JOIN usuarios usu ON com.fk_id_usu = usu.id_usu
+                                    LEFT JOIN galeria gal ON gal.fk_id_usu_img = usu.id_usu_img && gal.img_tipo = 2
+                                    WHERE com.".$columna." = ".$id."");
 
         return $result;
 
@@ -164,6 +167,22 @@ class essentials_model extends CI_Model {
         
 
         
+
+    }
+
+    public function insertReview($id,$tipo,$titulo,$desc,$cal,$idUsu,$fecha,$hora)
+    {
+        if($tipo == 1){
+            $columna = 'fk_id_grupo';
+        }else if($tipo == 2){
+            $columna = 'fk_id_local';
+        }
+        try{
+            $insert = $this->db->query("INSERT INTO `comentario`(`com_detalle`, `com_fecha`, `com_hora`, `com_calificacion`, `com_titulo`, `fk_id_usu`,`".$columna."` ) VALUES ('".$desc."','".$fecha."','".$hora."','".$cal."','".$titulo."','".$idUsu."','".$id."')");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
 
     }
 
