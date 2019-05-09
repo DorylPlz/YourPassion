@@ -5,8 +5,13 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
+		$this->load->model('essentials_model');
+		$this->load->model('group_model');
+		$data['regiones'] = $this->essentials_model->getRegion();
+		$data['estilos'] = $this->group_model->getGeneros();
+		$data['tipos'] = $this->group_model->getTipo();
 		$this->load->view('header');
-		$this->load->view('index');
+		$this->load->view('index', $data);
 		$this->load->view('footer');
 	}
 	

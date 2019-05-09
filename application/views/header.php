@@ -133,7 +133,7 @@
                                 <a href="<?php echo site_url('main/eventos'); ?>">Eventos</a>
                             </li>
                             <li class="menu-item">
-                                <a href="<?php echo site_url('main/grupos'); ?>">Grupos</a>
+                                <a href="<?php echo site_url('grupo/filtro_grupo'); ?>">Grupos</a>
                             </li>
                             <li class="menu-item">
                                 <a href="<?php echo site_url('main/locales'); ?>">Locales</a>
@@ -166,7 +166,7 @@
                                 <a href="<?php echo site_url('main/eventos'); ?>">Eventos</a>
                             </li>
                             <li class="menu-item">
-                                <a href="<?php echo site_url('main/grupos'); ?>">Grupos</a>
+                                <a href="<?php echo site_url('grupo/filtro_grupo'); ?>">Grupos</a>
                             </li>
                             <li class="menu-item">
                                 <a href="<?php echo site_url('main/locales'); ?>">Locales</a>

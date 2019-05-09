@@ -1,3 +1,4 @@
+
         <div class="page-title-container">
             <div class="container">
                 <div class="page-title pull-left">
@@ -14,7 +15,7 @@
                 <div id="main">
                     <div class="row">
                         <div class="col-sm-4 col-md-3">
-                            <h4 class="search-results-title"><i class="soap-icon-search"></i><b>1,984</b> encontrados.</h4>
+                            <h4 class="search-results-title"><i class="soap-icon-search"></i><b><?php if($filtrogrupos != null){ echo count($filtrogrupos);}else{echo 0;}?></b> encontrados.</h4>
                             <div class="toggle-container filters-container">
                                 
                                 
@@ -114,148 +115,37 @@
                             </div>
                             <div class="hotel-list">
                                 <div class="row image-box hotel listing-style1">
+                                    
+                                <?php if($filtrogrupos != null){foreach($filtrogrupos as $grupos){?>
                                     <div class="col-sm-6 col-md-4">
                                         <article class="box">
                                             <figure>
-                                                <a href="ajax/slideshow-popup.html" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
+                                                <a href="<?php echo site_url('grupo/perfil_grupo'); echo "/"; echo $grupos['id_grupo']; echo "/"; echo $grupos['gru_nombre']; ?>" class="hover-effect popup-gallery"><img style="width:270px;height:160px;" alt="" src="<?php if($grupos['img_ruta'] != null){ echo base_url('assets/images/profile'); ?>/<?php echo $grupos['img_ruta'];}else{echo base_url('assets/images/logoYP.png');}?>"></a>
                                             </figure>
                                             <div class="details">
                                                 <span class="price">
-                                                    <small>Precio</small>
-                                                    $620
                                                 </span>
-                                                <h4 class="box-title">Nombre o grupo<small>Local</small></h4>
+                                                <h4 class="box-title"><?php echo $grupos['gru_nombre'];?><small><?php echo $grupos['gen_nombre'];?></small><small><?php echo $grupos['tipo_nombre'];?></small><small> <?php echo $grupos['comu_nombre'];?>, <?php echo $grupos['region_nombre'];?></small></h4>
                                                 <div class="feedback">
                                                     <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">270 cupos</span>
+                                                    <span class="review"></span>
                                                 </div>
-                                                <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
+                                                <p class="description"></p>
                                                 <div class="action">
-                                                    <a class="button btn-small" href="<?php echo site_url('main/perfil_grupo'); ?>">Ver</a>
-                                                    <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">Comprar</a>
+                                                    <a class="button btn-small" href="<?php echo site_url('grupo/perfil_grupo'); echo "/"; echo $grupos['id_grupo']; echo "/"; echo $grupos['gru_nombre']; ?>">Ver</a>
+                                                    <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">Contratar</a>
                                                 </div>
                                             </div>
                                         </article>
                                     </div>
+                                <?php }}else{ ?>
                                     <div class="col-sm-6 col-md-4">
-                                        <article class="box">
-                                            <figure>
-                                                <a href="ajax/slideshow-popup.html" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
-                                            </figure>
-                                            <div class="details">
-                                                <span class="price">
-                                                    <small>Precio</small>
-                                                    $620
-                                                </span>
-                                                <h4 class="box-title">Nombre o grupo<small>Local</small></h4>
-                                                <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">270 cupos</span>
-                                                </div>
-                                                <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                                                <div class="action">
-                                                    <a class="button btn-small" href="hotel-detailed.html">Ver</a>
-                                                    <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">Comprar</a>
-                                                </div>
-                                            </div>
-                                        </article>
+                                        <p class="description">No existen grupos para mostrar con estos filtros</p>
                                     </div>
-                                    <div class="col-sm-6 col-md-4">
-                                        <article class="box">
-                                            <figure>
-                                                <a href="ajax/slideshow-popup.html" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
-                                            </figure>
-                                            <div class="details">
-                                                <span class="price">
-                                                    <small>Precio</small>
-                                                    $620
-                                                </span>
-                                                <h4 class="box-title">Nombre o grupo<small>Local</small></h4>
-                                                <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">270 cupos</span>
-                                                </div>
-                                                <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                                                <div class="action">
-                                                    <a class="button btn-small" href="hotel-detailed.html">Ver</a>
-                                                    <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">Comprar</a>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4">
-                                        <article class="box">
-                                            <figure>
-                                                <a href="ajax/slideshow-popup.html" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
-                                            </figure>
-                                            <div class="details">
-                                                <span class="price">
-                                                    <small>Precio</small>
-                                                    $620
-                                                </span>
-                                                <h4 class="box-title">Nombre o grupo<small>Local</small></h4>
-                                                <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">270 cupos</span>
-                                                </div>
-                                                <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                                                <div class="action">
-                                                    <a class="button btn-small" href="hotel-detailed.html">Ver</a>
-                                                    <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">Comprar</a>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4">
-                                        <article class="box">
-                                            <figure>
-                                                <a href="ajax/slideshow-popup.html" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
-                                            </figure>
-                                            <div class="details">
-                                                <span class="price">
-                                                    <small>Precio</small>
-                                                    $620
-                                                </span>
-                                                <h4 class="box-title">Nombre o grupo<small>Local</small></h4>
-                                                <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">270 cupos</span>
-                                                </div>
-                                                <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                                                <div class="action">
-                                                    <a class="button btn-small" href="hotel-detailed.html">Ver</a>
-                                                    <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">Comprar</a>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="col-sm-6 col-md-4">
-                                        <article class="box">
-                                            <figure>
-                                                <a href="ajax/slideshow-popup.html" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
-                                            </figure>
-                                            <div class="details">
-                                                <span class="price">
-                                                    <small>Precio</small>
-                                                    $620
-                                                </span>
-                                                <h4 class="box-title">Nombre o grupo<small>Local</small></h4>
-                                                <div class="feedback">
-                                                    <div data-placement="bottom" data-toggle="tooltip" class="five-stars-container" title="4 stars"><span style="width: 80%;" class="five-stars"></span></div>
-                                                    <span class="review">270 cupos</span>
-                                                </div>
-                                                <p class="description">Nunc cursus libero purus ac congue arcu cursus ut sed vitae pulvinar massa idporta nequetiam.</p>
-                                                <div class="action">
-                                                    <a class="button btn-small" href="hotel-detailed.html">Ver</a>
-                                                    <a class="button btn-small yellow popup-map" href="#" data-box="48.856614, 2.352222">Comprar</a>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
+                                <?php }?>
                                     
                                 </div>
                             </div>
-                            <a href="#" class="uppercase full-width button btn-large">load more listing</a>
                         </div>
                     </div>
                 </div>

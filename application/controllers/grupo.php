@@ -298,4 +298,23 @@ class grupo extends CI_Controller {
 		//header("Location: modificar_Perfil?nick=$nick&profile=$id");
 	}
 
+	public function filtro_grupo(){
+
+		$this->load->model('group_model');
+		$estilo = $this->input->post('estilo');
+		$tipo = $this->input->post('tipo');
+		$region = $this->input->post('region');
+		$cal = $this->input->post("cal");
+		
+
+		$data['filtrogrupos'] = $this->group_model->filtro_grupo($estilo, $tipo, $region, $cal);
+
+		$this->load->view('header');
+		$this->load->view('busqueda/lista_grupos',$data);
+		$this->load->view('footer');
+
+
+	}
+
+
 }

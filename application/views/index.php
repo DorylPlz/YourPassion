@@ -143,71 +143,47 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="flights-tab">
-                            <form action="flight-list-view.html" method="post">
+                            <form action="<?php echo site_url('grupo/filtro_grupo'); ?>" method="post">
+                            
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h4 class="title">Info grupo</h4>
-                                        <div class="form-group">
-                                            <label>Nombre</label>
-                                            <input type="text" class="input-text full-width" placeholder="Nombre" />
-                                        </div>
+                                        
                                         <div class="form-group">
                                             <label>Región</label>
-                                            <select class="full-width">
-                                                        <option value="1">01</option>
-                                                        <option value="2">02</option>
-                                                        <option value="3">03</option>
-                                                        <option value="4">04</option>
-                                                    </select>
+                                            <select class="full-width" name="region">
+                                            <option value="">Seleccione</option>
+                                                    <?php foreach($regiones->result_array() as $r){ ?>
+                                                        <option value="<?php echo $r['id_region']; ?>"><?php echo $r['region_nombre']; ?></option>
+                                                    <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     
                                     <div class="col-md-4">
-                                        <h4 class="title"></h4>
-                                        <label>Tipo</label>
-                                        <div class="form-group row">
-                                            <div class="col-xs-6">
-                                                <div class="datepicker-wrap">
-                                                    <input type="text" name="date_from" class="input-text full-width" placeholder="mm/dd/yy" />
-                                                </div>
-                                            </div>
-                                        </div>
                                         <label>Genero</label>
-                                        <div class="form-group row">
-                                            <div class="col-xs-6">
-                                                <select class="full-width">
-                                                        <option value="1">01</option>
-                                                        <option value="2">02</option>
-                                                        <option value="3">03</option>
-                                                        <option value="4">04</option>
-                                                    </select>
-                                            </div>
-                                        </div>
+                                            <select class="full-width" name="estilo">
+                                              <option value="">Seleccione</option>
+                                                <?php foreach($estilos->result_array() as $e){?>
+                                                        <option value="<?php echo $e['id_genero'];?>"><?php echo $e['gen_nombre'];?></option>
+                                                    <?php }?>
+                                            </select>
                                     </div>
-                                    
                                     <div class="col-md-4">
-                                        <h4 class="title">Calificación</h4>
-                                        <div class="form-group row">
-                                            <div class="col-xs-3">
-                                                <label>Estrellas</label>
-                                                <div class="selector">
-                                                    <select class="full-width">
-                                                        <option value="1">01</option>
-                                                        <option value="2">02</option>
-                                                        <option value="3">03</option>
-                                                        <option value="4">04</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-3">
-                                            </div>
+                                        <label>Tipo</label>
+                                                <select class="full-width" name="tipo">
+                                                <option value="">Seleccione</option>
+                                                    <?php foreach($tipos->result_array() as $t){?>
+                                                        <option value="<?php echo $t['id_tipo']?>"><?php echo $t['tipo_nombre'];?></option>
+                                                    <?php } ?>
+                                                </select>
+
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-xs-3">
                                             </div>
                                             <div class="col-xs-6 pull-right">
                                                 <label>&nbsp;</label>
-                                                <button class="full-width icon-check">BUSCAR</button>
+                                                <button style="height:30px;" type="submit" class="full-width icon-check">BUSCAR</button>
                                             </div>
                                         </div>
                                     </div>

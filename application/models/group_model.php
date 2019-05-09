@@ -121,6 +121,84 @@ class group_model extends CI_Model {
         return $email;
 
     }
+    public function filtro_grupo($estilo, $tipo, $region)
+    {
+        if($estilo == null || $tipo == null || $region == null){
+            try{
+            $result = $this->db->query("SELECT * FROM grupo gru
+                INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
+                INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
+                INNER JOIN localizacion Loc ON gru.fk_id_localizacion = Loc.id_localizacion
+                INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+                INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
+                WHERE gru.gru_estado = 1");
+                return $result->result_array();
+            }catch(Exception $e){
+                return null;
+            }
+        }elseif($estilo != null || $tipo != null || $region != null) {
+            try{
+                $result = $this->db->query("SELECT * FROM grupo gru
+                    INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
+                    INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
+                    INNER JOIN localizacion Loc ON gru.fk_id_localizacion = Loc.id_localizacion
+                    INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+                    INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                    LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
+                WHERE gru.fk_genero_id = '".$estilo."' && gru.fk_estilo_id = '".$tipo."' && Reg.id_region = '".$region."' && gru.gru_estado = 1");
+
+                return $result->result_array();
+            }catch(Exception $e){
+                return null;
+            }
+        }elseif($estilo == null || $tipo == null || $region != null){
+            try{
+                $result = $this->db->query("SELECT * FROM grupo gru
+                    INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
+                    INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
+                    INNER JOIN localizacion Loc ON gru.fk_id_localizacion = Loc.id_localizacion
+                    INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+                    INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                    LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
+                WHERE gru.fk_genero_id = '".$estilo."' && gru.fk_estilo_id = '".$tipo."' && gru.gru_estado = 1");
+
+                return $result->result_array();
+            }catch(Exception $e){
+                return null;
+            }
+        }elseif($estilo != null || $tipo == null || $region == null){
+            try{
+                $result = $this->db->query("SELECT * FROM grupo gru
+                    INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
+                    INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
+                    INNER JOIN localizacion Loc ON gru.fk_id_localizacion = Loc.id_localizacion
+                    INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+                    INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                    LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
+                WHERE gru.fk_estilo_id = '".$tipo."' && Reg.id_region = '".$region."' && gru.gru_estado = 1");
+
+                return $result->result_array();
+            }catch(Exception $e){
+                return null;
+            }
+        }elseif($estilo == null || $tipo != null || $region == null){
+            try{
+                $result = $this->db->query("SELECT * FROM grupo gru
+                    INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
+                    INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
+                    INNER JOIN localizacion Loc ON gru.fk_id_localizacion = Loc.id_localizacion
+                    INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+                    INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                    LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
+                WHERE gru.fk_genero_id = '".$estilo."' && Reg.id_region = '".$region."' && gru.gru_estado = 1");
+
+                return $result->result_array();
+            }catch(Exception $e){
+                return null;
+            }
+        }
+    }
     public function new_group($n_group)
     {
         
