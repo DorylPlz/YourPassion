@@ -27,6 +27,7 @@ class profile extends CI_Controller {
 		$this->load->model('usr_model');
 		$this->load->model('group_model');
 		$this->load->model('local_model');
+		$this->load->model('evento_model');
 		$this->load->model('essentials_model');
 				
 		$email2 = preg_replace('/\s+/', '+', $email);
@@ -53,6 +54,8 @@ class profile extends CI_Controller {
 		$data['getGruposUsu'] = $this->group_model->getGruposUsu($emaildecrypt);
 		//locales de usuario
 		$data['getLocalesUsu'] = $this->local_model->getLocalUsu($emaildecrypt);
+		//locales de usuario
+		$data['getMisEventos'] = $this->evento_model->getEvesUsu($emaildecrypt);
 
 		//Check invitaciones a grupos
 		foreach($data['perfil']->result() as $usudata){

@@ -16,7 +16,26 @@ class evento_model extends CI_Model {
         return $result;
 
     }
+    public function getEvesUsu($emaildecrypt)
+    {
+        
+        $get_id = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_mail = '".$emaildecrypt."' LIMIT 1");
+        foreach($get_id->result() as $id_array) {
+            $id = $id_array->id_usu;
+        }
 
+
+        $result = $this->db->query("SELECT *
+                FROM evento eve
+                LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('E-', eve.id_evento) && gal.img_tipo = 2
+                WHERE eve.fk_id_adm =  '" . $id . "'");
+        if($result->num_rows > 0){
+            return $result;
+        }else{
+            return null;
+        }
+
+    }
     public function checkAdm($usu,$eve)
     {
         $result = $this->db->query("SELECT id_evento FROM evento WHERE fk_id_adm = '" . $usu . "' && id_evento = '".$eve."' LIMIT 1 ");

@@ -126,6 +126,7 @@ function list(array_list)
                             <?php foreach ($perfil->result_array() as $row){ if($this->session->userdata('id_usu')==$row['id_usu']){ ?>
                             <li class=""><a data-toggle="tab" href="#settings"><i class="soap-icon-settings circle"></i>Configuración</a></li>
                             <li class=""><a data-toggle="tab" href="#nuevogrupo"><i class="soap-icon-friends circle"></i>Nuevo grupo</a></li>
+                            <li class=""><a data-toggle="tab" href="#misEventos"><i class="soap-icon-businessbag circle"></i>Mis Eventos</a></li>
                         <?php }} ?>
                         </ul>
 
@@ -204,6 +205,7 @@ function list(array_list)
 
 
                         <div class="tab-content">
+                        
                             <div id="profile" class="tab-pane fade in active">
                                 <div class="view-profile">
                                     <article class="image-box style2 box innerstyle personal-details">
@@ -912,7 +914,41 @@ function list(array_list)
 
                             </div>
                             <?php } ?>
+                            <div id="misEventos" class="tab-pane fade">
+                            <h2>Tus grupos seguidos</h2>
+                                    <div class="row image-box listing-style2 add-clearfix">
+                                        
+                                        <?php if($getMisEventos != null){
+                                                    foreach ($getMisEventos->result() as $me){?>
 
+                                            <div class="col-sm-6 col-md-4">
+                                                <article class="box">
+                                                    <figure>
+                                                        <a class="hover-effect" style="width:300px; height:160px;position:relative;" title="" href="<?php echo site_url('evento/Perfil');echo "/"; echo $me->id_evento; echo "/"; echo $me->eve_nombre; ?>"><img width="300" height="160" alt="" src="<?php if($me->img_ruta != null){echo base_url('assets/images/evento'); ?>/<?php echo $me->img_ruta;}else{echo base_url('assets/images/logoYP.png');}?>"></a>
+                                                    </figure>
+                                                    <div class="details">
+                                                        <a class="pull-right button uppercase" href="<?php echo site_url('evento/Perfil');echo "/"; echo $me->id_evento; echo "/"; echo $me->eve_nombre; ?>" title="View all">Ver</a>
+                                                        <h4 class="box-title"><?php echo $me->eve_nombre;?></h4>
+                                                        <label class="price-wrapper">
+                                                        <?php if($me->eve_estado == 1){?>
+                                                            <span class="price-per-unit">En espera</span>
+                                                        <?php }elseif($me->eve_estado == 2){?>
+                                                            <span style="color:black;" class="price-per-unit">Terminado</span>
+                                                        <?php }elseif($me->eve_estado == 3){?>
+                                                            <span style="color:red;" class="price-per-unit">Cancelado</span>
+                                                        <?php }elseif($me->eve_estado == 3){?>
+                                                            <span style="color:yellow;" class="price-per-unit">Pendiente</span>
+                                                        <?php }?>
+                                                        </label>
+                                                        <h4 class="box-title"><?php echo $me->eve_fecha;?></h4>
+                                                    </div>
+                                                </article>
+                                            </div>
+                                        <?php }}else{ ?><div class="col-sm-6 col-md-4"><p>No hay eventos para mostrar</p></div><?php } ?>
+
+                                    </div>
+                                    
+                                </div>
                         </div>
                     </div>
                 </div>
