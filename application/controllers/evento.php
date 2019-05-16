@@ -404,4 +404,26 @@ class evento extends CI_Controller {
 	
 	}
 
+	public function cambio_estado(){
+		$this->load->model('evento_model');
+		$this->load->model('essentials_model');
+		$id = $this->input->post('ideve');
+		$nombre = $this->evento_model->getNombre($id);
+		$idUsu = $this->session->userdata('id_usu');
+		$this->load->helper('date_helper');
+		$time = get_date_hour();
+		$check = $this->evento_model->CheckAdm($idUsu, $id);
+		$estado = $this->input->post('estado_eve');
+		if($check != 'false'){
+			$cambio = $this->evento_model->cambio_estado($id,$estado);
+			header("Location: Perfil/$id/$nombre");
+		}else{
+			header("Location: Perfil/$id/$nombre");
+		}
+
+		
+		
+		//header("Location: modificar_Perfil?nick=$nick&profile=$id");
+	}
+
 }

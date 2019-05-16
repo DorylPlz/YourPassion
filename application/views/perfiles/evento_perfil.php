@@ -215,10 +215,30 @@
                                     }
                                 ?>
                                 </span></small></h2>
-                                <span class="price clearfix">
-                                    <span class="pull-right"><?php if($eve['val_costo'] > 0){echo "$"; echo $eve['val_costo'];}else{echo "GRATIS";}?></span>
-                                </span>
-                                <?php if($eve['val_costo'] > 0){?><a class="button yellow full-width uppercase btn-small">Comprar entrada</a><?php }else{}?>
+
+                                <?php if($eve['eve_estado'] == 1){ ?>
+                                    <span class="price clearfix">
+                                        <span class="pull-right"><?php if($eve['val_costo'] > 0){echo "$"; echo $eve['val_costo'];}else{echo "GRATIS";}?></span>
+                                    </span>
+                                    <?php if($eve['val_costo'] > 0){?><a class="button yellow full-width uppercase btn-small">Comprar entrada</a><?php }else{}?>
+                                <?php }elseif($eve['eve_estado'] == 2){ ?>
+                                    <span class="price clearfix">
+                                        <span class="pull-right"><?php if($eve['val_costo'] > 0){echo "$"; echo $eve['val_costo'];}else{echo "GRATIS";}?></span>
+                                    </span>
+                                    <a class="button red full-width uppercase btn-small">El evento ya terminó</a>
+                                <?php }elseif($eve['eve_estado'] == 3){ ?>
+                                    
+                                    <span class="price clearfix">
+                                        <span class="pull-right"><?php if($eve['val_costo'] > 0){echo "$"; echo $eve['val_costo'];}else{echo "GRATIS";}?></span>
+                                    </span>
+                                    <a class="button red full-width uppercase btn-small">El evento fué cancelado</a>
+                                <?php }elseif($eve['eve_estado'] == 4){ ?>
+                                    <span class="price clearfix">
+                                        <span class="pull-right"><?php if($eve['val_costo'] > 0){echo "$"; echo $eve['val_costo'];}else{echo "GRATIS";}?></span>
+                                    </span>
+                                    <a class="button red full-width uppercase btn-small">El evento fué retrasado indefinidamente</a>
+                                <?php } ?>
+
                             </div>
                         </article>
                         <div class="travelo-box">

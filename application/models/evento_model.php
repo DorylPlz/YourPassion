@@ -30,6 +30,16 @@ class evento_model extends CI_Model {
         }
 
     }
+    public function cambio_estado($id,$estado)
+    {
+        try{
+            $this->db->query("UPDATE `evento` SET eve_estado = '".$estado."' WHERE `id_evento` = '".$id."'");
+            return 1;
+        }catch(Exception $e){
+            return 0;
+        }
+
+    }
     public function getNombre($id)
     {
         

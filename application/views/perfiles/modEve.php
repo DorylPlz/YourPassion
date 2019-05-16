@@ -123,6 +123,26 @@ $("#genero").change(function() {
                                     </ul>
                                
                             </div>
+                            <div class="travelo-box contact-us-box">
+                                
+                                        <form method="POST" action="<?=site_url("evento/cambio_estado")?>" enctype="multipart/form-data">
+                                        <div class="details">
+                                                <input type="hidden" class="form-control" name="ideve" id="ideve" value="<?php echo $eve['id_evento']; ?>">
+                                            
+                                                        <label>Cambiar estado del evento</label>
+                                                        <select class="full-width" name="estado_eve">
+                                                                    <option value="">--Seleccionar--</option>
+                                                                    <option value="2">Terminado</option>
+                                                                    <option value="3">Cancelado</option>
+                                                                    <option value="4">Postergado</option>
+
+                                                        </select><br/>
+                                             </div>      
+                                            <button type="submit" class="button yellow full-width uppercase btn-small">Modificar estado</button>
+                                         
+                                        </form>
+                               
+                            </div>
 
                         </div>
                         
