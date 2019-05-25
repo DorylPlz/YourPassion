@@ -1343,9 +1343,6 @@ img.full-width {
   background: #f5f5f5;
 }
 
-.global-map-area {
-  background: url("http://placehold.it/2080x1000") no-repeat;
-}
 .global-map-area .description p {
   color: #7c9abd;
 }

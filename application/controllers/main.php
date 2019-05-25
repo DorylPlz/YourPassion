@@ -6,10 +6,26 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		$this->load->model('essentials_model');
+		$this->load->model('enc_model');
+		$this->load->model('usr_model');
 		$this->load->model('group_model');
+		$this->load->model('evento_model');
 		$data['regiones'] = $this->essentials_model->getRegion();
 		$data['estilos'] = $this->group_model->getGeneros();
 		$data['tipos'] = $this->group_model->getTipo();
+		if($this->session->userdata('login')){
+			$id = $this->enc_model->decdata($this->session->userdata('id_usu2'));
+			$seguidos = $this->usr_model->get4seguidos($id);
+			if($seguidos != null){
+				$data['grupos'] = $seguidos; 
+			}else{
+				$data['grupos'] = $this->group_model->get4grupos();
+			}
+		}else{
+			$data['grupos'] = $this->group_model->get4grupos();
+		}
+		$data['eventos'] = $this->evento_model->get4eventos();
+		
 		$this->load->view('header');
 		$this->load->view('index', $data);
 		$this->load->view('footer');

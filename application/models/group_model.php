@@ -22,7 +22,21 @@ class group_model extends CI_Model {
         return $result;
 
     }
+    public function get4grupos()
+    {
+        
+        $result = $this->db->query("SELECT * FROM grupo gru
+        INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
+        INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
+        INNER JOIN localizacion Loc ON gru.fk_id_localizacion = Loc.id_localizacion
+        INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+        INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+        LEFT JOIN galeria gal ON gal.fk_id_usu_img = gru.id_usu_img && gal.img_tipo = 2
+        ORDER BY gru.id_grupo DESC LIMIT 4");
 
+        return $result->result();
+
+    }
 
 
     public function getPublicaciones($id)

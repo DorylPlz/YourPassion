@@ -19,4 +19,14 @@ class ajaxGral extends CI_Controller {
 
         echo $respuesta;
     }
+
+    public function get2eventos()
+	{
+        $this->load->helper('form');
+        $id = $this->input->post('s');
+		$this->load->model('evento_model');
+        $respuesta = $this->evento_model->get4eventos();
+
+        echo $respuesta;
+    }
 }

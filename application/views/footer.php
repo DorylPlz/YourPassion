@@ -301,6 +301,25 @@
             });
         });
     </script>
+    <script>
+    jQuery(document).ready(function() {
+    var s = "s";
+        $.ajax({
+            url: '<?php echo site_url('ajaxGral/get2eventos'); ?>',
+            type: 'POST',
+            data: {
+                s: s
+            },
+            success: function (respuesta) {
+                alert("si");
+                
+            },
+            error: function () {
+                alert("no";)
+            }
+        });
+    });
+    </script>
 </body>
 </html>
 
