@@ -266,6 +266,7 @@
                     </div>
                 </div>
             </div>
+            <?php if($eventos != null){ ?>
             <div class="section container">
                 <h2>Proximos eventos</h2>
                 <div class="row image-box hotel listing-style1">
@@ -292,5 +293,6 @@
 
                 </div>
             </div>
+            <?php } ?>
 
         </section>
