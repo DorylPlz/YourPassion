@@ -182,7 +182,60 @@ class evento_model extends CI_Model {
             return 0;
         }
     }
+    public function compraexitosa($array,$ideve,$idusu)
+    {
+        $this->load->model('essentials_model');
+        try{
+            $insert = $this->db->insert('hist_compra',$array);
+            try{
+                $select = $this->db->query("SELECT id_compra FROM hist_compra WHERE fk_id_evento = '".$ideve."' && fk_id_usu = '".$idusu."' ORDER BY id_compra DESC LIMIT 1");
+                foreach($select->result() as $id_array) {
+                    $id = $id_array->id_compra;
+                }
+                return $id;
+            }catch(Exception $e){
+                $this->load->model('essentials_model');
+                $configmail = $this->essentials_model->configEmail();
+					$text=$e;
+					
+ 					$this->email->initialize($configmail);
+					$this->email->from('no-reply@yourpassionweb.com');
+					$this->email->to('darylolivares@gmail.com'); 
+					$this->email->subject('Registro de error de compra');
+					$this->email->message($text);
+					$this->email->send(); 
+                return null;
+            }
 
+        }catch(Exception $e){
+            $this->load->model('essentials_model');
+            $configmail = $this->essentials_model->configEmail();
+                $text=$e;
+                
+                 $this->email->initialize($configmail);
+                $this->email->from('no-reply@yourpassionweb.com');
+                $this->email->to('darylolivares@gmail.com'); 
+                $this->email->subject('Registro de error de compra');
+                $this->email->message($text);
+                $this->email->send(); 
+            return null;
+        }
+    }
+    
+    public function getBoleta($id)
+    {
+        try{
+            $result = $this->db->query("SELECT * FROM hist_compra Hist
+            INNER JOIN evento Eve ON Eve.id_evento = Hist.fk_id_evento
+            INNER JOIN usuarios usu ON usu.id_usu = Hist.fk_id_usu
+            INNER JOIN valor val ON val.id_valor = Hist.fk_id_valor
+            WHERE Hist.id_compra = '".$id."'
+            ORDER BY 'Hist.id_compra' DESC LIMIT 1");
+            return $result;
+        }catch(Exception $e){
+            return 0;
+        }
+    }
     public function modPrecio($id,$val_eve)
     {
         try{
@@ -230,6 +283,17 @@ class evento_model extends CI_Model {
         $select = $this->db->query("SELECT * FROM inveve WHERE id_entrada = '".$id."' ORDER BY id_entrada  DESC LIMIT 1");
 
         return $select;
+
+    }
+
+    public function getVal($id)
+    {
+        $select = $this->db->query("SELECT id_valor FROM valor WHERE fk_id_evento = '".$id."' LIMIT 1");
+        foreach($select->result() as $id_array) {
+            $id = $id_array->id_valor;
+        }
+        return $id;
+
 
     }
 

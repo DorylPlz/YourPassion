@@ -1,11 +1,11 @@
         <div class="page-title-container">
             <div class="container">
                 <div class="page-title pull-left">
-                    <h2 class="entry-title">Hotel Booking</h2>
+                    <h2 class="entry-title">Compra de entrada</h2>
                 </div>
                 <ul class="breadcrumbs pull-right">
-                    <li><a href="#">HOME</a></li>
-                    <li class="active">Hotel Booking</li>
+                    <li><a href="#">Evento</a></li>
+                    <li class="active">Compra</li>
                 </ul>
             </div>
         </div>

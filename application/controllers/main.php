@@ -175,7 +175,7 @@ class Main extends CI_Controller {
 	public function hotel_thankyou()
 	{
 		$this->load->view('header');
-		$this->load->view('hotel-thankyou');
+		$this->load->view('compra/recibo');
 		$this->load->view('footer');
 	}
 

@@ -38,7 +38,88 @@ class evento extends CI_Controller {
 
 	}
 
+	public function compraEntrada($id="",$nombre="")
+	{
+		if($this->session->userdata('login')){
+			if($id != null){
+				if($nombre != null){
+	
+					
+					$this->load->model('evento_model');
+					$this->load->model('essentials_model');
+					$usuId = $this->session->userdata('id_usu');
+					$data['evento'] = $this->evento_model->getEvento($id);
+					$this->load->view('header');
+					$this->load->view('compra/compra',$data);
+					$this->load->view('footer');
+				}else{
+					header('Location: ' . base_url(""));
+				}
+			}else{
+				header('Location: ' . base_url(""));
+			}
+		}else{
+			header('Location: ' . base_url("main/login"));
+		}
+		
+	}
 
+	public function compra()
+	{
+		if($this->session->userdata('login')){
+			$this->load->helper('form');
+			$this->load->model('evento_model');
+			$this->load->model('enc_model');
+			$this->load->model('essentials_model');
+			$ideve = $this->input->post('eve');
+			$idusu = $this->session->userdata('id_usu');
+			$this->load->helper('date_helper');
+			$time = get_date();
+			$getval = $this->evento_model->getVal($ideve);
+			$array = array(
+				'compra_fecha' => $time,
+				'compra_descuento' => 0,
+				'fk_id_evento' => $ideve,
+				'fk_id_usu' => $idusu,
+				'fk_id_valor' => $getval
+			);
+			$boleta = $this->enc_model->encdata($this->evento_model->compraexitosa($array,$ideve,$idusu));
+			if($boleta != null){
+				header('Location: ' . site_url("evento/recibo/$boleta"));
+				
+			}else{
+				header('Location: ' . site_url("evento/errorcompra"));
+				
+			}
+
+		}else{
+			header('Location: ' . base_url("main/login"));
+		}
+		
+	}
+	public function recibo($boleta)
+	{
+		$this->load->model('enc_model');
+		$id = $this->enc_model->decdata($boleta);
+		$this->load->model('evento_model');
+		$data['Boleta'] = $this->evento_model->getBoleta($id);
+		$this->load->view('header');
+		$this->load->view('compra/recibo',$data);
+		$this->load->view('footer');
+	}
+	public function errorcompra()
+	{
+
+		$data['estado'] = '<h1 class="title">Ha ocurrido un error al procesar su compra</h1>
+		<p>Se ha notificado a nuestro equipo del error.
+		Intente contactarnos lo antes posible
+		<br />contacto@yourpassionweb.com<br />
+		</p>';
+		$this->load->view('header');
+		$this->load->view('confirm_newusu',$data);
+		$this->load->view('footer');
+		
+	}
 
 	public function Perfil($id="",$nombre="")
 	{
