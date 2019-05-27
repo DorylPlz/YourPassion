@@ -273,10 +273,10 @@ function list(array_list)
                                             </div>
                                             <h4 class="box-title"><i class="icon soap-icon-support blue-color circle"></i><?php echo $hist->eve_nombre;?><small><?php echo $hist->comu_nombre.", ".$hist->loc_calle." #".$hist->loc_numero;?></small></h4>
                                             <dl class="info">
-                                                <dt>Numero de contacto</dt>
-                                                <dd><?php echo $hist->eve_numero;?></dd>
-                                                <dt>Fecha</dt>
-                                                <dd><?php echo $hist->eve_fecha;?></dd>
+                                                <dt>Costo</dt>
+                                                <dd><?php echo "$".$hist->val_costo;?></dd>
+                                                <dt>Fecha de compra</dt>
+                                                <dd><?php echo $hist->compra_fecha;?></dd>
                                             </dl>
                                             <a href="<?php echo site_url("evento/Perfil")."/".$hist->id_evento."/".$hist->eve_nombre; ?>" class="button btn-mini status">Proximo</a>
                                         </div>
@@ -289,10 +289,10 @@ function list(array_list)
                                             </div>
                                             <h4 class="box-title"><i class="icon soap-icon-support circle"></i><?php echo $hist->eve_nombre;?><small><?php echo $hist->comu_nombre.", ".$hist->loc_calle." #".$hist->loc_numero;?></small></h4>
                                             <dl class="info">
-                                            <dt>Numero de contacto</dt>
-                                                <dd><?php echo $hist->eve_numero;?></dd>
+                                            <dt>Costo</dt>
+                                                <dd><?php echo "$".$hist->val_costo;?></dd>
                                                 <dt>Fecha</dt>
-                                                <dd><?php echo $hist->eve_fecha;?></dd>
+                                                <dd><?php echo $hist->compra_fecha;?></dd>
                                             </dl>
                                             <a href="<?php echo site_url("evento/Perfil")."/".$hist->id_evento."/".$hist->eve_nombre; ?>" class="button btn-mini status">Finalizado</a>
                                         </div>
