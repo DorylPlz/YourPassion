@@ -258,143 +258,47 @@ function list(array_list)
                             </div>
                             <div id="booking" class="tab-pane fade">
                                 <h2>Eventos a los que has asistido o asistirás</h2>
-                                <div class="filter-section gray-area clearfix">
-                                    <form>
-                                        <label class="radio radio-inline">
-                                            <input type="radio" name="filter" checked="checked" />
-                                            All Types
-                                        </label>
-                                        <label class="radio radio-inline">
-                                            <input type="radio" name="filter" />
-                                            Hotels
-                                        </label>
-                                        <label class="radio radio-inline">
-                                            <input type="radio" name="filter" />
-                                            Flights
-                                        </label>
-                                        <label class="radio radio-inline">
-                                            <input type="radio" name="filter" />
-                                            Cars
-                                        </label>
-                                        <label class="radio radio-inline">
-                                            <input type="radio" name="filter" />
-                                            Cruises
-                                        </label>
-                                        <div class="pull-right col-md-6 action">
-                                            <h5 class="pull-left no-margin col-md-4">Sort results by:</h5>
-                                            <button class="btn-small white gray-color">UPCOMING</button>
-                                            <button class="btn-small white gray-color">CANCELLED</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="booking-history">
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">NOV</label>
-                                            <label class="date">23</label>
-                                            <label class="day">SAT</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-support blue-color circle"></i>Indianapolis to Paris<small>you are flying</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>saturday, nov 23, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">Proximo</button>
-                                    </div>
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">NOV</label>
-                                            <label class="date">30</label>
-                                            <label class="day">SAT</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-support blue-color circle"></i>England to Rome<small>you are flying</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>saturday, nov 30, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">Proximo</button>
-                                    </div>
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">DEC</label>
-                                            <label class="date">11</label>
-                                            <label class="day">MON</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-support blue-color circle"></i>Hilton Hotel &amp; Resorts<small>2 adults staying</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>monday, dec 11, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">Proximo</button>
-                                    </div>
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">DEC</label>
-                                            <label class="date">18</label>
-                                            <label class="day">THU</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-support blue-color circle"></i>Economy Car<small>you are driving</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>thursday, dec 18, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">Proximo</button>
-                                    </div>
-                                    <div class="booking-info clearfix">
-                                        <div class="date">
-                                            <label class="month">DEC</label>
-                                            <label class="date">22</label>
-                                            <label class="day">SUN</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-support blue-color circle"></i>Baja Mexico<small>3 adults going on cruise</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>sunday, dec 22, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">Proximo</button>
-                                    </div>
-                                    <div class="booking-info clearfix cancelled">
-                                        <div class="date">
-                                            <label class="month">NOV</label>
-                                            <label class="date">30</label>
-                                            <label class="day">SAT</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-support circle"></i>England to Rome<small>you are flying</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>saturday, nov 30, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">Finalizado</button>
-                                    </div>
-                                    <div class="booking-info clearfix cancelled">
-                                        <div class="date">
-                                            <label class="month">DEC</label>
-                                            <label class="date">18</label>
-                                            <label class="day">THU</label>
-                                        </div>
-                                        <h4 class="box-title"><i class="icon soap-icon-support circle"></i>Economy Car<small>you are driving</small></h4>
-                                        <dl class="info">
-                                            <dt>TRIP ID</dt>
-                                            <dd>5754-8dk8-8ee</dd>
-                                            <dt>booked on</dt>
-                                            <dd>thursday, dec 18, 2013</dd>
-                                        </dl>
-                                        <button class="btn-mini status">Finalizado</button>
-                                    </div>
-                                </div>
 
+                                    
+                                
+                                    <div class="booking-history">
+                                    <?php foreach($compras as $hist){
+                                    if($hist->eve_estado == 1){?>
+                                         <?php $dt = new DateTime($hist->eve_fecha); setlocale(LC_TIME, 'es_ES', 'esp_esp');  ?>
+                                        <div class="booking-info clearfix">
+                                            <div class="date">
+                                                <label class="month"><?php echo $dt->format("F"); ?></label>
+                                                <label class="date"><?php echo $dt->format("d"); ?></label>
+                                                <label class="day"><?php echo $dt->format("Y"); ?></label>
+                                            </div>
+                                            <h4 class="box-title"><i class="icon soap-icon-support blue-color circle"></i><?php echo $hist->eve_nombre;?><small><?php echo $hist->comu_nombre.", ".$hist->loc_calle." #".$hist->loc_numero;?></small></h4>
+                                            <dl class="info">
+                                                <dt>Numero de contacto</dt>
+                                                <dd><?php echo $hist->eve_numero;?></dd>
+                                                <dt>Fecha</dt>
+                                                <dd><?php echo $hist->eve_fecha;?></dd>
+                                            </dl>
+                                            <a href="<?php echo site_url("evento/Perfil")."/".$hist->id_evento."/".$hist->eve_nombre; ?>" class="button btn-mini status">Proximo</a>
+                                        </div>
+                                        <?php }else{  ?>
+                                        <div class="booking-info clearfix cancelled">
+                                            <div class="date">
+                                                <label class="month"><?php echo $dt->format("F"); ?></label>
+                                                <label class="date"><?php echo $dt->format("d"); ?></label>
+                                                <label class="day"><?php echo $dt->format("Y"); ?></label>
+                                            </div>
+                                            <h4 class="box-title"><i class="icon soap-icon-support circle"></i><?php echo $hist->eve_nombre;?><small><?php echo $hist->comu_nombre.", ".$hist->loc_calle." #".$hist->loc_numero;?></small></h4>
+                                            <dl class="info">
+                                            <dt>Numero de contacto</dt>
+                                                <dd><?php echo $hist->eve_numero;?></dd>
+                                                <dt>Fecha</dt>
+                                                <dd><?php echo $hist->eve_fecha;?></dd>
+                                            </dl>
+                                            <a href="<?php echo site_url("evento/Perfil")."/".$hist->id_evento."/".$hist->eve_nombre; ?>" class="button btn-mini status">Finalizado</a>
+                                        </div>
+                                        <?php }} ?>
+                                    </div>
+                                
                             </div>
                             <div id="wishlist" class="tab-pane fade">
                                 <h2>Tus grupos seguidos</h2>
@@ -955,7 +859,7 @@ function list(array_list)
             </div>
         </section>
 
-        <?php if($galeria != null){ ?>
+        <?php if($getSeguidos != null){ ?>
 <!-- Flex Slider -->
 <script type="text/javascript" src="<?php echo base_url('assets/components/flexslider/jquery.flexslider-min.js'); ?>"></script>
         <script type="text/javascript">

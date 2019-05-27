@@ -149,7 +149,7 @@ class usr_model extends CI_Model {
                 }
                
             }
-        }
+    }
 
     function getOpiniones($emaildecrypt){
        
@@ -172,7 +172,7 @@ class usr_model extends CI_Model {
                
                 }
             }
-        }
+    }
 
     function newToken($email){
         $this->load->model('enc_model');
@@ -277,6 +277,40 @@ class usr_model extends CI_Model {
 
 
        return $result;
+    }
+
+    public function getHistorial($emaildecrypt)
+    {
+        
+        $get_id = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_mail = '".$emaildecrypt."' LIMIT 1");
+
+        if($get_id->num_rows > 0){
+        
+            foreach($get_id->result() as $id_array) {
+                $id = $id_array->id_usu;
+
+               $get_compras = $this->db->query("SELECT * FROM hist_compra hist
+               INNER JOIN evento eve ON hist.fk_id_evento = eve.id_evento  
+               INNER JOIN genero Gen ON eve.eve_genero = Gen.id_genero
+               INNER JOIN tipo Tipo ON eve.eve_tipo = Tipo.id_tipo
+               INNER JOIN localizacion Loc ON eve.fk_id_localizacion = Loc.id_localizacion
+               INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+               INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+               LEFT JOIN local Local on eve.fk_local = Local.id_local
+               LEFT JOIN valor Val on Val.fk_id_evento = eve.id_evento
+               WHERE hist.fk_id_usu = '".$id."'");
+
+                if($get_compras->num_rows > 0){
+
+                    return $get_compras->result();
+                    
+                }else{
+                    return 0;
+                }
+            }
+           
+        }
+
     }
 
 }

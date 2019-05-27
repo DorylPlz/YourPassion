@@ -43,13 +43,15 @@ class profile extends CI_Controller {
 		$data['generosgrupo'] = $this->group_model->getGeneros();
 		$data['regiones'] = $this->essentials_model->getRegion();
 		$data['comunas'] = $this->essentials_model->getComuna();
-		
+		$data['compras'] = $this->usr_model->getHistorial($emaildecrypt);
 
 		//Obtener grupos seguidos, eventos asistidos o por asistir y opiniones realizadas
 
 		//$data['getEventos'] = $this->usr_model->getEventos($emaildecrypt);
 		$data['getopiniones'] = $this->usr_model->getOpiniones($emaildecrypt);
 
+		//historial de compras
+		$data['compras'] = $this->usr_model->getHistorial($emaildecrypt);
 		//grupos de usuario
 		$data['getGruposUsu'] = $this->group_model->getGruposUsu($emaildecrypt);
 		//locales de usuario
