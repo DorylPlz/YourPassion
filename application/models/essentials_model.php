@@ -176,6 +176,8 @@ class essentials_model extends CI_Model {
             $columna = 'fk_id_grupo';
         }else if($tipo == 2){
             $columna = 'fk_id_local';
+        }else if($columna = 3){
+            $columna = 'fk_evento_id';
         }
         try{
             $insert = $this->db->query("INSERT INTO `comentario`(`com_detalle`, `com_fecha`, `com_hora`, `com_calificacion`, `com_titulo`, `fk_id_usu`,`".$columna."` ) VALUES ('".$desc."','".$fecha."','".$hora."','".$cal."','".$titulo."','".$idUsu."','".$id."')");

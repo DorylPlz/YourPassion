@@ -263,8 +263,9 @@ function list(array_list)
                                 
                                     <div class="booking-history">
                                     <?php foreach($compras as $hist){
+                                    $dt = new DateTime($hist->eve_fecha); setlocale(LC_TIME, 'es_ES', 'esp_esp');
                                     if($hist->eve_estado == 1){?>
-                                         <?php $dt = new DateTime($hist->eve_fecha); setlocale(LC_TIME, 'es_ES', 'esp_esp');  ?>
+                                        
                                         <div class="booking-info clearfix">
                                             <div class="date">
                                                 <label class="month"><?php echo $dt->format("F"); ?></label>

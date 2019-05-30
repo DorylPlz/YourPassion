@@ -131,10 +131,30 @@ class evento extends CI_Controller {
 				$this->load->model('essentials_model');
 				$usuId = $this->session->userdata('id_usu');
 				$idImg = 'E-'.$id.'';
+				$reviews = $this->essentials_model->getReviews($id, 3);
+				$calificacion = $this->essentials_model->getReviewsSum($id, 3);
+				if($calificacion != null){
+                    $x = $calificacion/5;
+                    $porcentaje = $x * 100;
+                    $numrows = $reviews->num_rows();
+                    if($numrows != 0){
+                        $promedio = $calificacion/$numrows;
+                    }else{
+                        $promedio = 2.5;
+                    }
+                }else{
+                    $porcentaje = 50;
+                    $promedio = 2.5;
+				}
+				
+                $data['calificacion'] = $porcentaje;
+				$data['promedio'] = $promedio;
+                $data['reviews'] = $reviews;
 				$data['eventoPerfil'] = $this->evento_model->getEvento($id);
 				$data['GruposEve'] = $this->evento_model->getInvitados($id);
 				$data['galeria'] = $this->essentials_model->getGaleria($idImg);
 				$data['CheckAdm'] = $this->evento_model->CheckAdm($usuId, $id);
+				$data['checkcompra'] = $this->evento_model->CheckCompra($usuId, $id);
 				$this->load->view('header');
 				$this->load->view('perfiles/evento_perfil',$data);
 				$this->load->view('footer');

@@ -96,6 +96,20 @@ class evento_model extends CI_Model {
         return $result;
 
     }
+
+    public function CheckCompra($usuId, $id)
+    {
+        
+        $result = $this->db->query("SELECT * FROM hist_compra WHERE fk_id_usu = '".$usuId."' && fk_id_evento = '".$id."'");
+        if($result->num_rows() > 0 ){
+            return 1;
+        }else{
+            return 0;
+        }
+
+
+
+    }
     public function get4eventos()
     {
         
