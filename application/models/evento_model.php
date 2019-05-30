@@ -323,6 +323,24 @@ class evento_model extends CI_Model {
 
 
     }
+
+    public function getAsistentes($id)
+    {
+        try{
+            $result = $this->db->query("SELECT Hist.id_compra, usu.usu_mail FROM hist_compra Hist
+            INNER JOIN usuarios usu ON Hist.fk_id_usu = usu.id_usu
+            WHERE Hist.fk_id_evento = '".$id."'");
+            if($result->num_rows() > 0 ){
+                return $result->result();
+            }else{
+                return null;
+            }
+        }catch(Exception $e){
+            return null;
+        }
+
+
+    }
     
     
 }

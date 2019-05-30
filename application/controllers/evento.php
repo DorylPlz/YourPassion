@@ -516,8 +516,34 @@ class evento extends CI_Controller {
 		$check = $this->evento_model->CheckAdm($idUsu, $id);
 		$estado = $this->input->post('estado_eve');
 		if($check != 'false'){
-			$cambio = $this->evento_model->cambio_estado($id,$estado);
-			header("Location: Perfil/$id/$nombre");
+			if($estado == 3){
+				try{
+					$usuarios = $this->evento_model->getAsistentes($id);
+					if($usuarios != null){
+						foreach($usuarios as $usus){
+							$this->load->library("email");		
+							$configmail = $this->essentials_model->configEmail();
+							$text='<h1>Uno de los eventos a los que ibas a asistir ha sido cancelado</h1><br/> <p>El evento <b>"'.$nombre.'"</b> ha sido cancelado, para más información contactate con los organizadores de este evento.<hr/>Favor de no responder este Email, nosotros no revisamos esta casilla.</p><hr/><img height="40" width="150" src="http://www.yourpassionweb.com/assets/images/YP-logo_full-black.png"<img/>';
+							
+							$this->email->initialize($configmail);
+							$this->email->from('no-reply@yourpassionweb.com');
+							$this->email->to($usus->usu_mail); 
+							$this->email->subject('Evento "'.$nombre.'" cancelado');
+							$this->email->message($text);
+							$this->email->send(); 
+						}
+					}else{
+
+					}
+				}catch(Exception $e){	}
+
+				$cambio = $this->evento_model->cambio_estado($id,$estado);
+				header("Location: Perfil/$id/$nombre");
+			}else{
+				$cambio = $this->evento_model->cambio_estado($id,$estado);
+				header("Location: Perfil/$id/$nombre");
+			}
+
 		}else{
 			header("Location: Perfil/$id/$nombre");
 		}
