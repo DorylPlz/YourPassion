@@ -243,15 +243,15 @@ $("#genero").change(function() {
                                                         <label>Publicar como:</label>
                                                         <select class="full-width" name="publicacion" id="parent_selection" required>
                                                             <option value="0">Anonimo</option>
-                                                            <?php foreach ($getGruposUsu->result_array() as $g){?>
+                                                            <?php if($getGruposUsu != null){foreach ($getGruposUsu->result_array() as $g){?>
                                                                <option value="<?php echo $g['id_usu_img']; ?>">Grupo: <?php echo $g['gru_nombre']; ?></option>
-                                                            <?php } ?>
-                                                            <?php foreach ($getLocalesUsu->result_array() as $l){?>
+                                                            <?php }} ?>
+                                                            <?php if($getLocalesUsu != null){foreach ($getLocalesUsu->result_array() as $l){?>
                                                                <option value="<?php echo $l['id_usu_img']; ?>">Local: <?php echo $l['local_nombre']; ?></option>
-                                                            <?php } ?>
-                                                            <?php foreach ($getProdUsu->result_array() as $p){?>
+                                                            <?php }} ?>
+                                                            <?php if($getProdUsu != null){foreach ($getProdUsu->result_array() as $p){?>
                                                                <option value="<?php echo $p['id_usu_img']; ?>">Productora: <?php echo $p['prod_nombre']; ?></option>
-                                                            <?php } ?>
+                                                            <?php }} ?>
                                                         </select>
 
                                                     </div>

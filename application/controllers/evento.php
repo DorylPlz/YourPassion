@@ -71,6 +71,7 @@ class evento extends CI_Controller {
 			$this->load->model('evento_model');
 			$this->load->model('enc_model');
 			$this->load->model('essentials_model');
+			$this->load->model('boleta_model');
 			$ideve = $this->input->post('eve');
 			$idusu = $this->session->userdata('id_usu');
 			$this->load->helper('date_helper');
@@ -83,9 +84,38 @@ class evento extends CI_Controller {
 				'fk_id_usu' => $idusu,
 				'fk_id_valor' => $getval
 			);
-			$boleta = $this->enc_model->encdata($this->evento_model->compraexitosa($array,$ideve,$idusu));
+			$boleta = $this->evento_model->compraexitosa($array,$ideve,$idusu);
+
+			
 			if($boleta != null){
-				header('Location: ' . site_url("evento/recibo/$boleta"));
+				foreach($boleta->result() as $bol){
+					$idBol = $bol->id_compra;
+					$fecha = $bol->compra_fecha;
+					$valor = $bol->val_costo;
+					$nombreEvento = $bol->eve_nombre;
+
+					$boletaid = $this->enc_model->encdata($idBol);
+
+
+					try{
+						$emailusuEnc = $this->session->userdata('email');
+						$emailDec = $this->enc_model->decdata($emailusuEnc);
+						$this->load->library("email");		
+						$configmail = $this->essentials_model->configEmail();
+						$text=$this->boleta_model->BoletaFormat($idBol, $fecha, $valor, $nombreEvento);
+						
+ 						$this->email->initialize($configmail);
+						$this->email->from('no-reply@yourpassionweb.com');
+						$this->email->to($emailDec); 
+						$this->email->subject('Recibo de compra');
+						$this->email->message($text);
+						$this->email->send();  
+					}catch(Exception $e){
+					}
+	
+					header('Location: ' . site_url("evento/recibo/$boletaid"));
+				}
+
 				
 			}else{
 				header('Location: ' . site_url("evento/errorcompra"));

@@ -202,11 +202,13 @@ class evento_model extends CI_Model {
         try{
             $insert = $this->db->insert('hist_compra',$array);
             try{
-                $select = $this->db->query("SELECT id_compra FROM hist_compra WHERE fk_id_evento = '".$ideve."' && fk_id_usu = '".$idusu."' ORDER BY id_compra DESC LIMIT 1");
-                foreach($select->result() as $id_array) {
-                    $id = $id_array->id_compra;
-                }
-                return $id;
+                $select = $this->db->query("SELECT hist.id_compra, hist.compra_fecha, hist.fk_id_evento, hist.fk_id_valor, val.val_costo, eve.eve_nombre
+                FROM hist_compra hist 
+                INNER JOIN valor val ON hist.fk_id_valor = val.id_valor
+                INNER JOIN evento eve ON hist.fk_id_evento = eve.id_evento
+                WHERE hist.fk_id_evento = '".$ideve."' && hist.fk_id_usu = '".$idusu."' ORDER BY hist.id_compra DESC LIMIT 1");
+                
+                return $select;
             }catch(Exception $e){
                 $this->load->model('essentials_model');
                 $configmail = $this->essentials_model->configEmail();
