@@ -198,7 +198,7 @@ class boleta_model extends CI_Model {
                             <th><span contenteditable>Item</span></th>
                             <th><span contenteditable>Evento</span></th>
                             <th><span contenteditable>Fecha</span></th>
-                            <th><span contenteditable>Price</span></th>
+                            <th><span contenteditable>Valor</span></th>
                         </tr>
                     </thead>
                     <tbody>
