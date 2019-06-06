@@ -278,8 +278,11 @@ function list(array_list)
                                                 <dd><?php echo "$".$hist->val_costo;?></dd>
                                                 <dt>Fecha de compra</dt>
                                                 <dd><?php echo $hist->compra_fecha;?></dd>
+                                                
+                                                <dd><a href="<?php echo site_url("entrada/Boleto")."/".$this->enc_model->encdata($hist->id_compra);?>" class="button btn-mini">Entrada</a></dd>
                                             </dl>
                                             <a href="<?php echo site_url("evento/Perfil")."/".$hist->id_evento."/".$hist->eve_nombre; ?>" class="button btn-mini status">Proximo</a>
+                                            
                                         </div>
                                         <?php }else{  ?>
                                         <div class="booking-info clearfix cancelled">

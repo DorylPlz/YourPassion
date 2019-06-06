@@ -82,7 +82,8 @@ class evento extends CI_Controller {
 				'compra_descuento' => 0,
 				'fk_id_evento' => $ideve,
 				'fk_id_usu' => $idusu,
-				'fk_id_valor' => $getval
+				'fk_id_valor' => $getval,
+				'codigo' => mt_rand(55,666).$idusu.mt_rand(55,666).$ideve.mt_rand(55,66)
 			);
 			$boleta = $this->evento_model->compraexitosa($array,$ideve,$idusu);
 
@@ -97,12 +98,11 @@ class evento extends CI_Controller {
 					$boletaid = $this->enc_model->encdata($idBol);
 
 
-					try{
 						$emailusuEnc = $this->session->userdata('email');
 						$emailDec = $this->enc_model->decdata($emailusuEnc);
 						$this->load->library("email");		
 						$configmail = $this->essentials_model->configEmail();
-						$text=$this->boleta_model->BoletaFormat($idBol, $fecha, $valor, $nombreEvento);
+						$text=$this->boleta_model->BoletaFormat($idBol, $fecha, $valor, $nombreEvento,$boletaid);
 						
  						$this->email->initialize($configmail);
 						$this->email->from('no-reply@yourpassionweb.com');
@@ -110,8 +110,7 @@ class evento extends CI_Controller {
 						$this->email->subject('Recibo de compra');
 						$this->email->message($text);
 						$this->email->send();  
-					}catch(Exception $e){
-					}
+
 	
 					header('Location: ' . site_url("evento/recibo/$boletaid"));
 				}
@@ -132,6 +131,7 @@ class evento extends CI_Controller {
 		$this->load->model('enc_model');
 		$id = $this->enc_model->decdata($boleta);
 		$this->load->model('evento_model');
+		$data['Entrada'] = $boleta;
 		$data['Boleta'] = $this->evento_model->getBoleta($id);
 		$this->load->view('header');
 		$this->load->view('compra/recibo',$data);
