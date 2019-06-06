@@ -11,6 +11,8 @@ class enc_model extends CI_Model {
     }
     public function encdata($string)
     {
+        
+
     	$keys = $this->db->query("SELECT * FROM essentials");
 
         foreach($keys->result() as $credentials) {
@@ -21,13 +23,15 @@ class enc_model extends CI_Model {
 
 
 
-        $result = openssl_encrypt($string, $method, $type, false, $class);
-
+        $base = openssl_encrypt($string, $method, $type, false, $class);
+        $result = base64_encode($base);
         return $result;
 
     }
     public function decdata($string)
     {
+        $string = base64_decode($string);
+        
         $keys = $this->db->query("SELECT * FROM essentials");
 
         foreach($keys->result() as $credentials) {
@@ -39,6 +43,8 @@ class enc_model extends CI_Model {
 
 
         $result = openssl_decrypt($string, $method, $type, false, $class);
+
+
 
         return $result;
 
