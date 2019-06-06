@@ -132,7 +132,7 @@ class usr extends CI_Controller {
 
 				
 				$this->email->initialize($configmail);
-				$this->email->from('no-reply@yourpassionweb.com');
+				$this->email->from('yourpassion-noreply@yourpassionweb.com');
 				$this->email->to($email); 
 				$this->email->subject('Confirma tu cuenta en Your Passion');
 				$this->email->message($text);

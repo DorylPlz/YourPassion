@@ -262,7 +262,7 @@ function list(array_list)
                                     
                                 
                                     <div class="booking-history">
-                                    <?php foreach($compras as $hist){
+                                    <?php if($compras != null){foreach($compras as $hist){
                                     $dt = new DateTime($hist->eve_fecha); setlocale(LC_TIME, 'es_ES', 'esp_esp');
                                     if($hist->eve_estado == 1){?>
                                         
@@ -300,7 +300,7 @@ function list(array_list)
                                             </dl>
                                             <a href="<?php echo site_url("evento/Perfil")."/".$hist->id_evento."/".$hist->eve_nombre; ?>" class="button btn-mini status">Finalizado</a>
                                         </div>
-                                        <?php }} ?>
+                                        <?php }}}else{ ?><div class="col-sm-6 col-md-4"><p>No hay eventos para mostrar</p></div><?php } ?>
                                     </div>
                                 
                             </div>

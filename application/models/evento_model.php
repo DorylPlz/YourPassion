@@ -215,7 +215,7 @@ class evento_model extends CI_Model {
 					$text=$e;
 					
  					$this->email->initialize($configmail);
-					$this->email->from('no-reply@yourpassionweb.com');
+					$this->email->from('yourpassion-noreply@yourpassionweb.com');
 					$this->email->to('darylolivares@gmail.com'); 
 					$this->email->subject('Registro de error de compra');
 					$this->email->message($text);
@@ -229,7 +229,7 @@ class evento_model extends CI_Model {
                 $text=$e;
                 
                  $this->email->initialize($configmail);
-                $this->email->from('no-reply@yourpassionweb.com');
+                $this->email->from('yourpassion-noreply@yourpassionweb.com');
                 $this->email->to('darylolivares@gmail.com'); 
                 $this->email->subject('Registro de error de compra');
                 $this->email->message($text);

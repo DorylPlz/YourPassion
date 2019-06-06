@@ -21,9 +21,8 @@ class enc_model extends CI_Model {
             $type = $credentials->method;
         }
 
-
-
         $base = openssl_encrypt($string, $method, $type, false, $class);
+
         $result = base64_encode($base);
         return $result;
 

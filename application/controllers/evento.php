@@ -105,7 +105,7 @@ class evento extends CI_Controller {
 						$text=$this->boleta_model->BoletaFormat($idBol, $fecha, $valor, $nombreEvento,$boletaid);
 						
  						$this->email->initialize($configmail);
-						$this->email->from('no-reply@yourpassionweb.com');
+						$this->email->from('yourpassion-noreply@yourpassionweb.com');
 						$this->email->to($emailDec); 
 						$this->email->subject('Recibo de compra');
 						$this->email->message($text);
@@ -439,7 +439,7 @@ class evento extends CI_Controller {
 					$text='<h1>Han invitado a tu grupo a un evento</h1><br/> <p>Para poder confirmar la asistencia, debes seguir el siguiente vinculo<br/><br/> <a href="http://www.yourpassionweb.com/index.php/evento/conf_asistencia/1/'.$idinv.'">Confirmar asistencia</a><br/>En caso de no poder asistir, selecciona el siguiente vinculo: <a href="http://www.yourpassionweb.com/index.php/evento/conf_asistencia/0/'.$idinv.'">Rechazar asistencia</a><hr/>Favor de no responder este Email, nosotros no revisamos esta casilla.</p><hr/><img height="40" width="150" src="http://www.yourpassionweb.com/assets/images/YP-logo_full-black.png"<img/>';
 					
  					$this->email->initialize($configmail);
-					$this->email->from('no-reply@yourpassionweb.com');
+					$this->email->from('yourpassion-noreply@yourpassionweb.com');
 					$this->email->to($gru_mail); 
 					$this->email->subject('Invitación a evento');
 					$this->email->message($text);
@@ -556,7 +556,7 @@ class evento extends CI_Controller {
 							$text='<h1>Uno de los eventos a los que ibas a asistir ha sido cancelado</h1><br/> <p>El evento <b>"'.$nombre.'"</b> ha sido cancelado, para más información contactate con los organizadores de este evento.<hr/>Favor de no responder este Email, nosotros no revisamos esta casilla.</p><hr/><img height="40" width="150" src="http://www.yourpassionweb.com/assets/images/YP-logo_full-black.png"<img/>';
 							
 							$this->email->initialize($configmail);
-							$this->email->from('no-reply@yourpassionweb.com');
+							$this->email->from('yourpassion-noreply@yourpassionweb.com');
 							$this->email->to($usus->usu_mail); 
 							$this->email->subject('Evento "'.$nombre.'" cancelado');
 							$this->email->message($text);

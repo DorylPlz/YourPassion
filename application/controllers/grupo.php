@@ -176,7 +176,7 @@ class grupo extends CI_Controller {
 
 						
 						$this->email->initialize($configmail);
-						$this->email->from('no-reply@yourpassionweb.com');
+						$this->email->from('yourpassion-noreply@yourpassionweb.com');
 						$this->email->to($email); 
 						$this->email->subject('Invitación para unirte a un grupo');
 						$this->email->message($text);
