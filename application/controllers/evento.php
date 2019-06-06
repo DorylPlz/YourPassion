@@ -282,7 +282,7 @@ class evento extends CI_Controller {
 		$direccion = array(
 			'loc_calle' => $calle_eve,
 			'loc_numero' => $nDir,
-			'loc_cod_postal' => '',
+			'loc_cod_postal' => '1',
 			'fk_id_comuna' => $comuna
 		);
 
@@ -328,7 +328,7 @@ class evento extends CI_Controller {
 			if($this->upload->do_upload('image')){
 				$this->db->query("INSERT INTO galeria(img_ruta, img_tipo, fk_id_usu_img) VALUES ('".$id_evento."_".$time.".jpg' , 2 , 'E-".$id_evento."')");
 			}else{
-				echo 1;
+				
 			}
 			header("Location: " . site_url("evento/Perfil/$id_evento/$nombre_eve"));
 		}catch(Exception $e){

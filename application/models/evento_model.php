@@ -82,13 +82,13 @@ class evento_model extends CI_Model {
     public function getEvento($id)
     {
         
-        $result = $this->db->query("SELECT * FROM evento Eve
+        $result = $this->db->query("SELECT * FROM evento eve
         INNER JOIN genero Gen ON eve.eve_genero = Gen.id_genero
         INNER JOIN tipo Tipo ON eve.eve_tipo = Tipo.id_tipo
         INNER JOIN localizacion Loc ON eve.fk_id_localizacion = Loc.id_localizacion
         INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
         INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
-        LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && gal.img_tipo = 2
+        LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && Gal.img_tipo = 2
         LEFT JOIN local Local on eve.fk_local = Local.id_local
         LEFT JOIN valor Val on Val.fk_id_evento = eve.id_evento
         WHERE id_evento = '".$id."' LIMIT 1");
@@ -131,13 +131,13 @@ class evento_model extends CI_Model {
     public function get2eventos()
     {
         
-        $result = $this->db->query("SELECT * FROM evento Eve
+        $result = $this->db->query("SELECT * FROM evento eve
         INNER JOIN genero Gen ON eve.eve_genero = Gen.id_genero
         INNER JOIN tipo Tipo ON eve.eve_tipo = Tipo.id_tipo
         INNER JOIN localizacion Loc ON eve.fk_id_localizacion = Loc.id_localizacion
         INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
         INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
-        LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && gal.img_tipo = 2
+        LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && Gal.img_tipo = 2
         LEFT JOIN local Local on eve.fk_local = Local.id_local
         LEFT JOIN valor Val on Val.fk_id_evento = eve.id_evento
         ORDER BY Eve.id_evento DESC LIMIT 2");
@@ -148,12 +148,12 @@ class evento_model extends CI_Model {
     public function getInvitados($id)
     {
         
-        $result = $this->db->query("SELECT * FROM inveve Eve
-        INNER JOIN grupo gru ON gru.id_grupo = Eve.fk_id_grupo
+        $result = $this->db->query("SELECT * FROM inveve eve
+        INNER JOIN grupo gru ON gru.id_grupo = eve.fk_id_grupo
         INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
         INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
-        LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
-        WHERE Eve.fk_id_evento =  '" . $id . "'");
+        LEFT JOIN galeria Gal ON Gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && Gal.img_tipo = 2
+        WHERE eve.fk_id_evento =  '" . $id . "'");
 
         return $result;
 
@@ -242,7 +242,7 @@ class evento_model extends CI_Model {
     {
         try{
             $result = $this->db->query("SELECT * FROM hist_compra Hist
-            INNER JOIN evento Eve ON Eve.id_evento = Hist.fk_id_evento
+            INNER JOIN evento eve ON eve.id_evento = Hist.fk_id_evento
             INNER JOIN usuarios usu ON usu.id_usu = Hist.fk_id_usu
             INNER JOIN valor val ON val.id_valor = Hist.fk_id_valor
             WHERE Hist.id_compra = '".$id."'
