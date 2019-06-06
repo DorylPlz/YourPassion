@@ -123,9 +123,9 @@ class profile extends CI_Controller {
 
 
 		$direccion = array(
-			'loc_calle' => '',
-			'loc_numero' => '',
-			'loc_cod_postal' => '',
+			'loc_calle' => 0,
+			'loc_numero' => 0,
+			'loc_cod_postal' => 0,
 			'fk_id_comuna' => $comuna
 		);
 
@@ -144,6 +144,7 @@ class profile extends CI_Controller {
 			'gru_estado' => 1,
 			'gru_creacion' => $date,
 			'gru_formacion' => $fformacion,
+			'gru_desc' => "",
 			'gru_likes' => 0,
 			'gru_tel' => $n_grupo,
 			'fk_estilo_id' => $tipo_grupo,

@@ -159,7 +159,7 @@ class group_model extends CI_Model {
                 INNER JOIN localizacion Loc ON gru.fk_id_localizacion = Loc.id_localizacion
                 INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
                 INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
-                LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
+                LEFT JOIN galeria Gal ON Gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && Gal.img_tipo = 2
                 WHERE gru.gru_estado = 1 ".$estilo.$tipo.$region."");
                 return $result->result_array();
             }catch(Exception $e){
