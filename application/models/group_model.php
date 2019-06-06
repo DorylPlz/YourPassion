@@ -204,7 +204,7 @@ class group_model extends CI_Model {
                 INNER JOIN grupo gru ON gru.id_grupo = usugrupo.fk_id_grupo
                 INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
                 INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
-                LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && gal.img_tipo = 2
+                LEFT JOIN galeria Gal ON Gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && Gal.img_tipo = 2
                 WHERE usugrupo.fk_id_usu =  '" . $id . "' && usugrupo.entrada_estado = 1");
         if($result->num_rows > 0){
             return $result;

@@ -27,7 +27,7 @@ class evento_model extends CI_Model {
 
         $result = $this->db->query("SELECT *
                 FROM evento eve
-                LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('E-', eve.id_evento) && gal.img_tipo = 2
+                LEFT JOIN galeria Gal ON Gal.fk_id_usu_img = CONCAT('E-', eve.id_evento) && Gal.img_tipo = 2
                 WHERE eve.fk_id_adm =  '" . $id . "'");
         if($result->num_rows > 0){
             return $result;
@@ -113,16 +113,16 @@ class evento_model extends CI_Model {
     public function get4eventos()
     {
         
-        $result = $this->db->query("SELECT * FROM evento Eve
+        $result = $this->db->query("SELECT * FROM evento eve
         INNER JOIN genero Gen ON eve.eve_genero = Gen.id_genero
         INNER JOIN tipo Tipo ON eve.eve_tipo = Tipo.id_tipo
         INNER JOIN localizacion Loc ON eve.fk_id_localizacion = Loc.id_localizacion
         INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
         INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
-        LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && gal.img_tipo = 2
+        LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && Gal.img_tipo = 2
         LEFT JOIN local Local on eve.fk_local = Local.id_local
         LEFT JOIN valor Val on Val.fk_id_evento = eve.id_evento
-        ORDER BY Eve.id_evento DESC LIMIT 4");
+        ORDER BY eve.id_evento DESC LIMIT 4");
 
         return $result->result();
 

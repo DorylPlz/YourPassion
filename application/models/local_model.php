@@ -37,7 +37,7 @@ class local_model extends CI_Model {
         $result = $this->db->query("SELECT usulocal.fk_id_local, Gal.img_ruta, usulocal.usu_nivel, Local.id_local, Local.local_nombre, Local.id_usu_img
                 FROM usu_local usulocal
                 INNER JOIN local Local ON Local.id_local = usulocal.fk_id_local
-                LEFT JOIN galeria Gal ON gal.fk_id_usu_img = CONCAT('C-', Local.id_local) && gal.img_tipo = 2
+                LEFT JOIN galeria Gal ON Gal.fk_id_usu_img = CONCAT('C-', Local.id_local) && Gal.img_tipo = 2
                 WHERE usulocal.fk_id_usu =  '" . $id . "'");
         if($result->num_rows > 0){
             return $result;
