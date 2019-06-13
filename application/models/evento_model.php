@@ -344,6 +344,41 @@ class evento_model extends CI_Model {
 
     }
     
+
+    public function filtro_evento($estilo, $tipo, $region)
+    {
+        if($estilo){
+            $estilo = " && eve.fk_genero_id = '".$estilo."'";
+        }else{
+            $estilo = "";
+        }
+        if($tipo){
+            $tipo = " && eve.fk_estilo_id = '".$tipo."'";
+        }else{
+            $tipo = "";
+        }
+        if($region){
+            $region = " && Reg.id_region = '".$region."'";
+        }else{
+            $region = "";
+        }
+            try{
+                $result = $this->db->query("SELECT * FROM evento eve
+                INNER JOIN genero Gen ON eve.eve_genero = Gen.id_genero
+                INNER JOIN tipo Tipo ON eve.eve_tipo = Tipo.id_tipo
+                INNER JOIN localizacion Loc ON eve.fk_id_localizacion = Loc.id_localizacion
+                INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+                INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && Gal.img_tipo = 2
+                LEFT JOIN local Local on eve.fk_local = Local.id_local
+                LEFT JOIN valor Val on Val.fk_id_evento = eve.id_evento
+                WHERE eve.eve_estado = 1 ".$estilo.$tipo.$region." ORDER BY eve.id_evento DESC");
+                return $result->result();
+            }catch(Exception $e){
+                return null;
+            }
+        
+    }
     
 }
 ?>

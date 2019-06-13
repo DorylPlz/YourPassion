@@ -583,4 +583,22 @@ class evento extends CI_Controller {
 		//header("Location: modificar_Perfil?nick=$nick&profile=$id");
 	}
 
+	public function filtro_evento(){
+
+		$this->load->model('evento_model');
+		$estilo = $this->input->post('estilo');
+		$tipo = $this->input->post('tipo');
+		$region = $this->input->post('region');
+		$cal = $this->input->post("cal");
+		
+
+		$data['eventos'] = $this->evento_model->filtro_evento($estilo, $tipo, $region, $cal);
+
+		$this->load->view('header');
+		$this->load->view('busqueda/lista_eventos',$data);
+		$this->load->view('footer');
+
+
+	}
+
 }

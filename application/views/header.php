@@ -130,7 +130,7 @@
                                 
                             </li>
                             <li class="menu-item">
-                                <a href="<?php echo site_url('main/eventos'); ?>">Eventos</a>
+                                <a href="<?php echo site_url('evento/filtro_evento'); ?>">Eventos</a>
                             </li>
                             <li class="menu-item">
                                 <a href="<?php echo site_url('grupo/filtro_grupo'); ?>">Grupos</a>
