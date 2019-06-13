@@ -14,7 +14,7 @@
                 <div id="main">
                     <div class="row">
                         <div class="col-sm-4 col-md-3">
-                            <h4 class="search-results-title"><i class="soap-icon-search"></i><b>1,984</b> encontrados.</h4>
+                            <h4 class="search-results-title"><i class="soap-icon-search"></i><b><?php if($eventos != null){ echo count($eventos);}else{echo 0;}?></b> encontrados.</h4>
                             <div class="toggle-container filters-container">
                                 
                                 

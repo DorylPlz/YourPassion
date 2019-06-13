@@ -15,35 +15,7 @@
                                 <li class="col-xs-6"><a href="<?php echo site_url('main/politicas'); ?>">Terminos y condiciones</a></li>
                             </ul>
                         </div>
-                        <div class="col-sm-6 col-md-3">
-                            <h2>Ultimos Eventos</h2>
-                            <ul class="travel-news">
-                                <li>
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img src="http://placehold.it/63x63" alt="" width="63" height="63" />
-                                        </a>
-                                    </div>
-                                    <div class="description">
-                                        <h5 class="s-title"><a href="<?php echo site_url('main/perfil_evento'); ?>">Evento 1</a></h5>
-                                        <p>Purus ac congue arcu cursus ut vitae pulvinar massaidp.</p>
-                                        <span class="date">25 Sep, 2013</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img src="http://placehold.it/63x63" alt="" width="63" height="63" />
-                                        </a>
-                                    </div>
-                                    <div class="description">
-                                        <h5 class="s-title"><a href="<?php echo site_url('main/perfil_evento'); ?>">Evento 2</a></h5>
-                                        <p>Purus ac congue arcu cursus ut vitae pulvinar massaidp.</p>
-                                        <span class="date">24 Sep, 2013</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        
                         
                         <div class="col-sm-6 col-md-3">
                             <h2>Sobre nosotros</h2>
