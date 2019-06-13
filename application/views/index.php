@@ -39,97 +39,119 @@
                     
                     <div class="search-tab-content">
                         <div class="tab-pane fade active in" id="hotels-tab">
-                        <form action="<?php echo site_url('evento/filtro_evento'); ?>" method="post">
-                            
-                            <div class="row">
-                                <div class="col-md-4">
-                                    
-                                    <div class="form-group">
-                                        <label>Región</label>
-                                        <select class="full-width" name="region">
-                                        <option value="">Seleccione</option>
-                                                <?php foreach($regiones->result_array() as $r){ ?>
-                                                    <option value="<?php echo $r['id_region']; ?>"><?php echo $r['region_nombre']; ?></option>
-                                                <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-4">
-                                    <label>Genero</label>
-                                        <select class="full-width" name="estilo">
-                                          <option value="">Seleccione</option>
-                                            <?php foreach($estilos->result_array() as $e){?>
-                                                    <option value="<?php echo $e['id_genero'];?>"><?php echo $e['gen_nombre'];?></option>
-                                                <?php }?>
-                                        </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Tipo</label>
-                                            <select class="full-width" name="tipo">
-                                            <option value="">Seleccione</option>
-                                                <?php foreach($tipos->result_array() as $t){?>
-                                                    <option value="<?php echo $t['id_tipo']?>"><?php echo $t['tipo_nombre'];?></option>
-                                                <?php } ?>
-                                            </select>
-
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-xs-3">
-                                        </div>
-                                        <div class="col-xs-6 pull-right">
-                                            <label>&nbsp;</label>
-                                            <button style="height:30px;" type="submit" class="full-width icon-check">BUSCAR</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        </div>
-                        <div class="tab-pane fade" id="flights-tab">
-                            <form action="<?php echo site_url('grupo/filtro_grupo'); ?>" method="post">
-                            
+                            <form action="<?php echo site_url('evento/filtro_evento'); ?>" method="post">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        
+                                    <div class="form-group col-sm-6 col-md-3">
+                                        <h4 class="title">Localidad</h4>
+                                        <label>Región</label>
                                         <div class="form-group">
-                                            <label>Región</label>
-                                            <select class="full-width" name="region">
+                                        <select class="full-width" name="region">
                                             <option value="">Seleccione</option>
                                                     <?php foreach($regiones->result_array() as $r){ ?>
                                                         <option value="<?php echo $r['id_region']; ?>"><?php echo $r['region_nombre']; ?></option>
                                                     <?php } ?>
                                             </select>
                                         </div>
+                                        
+                                            
                                     </div>
                                     
-                                    <div class="col-md-4">
-                                        <label>Genero</label>
-                                            <select class="full-width" name="estilo">
-                                              <option value="">Seleccione</option>
-                                                <?php foreach($estilos->result_array() as $e){?>
-                                                        <option value="<?php echo $e['id_genero'];?>"><?php echo $e['gen_nombre'];?></option>
-                                                    <?php }?>
-                                            </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Tipo</label>
+                                    <div class="form-group col-sm-6 col-md-6">
+                                        <h4 class="title">Evento</h4>
+                                        <div class="row">
+                                            
+                                            <div class="col-xs-6">
+                                                
+                                                <label>Tipo</label>
+                                                <div class="form-group">
                                                 <select class="full-width" name="tipo">
                                                 <option value="">Seleccione</option>
                                                     <?php foreach($tipos->result_array() as $t){?>
                                                         <option value="<?php echo $t['id_tipo']?>"><?php echo $t['tipo_nombre'];?></option>
                                                     <?php } ?>
                                                 </select>
+                                                </div>
+                                                <label>Genero</label>
+                                                <div class="form-group">
+                                                <select class="full-width" name="estilo">
+                                                <option value="">Seleccione</option>
+                                                    <?php foreach($estilos->result_array() as $e){?>
+                                                            <option value="<?php echo $e['id_genero'];?>"><?php echo $e['gen_nombre'];?></option>
+                                                        <?php }?>
+                                                </select>
+                                                </div>
+                                            </div>
+                                           
+                                                
+
 
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-xs-3">
-                                            </div>
-                                            <div class="col-xs-6 pull-right">
-                                                <label>&nbsp;</label>
-                                                <button style="height:30px;" type="submit" class="full-width icon-check">BUSCAR</button>
-                                            </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="form-group col-sm-6 col-md-2 fixheight">
+                                        <label class="hidden-xs">&nbsp;</label>
+                                        <button style="height:30px;" type="submit" class="full-width icon-check">BUSCAR</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="flights-tab">
+                            <form action="<?php echo site_url('grupo/filtro_grupo'); ?>" method="post">
+                            <div class="row">
+                                    <div class="form-group col-sm-6 col-md-3">
+                                        <h4 class="title">Localidad</h4>
+                                        <label>Región</label>
+                                        <div class="form-group">
+                                        <select class="full-width" name="region">
+                                            <option value="">Seleccione</option>
+                                                    <?php foreach($regiones->result_array() as $r){ ?>
+                                                        <option value="<?php echo $r['id_region']; ?>"><?php echo $r['region_nombre']; ?></option>
+                                                    <?php } ?>
+                                            </select>
                                         </div>
+                                        
+                                            
+                                    </div>
+                                    
+                                    <div class="form-group col-sm-6 col-md-6">
+                                        <h4 class="title">Grupo</h4>
+                                        <div class="row">
+                                            
+                                            <div class="col-xs-6">
+                                                
+                                                <label>Tipo</label>
+                                                <div class="form-group">
+                                                <select class="full-width" name="tipo">
+                                                <option value="">Seleccione</option>
+                                                    <?php foreach($tipos->result_array() as $t){?>
+                                                        <option value="<?php echo $t['id_tipo']?>"><?php echo $t['tipo_nombre'];?></option>
+                                                    <?php } ?>
+                                                </select>
+                                                </div>
+                                                <label>Genero</label>
+                                                <div class="form-group">
+                                                <select class="full-width" name="estilo">
+                                                <option value="">Seleccione</option>
+                                                    <?php foreach($estilos->result_array() as $e){?>
+                                                            <option value="<?php echo $e['id_genero'];?>"><?php echo $e['gen_nombre'];?></option>
+                                                        <?php }?>
+                                                </select>
+                                                </div>
+                                            </div>
+                                           
+                                                
+
+
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="form-group col-sm-6 col-md-2 fixheight">
+                                        <label class="hidden-xs">&nbsp;</label>
+                                        <button style="height:30px;" type="submit" class="full-width icon-check">BUSCAR</button>
                                     </div>
                                 </div>
                             </form>
