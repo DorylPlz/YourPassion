@@ -6,25 +6,14 @@
                     <div class="row">
                         <div class="col-sm-4 col-md-3">
                             <div class="travelo-box contact-us-box">
-                                <h4>Contact us</h4>
+                                <h4>Contacto</h4>
                                 <ul class="contact-address">
-                                    <li class="address">
-                                        <i class="soap-icon-address circle"></i>
-                                        <h5 class="title">Address</h5>
-                                        <p>United States of America.</p>
-                                        <p>P.O Box,  353 Three Avenue.</p>
-                                    </li>
-                                    <li class="phone">
-                                        <i class="soap-icon-phone circle"></i>
-                                        <h5 class="title">Phone</h5>
-                                        <p>Local: 1-800-123-hello</p>
-                                        <p>Mobile: 1-800-123-hello</p>
-                                    </li>
+
                                     <li class="email">
                                         <i class="soap-icon-message circle"></i>
                                         <h5 class="title">Email</h5>
-                                        <p>info@Travelo.com</p>
-                                        <p>www.Travelo.com</p>
+                                        <p>contacto@yourpassionweb.com</p>
+                                        <p>www.yourpassionweb.com</p>
                                     </li>
                                 </ul>
                                 <ul class="social-icons full-width">
@@ -39,23 +28,23 @@
                         <div class="col-sm-8 col-md-9">
                             <div class="travelo-box">
                                 <form class="contact-form" action="contact-us-handler.php" method="post" onsubmit="return false;">
-                                    <h4 class="box-title">Send us a Message</h4>
+                                    <h4 class="box-title">Contactanos</h4>
                                     <div class="alert small-box" style="display: none;"></div>
                                     <div class="row form-group">
                                         <div class="col-xs-6">
-                                            <label>Your Name</label>
+                                            <label>Tu nombre</label>
                                             <input type="text" name="name" class="input-text full-width">
                                         </div>
                                         <div class="col-xs-6">
-                                            <label>Your Email</label>
+                                            <label>Tu email</label>
                                             <input type="text" name="email" class="input-text full-width">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Your Message</label>
-                                        <textarea name="message" rows="6" class="input-text full-width" placeholder="write message here"></textarea>
+                                        <label>Mensaje</label>
+                                        <textarea name="message" rows="6" class="input-text full-width" placeholder="Escribe aquí tu mensaje."></textarea>
                                     </div>
-                                    <button type="submit" class="btn-large full-width">SEND MESSAGE</button>
+                                    <button type="submit" class="btn-large full-width">Enviar</button>
                                 </form>
                             </div>
                         </div>

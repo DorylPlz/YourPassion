@@ -134,21 +134,21 @@
                             </li>
                             <li class="menu-item">
                                 <a href="<?php echo site_url('grupo/filtro_grupo'); ?>">Grupos</a>
-                            </li>
+                           </li>
                             <li class="menu-item">
-                                <a href="<?php echo site_url('main/locales'); ?>">Locales</a>
-                            </li>
+                                <a href="<?php echo site_url('local/filtro_local'); ?>">Locales</a>
+                            </li> 
                             <li class="menu-item">
                                 <a href="<?php echo site_url('main/contactus'); ?>">Contacto</a>
                             </li>
-                            <li class="menu-item-has-children">
+<!--                             <li class="menu-item-has-children">
                                 <a>Sobre Nosotros</a>
                                 <ul>
                                     <li><a href="<?php echo site_url('main/politicas'); ?>">Terminos y Condiciones</a></li>
                                     <li><a href="<?php echo site_url('main/faq'); ?>">FAQ</a></li>
                                     <li><a href="<?php echo site_url('main/aboutus'); ?>">Sobre nosotros</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                             
                             
                             
@@ -163,25 +163,25 @@
                                 
                             </li>
                             <li class="menu-item">
-                                <a href="<?php echo site_url('main/eventos'); ?>">Eventos</a>
+                                <a href="<?php echo site_url('evento/filtro_evento'); ?>">Eventos</a>
                             </li>
                             <li class="menu-item">
                                 <a href="<?php echo site_url('grupo/filtro_grupo'); ?>">Grupos</a>
                             </li>
-                            <li class="menu-item">
-                                <a href="<?php echo site_url('main/locales'); ?>">Locales</a>
-                            </li>
+                           <li class="menu-item">
+                                <a href="<?php echo site_url('local/filtro_local'); ?>">Locales</a>
+                            </li> 
                             <li class="menu-item">
                                 <a href="<?php echo site_url('main/contactus'); ?>">Contacto</a>
                             </li>
-                            <li class="menu-item-has-children">
+<!--                             <li class="menu-item-has-children">
                                 <a>Sobre Nosotros</a>
                                 <ul>
                                     <li><a href="<?php echo site_url('main/politicas'); ?>">Terminos y Condiciones</a></li>
                                     <li><a href="<?php echo site_url('main/faq'); ?>">FAQ</a></li>
                                     <li><a href="<?php echo site_url('main/aboutus'); ?>">Sobre nosotros</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                     </ul>
                     <?php if($this->session->userdata('login')){ ?>
                     <ul class="mobile-topnav container">

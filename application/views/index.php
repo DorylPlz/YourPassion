@@ -29,11 +29,13 @@
                     <ul class="search-tabs clearfix">
                         <li class="active"><a href="#hotels-tab" data-toggle="tab">Eventos</a></li>
                         <li><a href="#flights-tab" data-toggle="tab">Grupos</a></li>
+                        <li><a href="#locales-tab">Locales</a></li>
                     </ul>
                     <div class="visible-mobile">
                         <ul id="mobile-search-tabs" class="search-tabs clearfix">
                             <li class="active"><a href="#hotels-tab">Eventos</a></li>
                             <li><a href="#flights-tab">Grupos</a></li>
+                            <li><a href="#locales-tab">Locales</a></li>
                         </ul>
                     </div>
                     
@@ -148,6 +150,32 @@
                                     </div>
                                     
                                     
+                                    
+                                    <div class="form-group col-sm-6 col-md-2 fixheight">
+                                        <label class="hidden-xs">&nbsp;</label>
+                                        <button style="height:30px;" type="submit" class="full-width icon-check">BUSCAR</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade" id="locales-tab">
+                            <form action="<?php echo site_url('local/filtro_local'); ?>" method="post">
+                            <div class="row">
+                                    <div class="form-group col-sm-6 col-md-3">
+                                        <h4 class="title">Localidad</h4>
+                                        <label>Región</label>
+                                        <div class="form-group">
+                                        <select class="full-width" name="region">
+                                            <option value="">Seleccione</option>
+                                                    <?php foreach($regiones->result_array() as $r){ ?>
+                                                        <option value="<?php echo $r['id_region']; ?>"><?php echo $r['region_nombre']; ?></option>
+                                                    <?php } ?>
+                                            </select>
+                                        </div>
+                                        
+                                            
+                                    </div>
                                     
                                     <div class="form-group col-sm-6 col-md-2 fixheight">
                                         <label class="hidden-xs">&nbsp;</label>

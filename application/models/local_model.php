@@ -93,5 +93,26 @@ class local_model extends CI_Model {
         }
 
     }
+
+    public function filtro_local($region)
+    {
+        if($region){
+            $region = " && Reg.id_region = '".$region."'";
+        }else{
+            $region = "";
+        }
+            try{
+                $result = $this->db->query("SELECT * FROM local loca
+                INNER JOIN localizacion Loc ON Loc.id_localizacion = loca.fk_id_localizacion
+                INNER JOIN comunas Com ON Loc.fk_id_comuna = Com.id_comuna
+                INNER JOIN regiones Reg ON Com.fk_id_region = Reg.id_region
+                LEFT JOIN galeria Gal ON loca.id_usu_img = Gal.fk_id_usu_img && Gal.img_tipo = 2
+                WHERE loca.local_estado = 1 ".$region." ORDER BY loca.id_local DESC");
+                return $result->result();
+            }catch(Exception $e){
+                return null;
+            }
+        
+    }
 }
 ?>

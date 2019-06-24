@@ -106,6 +106,19 @@ class local extends CI_Controller {
 			header("Location: perfil_grupo?profile=".$id."");
         }
     }
-        
+    public function filtro_local(){
+
+		$this->load->model('local_model');
+		$region = $this->input->post('region');
+		
+
+		$data['filtrolocales'] = $this->local_model->filtro_local($region);
+
+		$this->load->view('header');
+		$this->load->view('busqueda/lista_locales',$data);
+		$this->load->view('footer');
+
+
+	}
 }
         
