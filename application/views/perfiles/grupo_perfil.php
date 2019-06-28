@@ -44,38 +44,39 @@
                             <div class="tab-content">
                                 <div id="photos-tab" class="tab-pane fade in active">
                                     <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
-                                    <?php if($galeria != null){ foreach($galeria as $img){?>
-                                        <ul class="slides">
-                                            
-                                                <li style="width:900px; height:500px;display: block; position:relative; overflow:hidden;"><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt=" YourPassion" /></li>
-
-                                        </ul>
-                                        <?php }}else{ ?>
-                                                <li><img src="<?php echo base_url('assets/images/'); ?>/YP-logo_full-black.png" alt="" /></li>
-                                            <?php } ?>
-                                    </div>
-                                    <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
-                                        <ul class="slides">
-                                        <?php foreach($galeria as $img){?>
-                                                <li><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt="" /></li>
-                                            <?php } ?>
-                                        </ul>
-                                    </div>
-                                    <?php if($CheckAdm == 'true'){?>
-                                        <div class="row">
-                                            <div style="padding-left:10px;">
-                                                <?php echo form_open_multipart('grupo/subirGaleria');?>
-                                                    <div class="col-md-12" data-for="message">
-                                                        <input type="file" name="multipleFiles[]" multiple="multiple"><br><br>
-                                                        <input type="hidden" name="grupo" value="<?php echo $dataGrupo['id_grupo'];?>" />
-                                                        <div class="button yellow full-width uppercase btn-small"><button href="" name="submit" value="Submit" type="submit" class="btn btn-form btn-danger-outline display-4">Agregar nuevas imagenes</button></div>
-                                                    </div>
-                                                
-                                                <?php echo form_close(); ?>
-                                            </div>
+                                        <?php if($galeria != null){ ?>
+                                            <ul class="slides">
+                                                    <?php foreach($galeria as $img){?>
+                                                    <li style="width:900px; height:500px;display: block; position:relative; overflow:hidden;"><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt=" YourPassion" /></li>
+                                                    <?php } ?>
+                                            </ul>
+                                            <?php }else{ ?>
+                                                    <li><img src="<?php echo base_url('assets/images/'); ?>/YP-logo_full-black.png" alt="" /></li>
+                                                <?php } ?>
                                         </div>
-                                    <?php } ?>
-                                </div>
+                                        <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
+                                            <ul class="slides">
+                                            <?php foreach($galeria as $img){?>
+                                                    <li><img src="<?php echo base_url('assets/images/galeria'); ?>/<?php echo $img['img_ruta'];?>" alt="" /></li>
+                                                <?php } ?>
+                                            </ul>
+                                        </div>
+                                        <?php if($CheckAdm == 'true'){?>
+                                            <div class="row">
+                                                <div style="padding-left:10px;">
+                                                    <?php echo form_open_multipart('grupo/subirGaleria');?>
+                                                        <div class="col-md-12" data-for="message">
+                                                            <input type="file" name="multipleFiles[]" multiple="multiple"><br><br>
+                                                            <input type="hidden" name="grupo" value="<?php echo $dataGrupo['id_grupo'];?>" />
+                                                            <div class="button yellow full-width uppercase btn-small"><button href="" name="submit" value="Submit" type="submit" class="btn btn-form btn-danger-outline display-4">Agregar nuevas imagenes</button></div>
+                                                        </div>
+                                                    
+                                                    <?php echo form_close(); ?>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                
                                 <div id="calendar-tab" class="tab-pane fade">
                                     <label>SELECT MONTH</label>
                                     <div class="col-sm-6 col-md-4 no-float no-padding">
