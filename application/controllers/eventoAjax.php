@@ -97,7 +97,7 @@ class eventoAjax extends CI_Controller {
 			}
 			
 			if($num_eve){
-				$this->evento_model->Modificar($idevento, 'gru_tel', $num_eve);
+				$this->evento_model->Modificar($idevento, 'eve_numero', $num_eve);
 			}
 			if($precio){
 				$this->evento_model->modPrecio($idevento, $precio);
