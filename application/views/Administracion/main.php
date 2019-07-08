@@ -4,11 +4,7 @@
                     <div class="tab-container full-width-style arrow-left dashboard">
                         <ul class="tabs">
                             <li class="active"><a data-toggle="tab" href="#dashboard"><i class="soap-icon-address circle"></i>Información general</a></li>
-                            <li class=""><a data-toggle="tab" href="#profile"><i class="soap-icon-user circle"></i>Profile</a></li>
-                            <li class=""><a data-toggle="tab" href="#booking"><i class="soap-icon-businessbag circle"></i>Booking</a></li>
-                            <li class=""><a data-toggle="tab" href="#wishlist"><i class="soap-icon-wishlist circle"></i>Wishlist</a></li>
-                            <li class=""><a data-toggle="tab" href="#travel-stories"><i class="soap-icon-conference circle"></i>Travel Stories</a></li>
-                            <li class=""><a data-toggle="tab" href="#settings"><i class="soap-icon-settings circle"></i>Settings</a></li>
+
                         </ul>
                         <div class="tab-content">
                             <div id="dashboard" class="tab-pane fade in active">
@@ -143,7 +139,7 @@
                                                         <i class="icon soap-icon-conference circle green-color"></i>
                                                         <span class="price"><small>desde</small>$5000</span>
                                                         <h4 class="box-title">
-                                                        <?php echo $P['eve_nombre']; ?><small><?php echo $P['eve_fecha']; ?></small>
+                                                        <?php echo $E['eve_nombre']; ?><small><?php echo $E['eve_fecha']; ?></small>
                                                         </h4>
                                                     </a>
                                                 </li>

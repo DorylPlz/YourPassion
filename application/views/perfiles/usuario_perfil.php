@@ -210,7 +210,7 @@ function list(array_list)
                                 <div class="view-profile">
                                     <article class="image-box style2 box innerstyle personal-details">
                                         <figure>
-                                            <a title="" href="#"><img width="270" height="263" alt="" src="http://placehold.it/270x263"></a>
+                                            <a title="" href="#"><img width="270" height="263" alt="" src="<?php echo base_url("assets/images/default.png");?>"></a>
                                         </figure>
                                         <div class="details">
                                             <?php foreach ($perfil->result_array() as $row){?>
