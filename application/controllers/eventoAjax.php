@@ -62,7 +62,7 @@ class eventoAjax extends CI_Controller {
 			}
 			
 			if($tipo_eve){
-				$this->evento_model->Modificar($idevento, 'eve_tipo', $tipoeve);
+				$this->evento_model->Modificar($idevento, 'eve_tipo', $tipo_eve);
 			}
 			
 			if($genero_eve == 0){
@@ -74,14 +74,15 @@ class eventoAjax extends CI_Controller {
 				}
 				$this->evento_model->Modificar($idevento, 'eve_genero', $genero);
 			}else{
-				$this->evento_model->Modificar($idevento, 'eve_genero', $genero);
+				$this->evento_model->Modificar($idevento, 'eve_genero', $genero_eve);
 			}
 
 			if($comuna){
+				$codPost = 123;
 				$direccion = array(
 					'loc_calle' => $calle_eve,
 					'loc_numero' => $nDir,
-					'loc_cod_postal' => '',
+					'loc_cod_postal' => $codPost,
 					'fk_id_comuna' => $comuna
 				);
 		
@@ -107,7 +108,7 @@ class eventoAjax extends CI_Controller {
 			}
 
 			if($nombre_eve != ""){
-				header("Location: " . site_url("evento/Perfil/$idevento/$nombre_eve"));
+				header("Location: ". site_url("evento/Perfil/$idevento/$nombre_eve"));
 			}else{
 				$nombre = $this->evento_model->getNombre($idevento);
 				header("Location: " . site_url("evento/Perfil/$idevento/$nombre"));

@@ -44,7 +44,7 @@
                                             <?php } ?>
                                         </ul>
                                     </div>
-                                    <?php if($CheckAdm == 1){?>
+                                    <!--<?php if($CheckAdm == 1){?>
                                         <div class="row">
                                             <div style="padding-left:10px;">
                                                 <?php echo form_open_multipart('evento/subirGaleria');?>
@@ -57,7 +57,7 @@
                                                 <?php echo form_close(); ?>
                                             </div>
                                         </div>
-                                    <?php } ?>
+                                    <?php } ?>-->
                                 </div>
                                 <div id="map-tab" class="tab-pane fade">
                                     
