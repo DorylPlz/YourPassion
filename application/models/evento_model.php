@@ -376,7 +376,7 @@ class evento_model extends CI_Model {
             $estilo = "";
         }
         if($tipo){
-            $tipo = " && eve.fk_estilo_id = ".$tipo."";
+            $tipo = " && eve.eve_tipo = ".$tipo."";
         }else{
             $tipo = "";
         }
