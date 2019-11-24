@@ -33,10 +33,11 @@ class essentials_model extends CI_Model {
         }else if($tipo == 3){
             $columna = 'fk_evento_id';
         }
-        $result = $this->db->query("SELECT * FROM comentario com 
-                                    INNER JOIN usuarios usu ON com.fk_id_usu = usu.id_usu
-                                    LEFT JOIN galeria gal ON gal.fk_id_usu_img = usu.id_usu_img && gal.img_tipo = 2
-                                    WHERE com.".$columna." = ".$id."");
+        $sql = "SELECT * FROM comentario com 
+        INNER JOIN usuarios usu ON com.fk_id_usu = usu.id_usu
+        LEFT JOIN galeria gal ON gal.fk_id_usu_img = usu.id_usu_img && gal.img_tipo = 2
+        WHERE ? = ?";
+        $result = $this->db->query($sql, array("com.".$columna,$id));
 
         return $result;
 
@@ -60,10 +61,11 @@ class essentials_model extends CI_Model {
 
     public function n_genero($new_genero,$id_usu)
     {
-        
-        $insert = $this->db->query("INSERT INTO genero(`gen_nombre`,`usuario`) VALUES ('".$new_genero."','".$id_usu."')");
+        $sql = "INSERT INTO genero(`gen_nombre`,`usuario`) VALUES (?,?)";
+        $insert = $this->db->query($sql, array($new_genero, $id_usu));
 
-        $result = $this->db->query("SELECT id_genero FROM genero WHERE gen_nombre = '".$new_genero."' LIMIT 1");
+        $sql2 = "SELECT id_genero FROM genero WHERE gen_nombre = ? LIMIT 1";
+        $result = $this->db->query($sql2, array($new_genero));
 
         return $result;
 
@@ -111,8 +113,8 @@ class essentials_model extends CI_Model {
     
     public function getGaleria($idImg)
     {
-        
-        $result = $this->db->query("SELECT img_ruta FROM galeria WHERE fk_id_usu_img = '".$idImg."' && img_tipo = 1");
+        $sql = "SELECT img_ruta FROM galeria WHERE fk_id_usu_img = ? && img_tipo = 1";
+        $result = $this->db->query($sql, array($idImg));
 
         return $result->result_array();
 
@@ -120,8 +122,8 @@ class essentials_model extends CI_Model {
 
     public function getImgPerfil($idImg)
     {
-        
-        $result = $this->db->query("SELECT img_ruta FROM galeria WHERE fk_id_usu_img = '".$idImg."' && img_tipo = 2 LIMIT 1");
+        $sql = "SELECT img_ruta FROM galeria WHERE fk_id_usu_img = ? && img_tipo = 2 LIMIT 1";
+        $result = $this->db->query($sql, array($idImg));
 
         return $result->result_array();
 
@@ -129,8 +131,9 @@ class essentials_model extends CI_Model {
 
     public function checkNivel($id)
     {
-    	
-        $result = $this->db->query("SELECT usu_tipo FROM usuarios WHERE id_usu = '".$id."' LIMIT 1");
+        
+        $sql = "SELECT usu_tipo FROM usuarios WHERE id_usu = ? LIMIT 1";
+        $result = $this->db->query($sql, array($id));
         foreach($result->result() as $nivel){
             $perm = $nivel->usu_tipo;
         }
@@ -154,7 +157,8 @@ class essentials_model extends CI_Model {
         }
 
         if($usuId != null){
-            $result = $this->db->query("SELECT usu_nivel FROM ".$tabla." WHERE fk_id_usu = ".$usuId." && ".$columna." = ".$id." && entrada_estado = 1 && usu_nivel = 2");
+            $sql = "SELECT usu_nivel FROM ".$tabla." WHERE fk_id_usu = ? && ? = ? && entrada_estado = 1 && usu_nivel = 2";
+            $result = $this->db->query($sql, array($tabla,$usuId,$id));
             if($result->num_rows() > 0 ){
                 return 'true';
             }else{
@@ -180,7 +184,9 @@ class essentials_model extends CI_Model {
             $columna = 'fk_evento_id';
         }
         try{
-            $insert = $this->db->query("INSERT INTO `comentario`(`com_detalle`, `com_fecha`, `com_hora`, `com_calificacion`, `com_titulo`, `fk_id_usu`,`".$columna."` ) VALUES ('".$desc."','".$fecha."','".$hora."','".$cal."','".$titulo."','".$idUsu."','".$id."')");
+            $sql = "INSERT INTO `comentario`(`com_detalle`, `com_fecha`, `com_hora`, `com_calificacion`, `com_titulo`, `fk_id_usu`,? ) 
+                        VALUES (?,?,?,?,?,?,?)";
+            $insert = $this->db->query($sql, array($columna,$desc,$fecha,$hora,$cal,$titulo,$idUsu,$id));
             return 1;
         }catch(Exception $e){
             return 0;

@@ -18,8 +18,8 @@ class evento_model extends CI_Model {
     }
     public function getEvesUsu($emaildecrypt)
     {
-        
-        $get_id = $this->db->query("SELECT id_usu FROM usuarios WHERE usu_mail = '".$emaildecrypt."' LIMIT 1");
+        $sql = "SELECT id_usu FROM usuarios WHERE usu_mail = ? LIMIT 1";
+        $get_id = $this->db->query($sql, array($emaildecrypt));
         foreach($get_id->result() as $id_array) {
             $id = $id_array->id_usu;
         }
@@ -38,7 +38,8 @@ class evento_model extends CI_Model {
     }
     public function checkAdm($usu,$eve)
     {
-        $result = $this->db->query("SELECT id_evento FROM evento WHERE fk_id_adm = '" . $usu . "' && id_evento = '".$eve."' LIMIT 1 ");
+        $sql = "SELECT id_evento FROM evento WHERE fk_id_adm = ? && id_evento = ? LIMIT 1 ";
+        $result = $this->db->query($sql, array($usu,$eve));
 
         if($result->num_rows() > 0 ){
             
@@ -52,7 +53,8 @@ class evento_model extends CI_Model {
     public function cambio_estado($id,$estado)
     {
         try{
-            $this->db->query("UPDATE `evento` SET eve_estado = '".$estado."' WHERE `id_evento` = '".$id."'");
+            $sql = "UPDATE `evento` SET eve_estado = ? WHERE `id_evento` = ?";
+            $this->db->query($sql,array($estado,$id));
             return 1;
         }catch(Exception $e){
             return 0;
@@ -61,8 +63,8 @@ class evento_model extends CI_Model {
     }
     public function getNombre($id)
     {
-        
-        $get_id = $this->db->query("SELECT eve_nombre FROM evento WHERE id_evento = ".$id." LIMIT 1");
+        $sql = "SELECT eve_nombre FROM evento WHERE id_evento = ? LIMIT 1";
+        $get_id = $this->db->query($sql,array($id));
         foreach($get_id->result() as $id_array) {
             $nombre = $id_array->eve_nombre;
             
@@ -74,7 +76,8 @@ class evento_model extends CI_Model {
     public function eveUsu($id)
     {
         
-        $result = $this->db->query("SELECT * FROM evento WHERE fk_id_adm = '".$id."' && eve_estado = 1");
+        $sql = "SELECT * FROM evento WHERE fk_id_adm = ? && eve_estado = 1";
+        $result = $this->db->query($sql, array($id));
 
         return $result;
 
@@ -82,7 +85,7 @@ class evento_model extends CI_Model {
     public function getEvento($id)
     {
         
-        $result = $this->db->query("SELECT * FROM evento eve
+        $sql = "SELECT * FROM evento eve
         INNER JOIN genero Gen ON eve.eve_genero = Gen.id_genero
         INNER JOIN tipo Tipo ON eve.eve_tipo = Tipo.id_tipo
         INNER JOIN localizacion Loc ON eve.fk_id_localizacion = Loc.id_localizacion
@@ -91,7 +94,9 @@ class evento_model extends CI_Model {
         LEFT JOIN galeria Gal ON eve.id_usu_img = Gal.fk_id_usu_img && Gal.img_tipo = 2
         LEFT JOIN local Local on eve.fk_local = Local.id_local
         LEFT JOIN valor Val on Val.fk_id_evento = eve.id_evento
-        WHERE id_evento = '".$id."' LIMIT 1");
+        WHERE id_evento = ? LIMIT 1";
+
+        $result = $this->db->query($sql,array($id));
 
         return $result;
 
@@ -100,7 +105,8 @@ class evento_model extends CI_Model {
     public function CheckCompra($usuId, $id)
     {
         
-        $result = $this->db->query("SELECT * FROM hist_compra WHERE fk_id_usu = '".$usuId."' && fk_id_evento = '".$id."'");
+        $sql = "SELECT * FROM hist_compra WHERE fk_id_usu = ? && fk_id_evento = ?";
+        $result = $this->db->query($sql, array($usuId,$id));
         if($result->num_rows() > 0 ){
             return 1;
         }else{
@@ -148,12 +154,14 @@ class evento_model extends CI_Model {
     public function getInvitados($id)
     {
         
-        $result = $this->db->query("SELECT * FROM inveve eve
+        $sql = "SELECT * FROM inveve eve
         INNER JOIN grupo gru ON gru.id_grupo = eve.fk_id_grupo
         INNER JOIN tipo Tipo ON gru.fk_estilo_id = Tipo.id_tipo
         INNER JOIN genero Gen ON gru.fk_genero_id = Gen.id_genero
         LEFT JOIN galeria Gal ON Gal.fk_id_usu_img = CONCAT('B-', gru.id_grupo) && Gal.img_tipo = 2
-        WHERE eve.fk_id_evento =  '" . $id . "'");
+        WHERE eve.fk_id_evento = ?";
+
+        $result = $this->db->query($sql, array($id));
 
         return $result;
 
@@ -168,7 +176,9 @@ class evento_model extends CI_Model {
         }else if($tipo == 3){
             $columna = 'fk_productora';
         }
-        $result = $this->db->query("SELECT * FROM evento WHERE eve_estado = 1 && '".$columna."' = '".$id."'");
+
+        $sql = "SELECT * FROM evento WHERE eve_estado = 1 && ? = ?";
+        $result = $this->db->query($sql, array($columna, $id));
         
         return $result;
 
@@ -202,11 +212,13 @@ class evento_model extends CI_Model {
         try{
             $insert = $this->db->insert('hist_compra',$array);
             try{
-                $select = $this->db->query("SELECT hist.id_compra, hist.compra_fecha, hist.fk_id_evento, hist.fk_id_valor, val.val_costo, eve.eve_nombre
+                $sql = "SELECT hist.id_compra, hist.compra_fecha, hist.fk_id_evento, hist.fk_id_valor, val.val_costo, eve.eve_nombre
                 FROM hist_compra hist 
                 INNER JOIN valor val ON hist.fk_id_valor = val.id_valor
                 INNER JOIN evento eve ON hist.fk_id_evento = eve.id_evento
-                WHERE hist.fk_id_evento = '".$ideve."' && hist.fk_id_usu = '".$idusu."' ORDER BY hist.id_compra DESC LIMIT 1");
+                WHERE hist.fk_id_evento = ? && hist.fk_id_usu = ? ORDER BY hist.id_compra DESC LIMIT 1";
+
+                $select = $this->db->query($sql, array($ideve,$idusu));
                 
                 return $select;
             }catch(Exception $e){
@@ -241,12 +253,14 @@ class evento_model extends CI_Model {
     public function getBoleta($id)
     {
         try{
-            $result = $this->db->query("SELECT * FROM hist_compra Hist
+            $sql = "SELECT * FROM hist_compra Hist
             INNER JOIN evento eve ON eve.id_evento = Hist.fk_id_evento
             INNER JOIN usuarios usu ON usu.id_usu = Hist.fk_id_usu
             INNER JOIN valor val ON val.id_valor = Hist.fk_id_valor
-            WHERE Hist.id_compra = '".$id."'
-            ORDER BY 'Hist.id_compra' DESC LIMIT 1");
+            WHERE Hist.id_compra = ?
+            ORDER BY 'Hist.id_compra' DESC LIMIT 1";
+
+            $result = $this->db->query($sql, array($id));
             return $result;
         }catch(Exception $e){
             return 0;
@@ -255,7 +269,9 @@ class evento_model extends CI_Model {
     public function modPrecio($id,$val_eve)
     {
         try{
-            $this->db->query("UPDATE `valor` SET val_costo = '".$val_eve."' WHERE `fk_id_evento` = '".$id."'");
+            $sql = "UPDATE `valor` SET val_costo = ? WHERE `fk_id_evento` = ?";
+
+            $this->db->query($sql, array($val_eve,$id));
             return 1;
         }catch(Exception $e){
             return 0;
@@ -265,7 +281,9 @@ class evento_model extends CI_Model {
     public function Modificar($id, $columna, $data)
     {
         try{
-            $this->db->query("UPDATE `evento` SET ".$columna." = '".$data."' WHERE `id_evento` = '".$id."'");
+            $sql = "UPDATE `evento` SET ? = ? WHERE `id_evento` = ?";
+
+            $this->db->query($sql, array($columna,$data,$id));
             return 1;
         }catch(Exception $e){
             return 0;
@@ -296,7 +314,8 @@ class evento_model extends CI_Model {
 
     public function getInvitacion($id)
     {
-        $select = $this->db->query("SELECT * FROM inveve WHERE id_entrada = '".$id."' ORDER BY id_entrada  DESC LIMIT 1");
+        $sql = "SELECT * FROM inveve WHERE id_entrada = ? ORDER BY id_entrada  DESC LIMIT 1";
+        $select = $this->db->query($sql,array($id));
 
         return $select;
 
@@ -304,7 +323,8 @@ class evento_model extends CI_Model {
 
     public function getVal($id)
     {
-        $select = $this->db->query("SELECT id_valor FROM valor WHERE fk_id_evento = '".$id."' LIMIT 1");
+        $sql = "SELECT id_valor FROM valor WHERE fk_id_evento = ? LIMIT 1";
+        $select = $this->db->query($sql,array($id));
         foreach($select->result() as $id_array) {
             $id = $id_array->id_valor;
         }
@@ -316,7 +336,8 @@ class evento_model extends CI_Model {
     public function confInv($id,$conf)
     {
         try{
-            $update = $this->db->query("UPDATE `inveve` SET estado = '".$conf."' WHERE `id_entrada` = '".$id."'");
+            $sql = "UPDATE `inveve` SET estado = ? WHERE `id_entrada` = ?";
+            $update = $this->db->query($sql,array($conf,$id));
 
             return 1;
         }catch(Exception $e){
@@ -329,9 +350,11 @@ class evento_model extends CI_Model {
     public function getAsistentes($id)
     {
         try{
-            $result = $this->db->query("SELECT Hist.id_compra, usu.usu_mail FROM hist_compra Hist
+            $sql = "SELECT Hist.id_compra, usu.usu_mail FROM hist_compra Hist
             INNER JOIN usuarios usu ON Hist.fk_id_usu = usu.id_usu
-            WHERE Hist.fk_id_evento = '".$id."'");
+            WHERE Hist.fk_id_evento = ?";
+
+            $result = $this->db->query($sql,array($id));
             if($result->num_rows() > 0 ){
                 return $result->result();
             }else{
@@ -348,17 +371,17 @@ class evento_model extends CI_Model {
     public function filtro_evento($estilo, $tipo, $region)
     {
         if($estilo){
-            $estilo = " && eve.fk_genero_id = '".$estilo."'";
+            $estilo = " && eve.eve_genero = ".$estilo."";
         }else{
             $estilo = "";
         }
         if($tipo){
-            $tipo = " && eve.fk_estilo_id = '".$tipo."'";
+            $tipo = " && eve.fk_estilo_id = ".$tipo."";
         }else{
             $tipo = "";
         }
         if($region){
-            $region = " && Reg.id_region = '".$region."'";
+            $region = " && Reg.id_region = ".$region."";
         }else{
             $region = "";
         }
